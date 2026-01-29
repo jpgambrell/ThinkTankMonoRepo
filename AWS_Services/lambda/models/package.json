@@ -1,0 +1,6 @@
+{
+  "name": "thinktank-models-function",
+  "version": "1.0.0",
+  "description": "Lambda function for listing available Bedrock models",
+  "main": "index.js"
+}

@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# CDK
+*.js
+!jest.config.js
+*.d.ts
+cdk.out/
+.cdk.staging/
+dist/
+
+# Lambda build artifacts
+lambda/*/node_modules/
+lambda/*/*.js
+lambda/*/*.d.ts
+lambda/*/*.js.map
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

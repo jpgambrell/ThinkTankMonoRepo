@@ -1,0 +1,19 @@
+{
+  "cognito": {
+    "userPoolId": "us-east-1_L0uXjT29g",
+    "userPoolClientId": "2ocgk8pjnp2ofkjpmfgq75iuls",
+    "region": "us-east-1"
+  },
+  "api": {
+    "baseUrl": "https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod/",
+    "endpoints": {
+      "chat": "https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod/chat",
+      "models": "https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod/models"
+    },
+    "region": "us-east-1"
+  },
+  "deployment": {
+    "date": "2026-01-29",
+    "environment": "production"
+  }
+}

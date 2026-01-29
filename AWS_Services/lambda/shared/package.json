@@ -1,0 +1,7 @@
+{
+  "name": "thinktank-lambda-shared",
+  "version": "1.0.0",
+  "description": "Shared utilities for ThinkTank Lambda functions",
+  "main": "index.js",
+  "types": "index.d.ts"
+}
