@@ -1,0 +1,125 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Window Background -->
+  <rect width="1200" height="800" fill="#F7F7F8"/>
+  
+  <!-- ==================== LEFT SIDEBAR ==================== -->
+  <rect x="0" y="0" width="260" height="800" fill="#F0F0F1"/>
+  <line x1="260" y1="0" x2="260" y2="800" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- New Chat Button -->
+  <rect x="16" y="16" width="228" height="40" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="130" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#333" text-anchor="middle">+ New Chat</text>
+  
+  <!-- Search Field -->
+  <rect x="16" y="68" width="228" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="34" cy="86" r="7" stroke="#999" stroke-width="1.5" fill="none"/>
+  <line x1="39" y1="91" x2="44" y2="96" stroke="#999" stroke-width="1.5"/>
+  <text x="52" y="91" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#999">Search chats...</text>
+  
+  <!-- Today Section -->
+  <text x="16" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#888" letter-spacing="0.5">TODAY</text>
+  
+  <!-- Chat Items (dimmed) -->
+  <rect x="8" y="140" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#999">macOS App PRD Discussion</text>
+  <text x="20" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#BBB">Claude 3.5 Sonnet • 2m ago</text>
+  
+  <rect x="8" y="204" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="226" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#999">Swift async/await patterns</text>
+  <text x="20" y="244" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#BBB">Claude 3 Opus • 1h ago</text>
+  
+  <!-- User Profile Section at Bottom (Active/Selected) -->
+  <rect x="0" y="736" width="260" height="64" fill="#059669"/>
+  <circle cx="40" cy="768" r="18" fill="white"/>
+  <text x="40" y="773" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">JD</text>
+  <text x="68" y="762" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="white">John Doe</text>
+  <text x="68" y="780" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#A7F3D0">john@example.com</text>
+  <circle cx="230" cy="768" r="12" stroke="white" stroke-width="1.5" fill="none"/>
+  <circle cx="230" cy="768" r="4" stroke="white" stroke-width="1.5" fill="none"/>
+  
+  <!-- ==================== SETTINGS PANEL ==================== -->
+  
+  <!-- Settings Header -->
+  <rect x="260" y="0" width="940" height="56" fill="#FFFFFF"/>
+  <line x1="260" y1="56" x2="1200" y2="56" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- Back Arrow -->
+  <path d="M284 28 L276 28 M280 22 L274 28 L280 34" stroke="#666" stroke-width="2" fill="none"/>
+  <text x="304" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a">Settings</text>
+  
+  <!-- Settings Content Area -->
+  <rect x="260" y="56" width="940" height="744" fill="#FFFFFF"/>
+  
+  <!-- Settings Container (Centered) -->
+  <!-- Account Section -->
+  <text x="400" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#888" letter-spacing="0.5">ACCOUNT</text>
+  
+  <rect x="400" y="115" width="600" height="120" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Profile Row -->
+  <circle cx="448" cy="155" r="28" fill="#059669"/>
+  <text x="448" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="white" text-anchor="middle">JD</text>
+  <text x="492" y="148" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#333">John Doe</text>
+  <text x="492" y="168" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#666">john@example.com</text>
+  <rect x="880" y="140" width="100" height="32" rx="6" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="930" y="161" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">Edit</text>
+  
+  <!-- Divider -->
+  <line x1="420" y1="195" x2="980" y2="195" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Change Password Row -->
+  <text x="432" y="218" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Change Password</text>
+  <path d="M970 212 L976 218 L970 224" stroke="#999" stroke-width="1.5" fill="none"/>
+  
+  <!-- Model Preferences Section -->
+  <text x="400" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#888" letter-spacing="0.5">MODEL PREFERENCES</text>
+  
+  <rect x="400" y="290" width="600" height="130" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Default Model Row -->
+  <text x="432" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Default Model</text>
+  <rect x="750" y="305" width="230" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="770" y="328" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#555">Claude 3.5 Sonnet</text>
+  <path d="M960 320 L965 325 L970 320" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- Divider -->
+  <line x1="420" y1="355" x2="980" y2="355" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Streaming Toggle Row -->
+  <text x="432" y="388" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Enable Streaming Responses</text>
+  <text x="432" y="406" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Show responses as they're generated</text>
+  <!-- Toggle Switch (On) -->
+  <rect x="930" y="378" width="50" height="28" rx="14" fill="#059669"/>
+  <circle cx="966" cy="392" r="11" fill="white"/>
+  
+  <!-- Appearance Section -->
+  <text x="400" y="465" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#888" letter-spacing="0.5">APPEARANCE</text>
+  
+  <rect x="400" y="480" width="600" height="130" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Theme Row -->
+  <text x="432" y="515" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Theme</text>
+  <rect x="750" y="495" width="230" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="770" y="518" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#555">System</text>
+  <path d="M960 510 L965 515 L970 510" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- Divider -->
+  <line x1="420" y1="545" x2="980" y2="545" stroke="#E8E8EA" stroke-width="1"/>
+  
+  <!-- Font Size Row -->
+  <text x="432" y="578" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Font Size</text>
+  <rect x="750" y="558" width="230" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="770" y="581" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#555">Medium</text>
+  <path d="M960 573 L965 578 L970 573" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- Keyboard Shortcuts Section -->
+  <text x="400" y="655" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#888" letter-spacing="0.5">KEYBOARD SHORTCUTS</text>
+  
+  <rect x="400" y="670" width="600" height="56" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="432" y="705" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">View All Shortcuts</text>
+  <path d="M970 699 L976 705 L970 711" stroke="#999" stroke-width="1.5" fill="none"/>
+  
+  <!-- Sign Out Button -->
+  <rect x="400" y="750" width="600" height="44" rx="8" fill="transparent" stroke="#E53935" stroke-width="1"/>
+  <text x="700" y="778" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#E53935" text-anchor="middle">Sign Out</text>
+</svg>

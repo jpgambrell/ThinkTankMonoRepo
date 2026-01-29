@@ -1,0 +1,23 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="512" cy="512" r="480" fill="#059669"/>
+  
+  <!-- Brain/Network nodes -->
+  <circle cx="400" cy="400" r="64" fill="white"/>
+  <circle cx="624" cy="400" r="64" fill="white"/>
+  <circle cx="512" cy="640" r="64" fill="white"/>
+  <circle cx="290" cy="560" r="44" fill="white" fill-opacity="0.7"/>
+  <circle cx="734" cy="560" r="44" fill="white" fill-opacity="0.7"/>
+  <circle cx="512" cy="300" r="36" fill="white" fill-opacity="0.5"/>
+  
+  <!-- Connection lines -->
+  <line x1="400" y1="400" x2="624" y2="400" stroke="white" stroke-width="16" stroke-linecap="round"/>
+  <line x1="400" y1="400" x2="512" y2="640" stroke="white" stroke-width="16" stroke-linecap="round"/>
+  <line x1="624" y1="400" x2="512" y2="640" stroke="white" stroke-width="16" stroke-linecap="round"/>
+  <line x1="290" y1="560" x2="400" y2="400" stroke="white" stroke-width="12" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="734" y1="560" x2="624" y2="400" stroke="white" stroke-width="12" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="290" y1="560" x2="512" y2="640" stroke="white" stroke-width="10" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="734" y1="560" x2="512" y2="640" stroke="white" stroke-width="10" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="512" y1="300" x2="400" y2="400" stroke="white" stroke-width="8" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="512" y1="300" x2="624" y2="400" stroke="white" stroke-width="8" stroke-linecap="round" stroke-opacity="0.5"/>
+</svg>

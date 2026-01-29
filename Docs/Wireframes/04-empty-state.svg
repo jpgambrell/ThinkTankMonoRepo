@@ -1,0 +1,133 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Window Background -->
+  <rect width="1200" height="800" fill="#F7F7F8"/>
+  
+  <!-- ==================== LEFT SIDEBAR ==================== -->
+  <rect x="0" y="0" width="260" height="800" fill="#F0F0F1"/>
+  
+  <!-- Sidebar Border -->
+  <line x1="260" y1="0" x2="260" y2="800" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- New Chat Button (Active State) -->
+  <rect x="16" y="16" width="228" height="40" rx="8" fill="#059669"/>
+  <text x="130" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">+ New Chat</text>
+  
+  <!-- Search Field -->
+  <rect x="16" y="68" width="228" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="34" cy="86" r="7" stroke="#999" stroke-width="1.5" fill="none"/>
+  <line x1="39" y1="91" x2="44" y2="96" stroke="#999" stroke-width="1.5"/>
+  <text x="52" y="91" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#999">Search chats...</text>
+  
+  <!-- Today Section -->
+  <text x="16" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#888" letter-spacing="0.5">TODAY</text>
+  
+  <!-- Chat Item 1 -->
+  <rect x="8" y="140" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">Swift async/await patterns</text>
+  <text x="20" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3 Opus • 1h ago</text>
+  
+  <!-- Chat Item 2 -->
+  <rect x="8" y="204" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="226" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">AWS Lambda best practices</text>
+  <text x="20" y="244" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3.5 Sonnet • 3h ago</text>
+  
+  <!-- Yesterday Section -->
+  <text x="16" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#888" letter-spacing="0.5">YESTERDAY</text>
+  
+  <!-- Chat Item 3 -->
+  <rect x="8" y="300" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="322" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">Cognito integration help</text>
+  <text x="20" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3.5 Sonnet • Yesterday</text>
+  
+  <!-- User Profile Section at Bottom -->
+  <rect x="0" y="736" width="260" height="64" fill="#E8E8E9"/>
+  <circle cx="40" cy="768" r="18" fill="#059669"/>
+  <text x="40" y="773" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">JD</text>
+  <text x="68" y="762" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#333">John Doe</text>
+  <text x="68" y="780" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#666">john@example.com</text>
+  <circle cx="230" cy="768" r="12" stroke="#666" stroke-width="1.5" fill="none"/>
+  <circle cx="230" cy="768" r="4" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- ==================== MAIN CHAT AREA - EMPTY STATE ==================== -->
+  
+  <!-- Chat Header -->
+  <rect x="260" y="0" width="940" height="56" fill="#FFFFFF"/>
+  <line x1="260" y1="56" x2="1200" y2="56" stroke="#E5E5E6" stroke-width="1"/>
+  <text x="284" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a">New Chat</text>
+  
+  <!-- Model Selector in Header -->
+  <rect x="1020" y="14" width="160" height="28" rx="6" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1036" y="33" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#555">Claude 3.5 Sonnet</text>
+  <path d="M1160 25 L1165 30 L1170 25" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- Empty State Content -->
+  <rect x="260" y="56" width="940" height="644" fill="#FFFFFF"/>
+  
+  <!-- Logo/Icon -->
+  <circle cx="730" cy="280" r="48" fill="#D1FAE5"/>
+  <circle cx="730" cy="280" r="32" fill="#059669"/>
+  <text x="730" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">TT</text>
+  
+  <!-- Welcome Text -->
+  <text x="730" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#1a1a1a" text-anchor="middle">How can I help you today?</text>
+  <text x="730" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#666" text-anchor="middle">Start a conversation with ThinkTank powered by AWS Bedrock</text>
+  
+  <!-- Suggestion Cards -->
+  <!-- Card 1 -->
+  <rect x="380" y="450" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="400" y="478" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Write code</text>
+  <text x="400" y="498" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"Help me build a SwiftUI</text>
+  <text x="400" y="514" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">component for..."</text>
+  
+  <!-- Card 2 -->
+  <rect x="620" y="450" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="640" y="478" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Explain concepts</text>
+  <text x="640" y="498" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"What's the difference</text>
+  <text x="640" y="514" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">between async and..."</text>
+  
+  <!-- Card 3 -->
+  <rect x="860" y="450" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="880" y="478" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Debug issues</text>
+  <text x="880" y="498" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"I'm getting this error</text>
+  <text x="880" y="514" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">in my Lambda..."</text>
+  
+  <!-- Card 4 -->
+  <rect x="380" y="545" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="400" y="573" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Brainstorm ideas</text>
+  <text x="400" y="593" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"Help me design a</text>
+  <text x="400" y="609" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">system architecture..."</text>
+  
+  <!-- Card 5 -->
+  <rect x="620" y="545" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="640" y="573" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Review code</text>
+  <text x="640" y="593" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"Can you review this</text>
+  <text x="640" y="609" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">function and suggest..."</text>
+  
+  <!-- Card 6 -->
+  <rect x="860" y="545" width="220" height="80" rx="12" fill="#F9F9FB" stroke="#E8E8EA" stroke-width="1"/>
+  <text x="880" y="573" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#333">Write content</text>
+  <text x="880" y="593" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">"Draft documentation</text>
+  <text x="880" y="609" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">for my API..."</text>
+  
+  <!-- ==================== INPUT AREA ==================== -->
+  <rect x="260" y="700" width="940" height="100" fill="#FFFFFF"/>
+  <line x1="260" y1="700" x2="1200" y2="700" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- Input Field -->
+  <rect x="300" y="720" width="820" height="56" rx="28" fill="#F7F7F8" stroke="#E0E0E0" stroke-width="1"/>
+  
+  <!-- Attachment Button -->
+  <circle cx="332" cy="748" r="16" fill="transparent" stroke="#999" stroke-width="1.5"/>
+  <line x1="324" y1="748" x2="340" y2="748" stroke="#999" stroke-width="1.5"/>
+  <line x1="332" y1="740" x2="332" y2="756" stroke="#999" stroke-width="1.5"/>
+  
+  <!-- Placeholder Text -->
+  <text x="365" y="753" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#999">Message ThinkTank...</text>
+  
+  <!-- Send Button (Disabled State) -->
+  <circle cx="1088" cy="748" r="20" fill="#E0E0E0"/>
+  <path d="M1082 748 L1094 748 M1088 742 L1094 748 L1088 754" stroke="#999" stroke-width="2" fill="none"/>
+  
+  <!-- Keyboard Shortcut Hint -->
+  <text x="730" y="788" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#999" text-anchor="middle">Press ⌘ + Enter to send</text>
+</svg>

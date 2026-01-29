@@ -1,0 +1,59 @@
+//
+//  MainView.swift
+//  ThinkTank
+//
+//  Created by John Gambrell on 1/29/26.
+//
+
+import SwiftUI
+
+struct MainView: View {
+    @EnvironmentObject var conversationStore: ConversationStore
+    @EnvironmentObject var themeManager: ThemeManager
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State private var showSettings: Bool = false
+    
+    var body: some View {
+        ZStack {
+            HStack(spacing: 0) {
+                // Left Sidebar
+                SidebarView(showSettings: $showSettings)
+                
+                // Divider
+                Rectangle()
+                    .fill(ThemeColors.divider(colorScheme))
+                    .frame(width: 1)
+                
+                // Main Chat Area
+                ChatView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .opacity(showSettings ? 0 : 1)
+            
+            // Settings Overlay
+            if showSettings {
+                SettingsView()
+                    .transition(.opacity)
+            }
+        }
+        .frame(minWidth: 1200, minHeight: 800)
+        .background(ThemeColors.windowBackground(colorScheme))
+        .preferredColorScheme(themeManager.currentTheme.colorScheme)
+        .animation(.easeInOut(duration: 0.2), value: showSettings)
+        // Handle menu commands
+        .onReceive(NotificationCenter.default.publisher(for: .newChatRequested)) { _ in
+            showSettings = false
+            _ = conversationStore.createNewConversation()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .settingsRequested)) { _ in
+            showSettings = true
+        }
+    }
+}
+
+#Preview {
+    MainView()
+        .environmentObject(ConversationStore())
+        .environmentObject(ThemeManager())
+}

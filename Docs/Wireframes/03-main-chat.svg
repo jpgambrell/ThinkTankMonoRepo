@@ -1,0 +1,138 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Window Background -->
+  <rect width="1200" height="800" fill="#F7F7F8"/>
+  
+  <!-- ==================== LEFT SIDEBAR ==================== -->
+  <rect x="0" y="0" width="260" height="800" fill="#F0F0F1"/>
+  
+  <!-- Sidebar Border -->
+  <line x1="260" y1="0" x2="260" y2="800" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- New Chat Button -->
+  <rect x="16" y="16" width="228" height="40" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="130" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#333" text-anchor="middle">+ New Chat</text>
+  
+  <!-- Search Field -->
+  <rect x="16" y="68" width="228" height="36" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Search Icon -->
+  <circle cx="34" cy="86" r="7" stroke="#999" stroke-width="1.5" fill="none"/>
+  <line x1="39" y1="91" x2="44" y2="96" stroke="#999" stroke-width="1.5"/>
+  <text x="52" y="91" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#999">Search chats...</text>
+  
+  <!-- Today Section -->
+  <text x="16" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#888" letter-spacing="0.5">TODAY</text>
+  
+  <!-- Active Chat Item -->
+  <rect x="8" y="140" width="244" height="56" rx="8" fill="#FFFFFF"/>
+  <text x="20" y="162" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#1a1a1a">macOS App PRD Discussion</text>
+  <text x="20" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3.5 Sonnet • 2m ago</text>
+  
+  <!-- Chat Item 2 -->
+  <rect x="8" y="204" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="226" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">Swift async/await patterns</text>
+  <text x="20" y="244" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3 Opus • 1h ago</text>
+  
+  <!-- Chat Item 3 -->
+  <rect x="8" y="268" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">AWS Lambda best practices</text>
+  <text x="20" y="308" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3.5 Sonnet • 3h ago</text>
+  
+  <!-- Yesterday Section -->
+  <text x="16" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#888" letter-spacing="0.5">YESTERDAY</text>
+  
+  <!-- Chat Item 4 -->
+  <rect x="8" y="365" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="387" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">Cognito integration help</text>
+  <text x="20" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3.5 Sonnet • Yesterday</text>
+  
+  <!-- Chat Item 5 -->
+  <rect x="8" y="429" width="244" height="56" rx="8" fill="transparent"/>
+  <text x="20" y="451" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#555">SwiftUI layout questions</text>
+  <text x="20" y="469" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#888">Claude 3 Opus • Yesterday</text>
+  
+  <!-- User Profile Section at Bottom -->
+  <rect x="0" y="736" width="260" height="64" fill="#E8E8E9"/>
+  <circle cx="40" cy="768" r="18" fill="#059669"/>
+  <text x="40" y="773" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">JD</text>
+  <text x="68" y="762" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#333">John Doe</text>
+  <text x="68" y="780" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#666">john@example.com</text>
+  <!-- Settings Gear Icon -->
+  <circle cx="230" cy="768" r="12" stroke="#666" stroke-width="1.5" fill="none"/>
+  <circle cx="230" cy="768" r="4" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- ==================== MAIN CHAT AREA ==================== -->
+  
+  <!-- Chat Header -->
+  <rect x="260" y="0" width="940" height="56" fill="#FFFFFF"/>
+  <line x1="260" y1="56" x2="1200" y2="56" stroke="#E5E5E6" stroke-width="1"/>
+  <text x="284" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a">macOS App PRD Discussion</text>
+  
+  <!-- Model Selector in Header -->
+  <rect x="1020" y="14" width="160" height="28" rx="6" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1036" y="33" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#555">Claude 3.5 Sonnet</text>
+  <!-- Dropdown Arrow -->
+  <path d="M1160 25 L1165 30 L1170 25" stroke="#666" stroke-width="1.5" fill="none"/>
+  
+  <!-- Chat Messages Container -->
+  <rect x="260" y="56" width="940" height="644" fill="#FFFFFF"/>
+  
+  <!-- User Message 1 -->
+  <rect x="560" y="80" width="600" height="60" rx="16" fill="#059669"/>
+  <text x="580" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">I'm writing a prompt to develop a macOS app for AI chatbot.</text>
+  <text x="580" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">Can you help me create a PRD?</text>
+  
+  <!-- Assistant Message 1 -->
+  <circle cx="292" cy="175" r="16" fill="#D1FAE5"/>
+  <text x="292" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">AI</text>
+  
+  <rect x="320" y="160" width="560" height="120" rx="16" fill="#F7F7F8"/>
+  <text x="340" y="185" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">I'd be happy to help you create a comprehensive PRD for your</text>
+  <text x="340" y="205" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">macOS AI chatbot app. Let me structure this with:</text>
+  <text x="340" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">• Core layout specifications</text>
+  <text x="340" y="255" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">• Functional requirements</text>
+  <text x="340" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">• Technical architecture</text>
+  
+  <!-- User Message 2 -->
+  <rect x="640" y="310" width="520" height="40" rx="16" fill="#059669"/>
+  <text x="660" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">Yes, and I'll be using AWS Bedrock for the LLM APIs.</text>
+  
+  <!-- Assistant Message 2 -->
+  <circle cx="292" cy="390" r="16" fill="#D1FAE5"/>
+  <text x="292" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">AI</text>
+  
+  <rect x="320" y="375" width="560" height="100" rx="16" fill="#F7F7F8"/>
+  <text x="340" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">Great choice! AWS Bedrock provides access to multiple</text>
+  <text x="340" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">foundation models. I'll update the PRD to include:</text>
+  <text x="340" y="450" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">• Cognito for authentication</text>
+  <text x="340" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#333">• Lambda + API Gateway microservice layer</text>
+  
+  <!-- Typing Indicator Area (subtle) -->
+  <circle cx="292" cy="520" r="16" fill="#D1FAE5"/>
+  <text x="292" y="525" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">AI</text>
+  <circle cx="340" cy="520" r="4" fill="#999"/>
+  <circle cx="355" cy="520" r="4" fill="#BBB"/>
+  <circle cx="370" cy="520" r="4" fill="#DDD"/>
+  
+  <!-- ==================== INPUT AREA ==================== -->
+  <rect x="260" y="700" width="940" height="100" fill="#FFFFFF"/>
+  <line x1="260" y1="700" x2="1200" y2="700" stroke="#E5E5E6" stroke-width="1"/>
+  
+  <!-- Input Field -->
+  <rect x="300" y="720" width="820" height="56" rx="28" fill="#F7F7F8" stroke="#E0E0E0" stroke-width="1"/>
+  
+  <!-- Attachment Button -->
+  <circle cx="332" cy="748" r="16" fill="transparent" stroke="#999" stroke-width="1.5"/>
+  <line x1="324" y1="748" x2="340" y2="748" stroke="#999" stroke-width="1.5"/>
+  <line x1="332" y1="740" x2="332" y2="756" stroke="#999" stroke-width="1.5"/>
+  
+  <!-- Placeholder Text -->
+  <text x="365" y="753" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#999">Message ThinkTank...</text>
+  
+  <!-- Send Button -->
+  <circle cx="1088" cy="748" r="20" fill="#059669"/>
+  <!-- Arrow Icon -->
+  <path d="M1082 748 L1094 748 M1088 742 L1094 748 L1088 754" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Keyboard Shortcut Hint -->
+  <text x="730" y="788" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#999" text-anchor="middle">Press ⌘ + Enter to send</text>
+</svg>
