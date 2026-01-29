@@ -57,8 +57,15 @@ struct ChatView: View {
     }
     
     private func sendMessage() {
-        guard !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              let conversation = conversationStore.selectedConversation else { return }
+        guard !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        // Auto-create a new conversation if none exists
+        let conversation: Conversation
+        if let existing = conversationStore.selectedConversation {
+            conversation = existing
+        } else {
+            conversation = conversationStore.createNewConversation()
+        }
         
         let userMessage = Message(
             role: .user,

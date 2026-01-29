@@ -54,8 +54,9 @@ class CognitoAuthService: ObservableObject {
         }
         
         if httpResponse.statusCode == 200 {
-            // User is auto-confirmed, can sign in immediately
-            try await signIn(email: email, password: password)
+            // Registration successful - user should now sign in
+            // Don't auto-sign in; let user go back to login screen
+            return
         } else {
             let errorResponse = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
             let message = errorResponse?["message"] as? String ?? "Registration failed"
