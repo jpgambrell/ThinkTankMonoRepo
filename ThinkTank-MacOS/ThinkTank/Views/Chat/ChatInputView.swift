@@ -13,7 +13,7 @@ struct ChatInputView: View {
     let isLoading: Bool
     let onSend: () -> Void
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @State private var textHeight: CGFloat = 26 // Single line height with padding
     
     private let minHeight: CGFloat = 26
@@ -28,7 +28,7 @@ struct ChatInputView: View {
                 }) {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(ThemeColors.placeholderText(colorScheme))
+                        .foregroundStyle(ThemeColors.placeholderText(colorScheme))
                         .frame(width: 32, height: 32)
                         .background(
                             Circle()
@@ -58,7 +58,7 @@ struct ChatInputView: View {
                     Button(action: onSend) {
                         Image(systemName: "arrow.up")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(canSend ? .white : ThemeColors.placeholderText(colorScheme))
+                            .foregroundStyle(canSend ? .white : ThemeColors.placeholderText(colorScheme))
                             .frame(width: 32, height: 32)
                             .background(
                                 Circle()
@@ -85,7 +85,7 @@ struct ChatInputView: View {
             // Keyboard shortcut hint
             Text("Press Enter to send • Shift+Enter for new line")
                 .font(.system(size: 11))
-                .foregroundColor(ThemeColors.placeholderText(colorScheme))
+                .foregroundStyle(ThemeColors.placeholderText(colorScheme))
         }
         .padding(.vertical, 16)
         .background(ThemeColors.cardBackground(colorScheme))

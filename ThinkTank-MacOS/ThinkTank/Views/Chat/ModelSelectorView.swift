@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ModelSelectorView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(\.colorScheme) private var colorScheme
     
     @Binding var isPresented: Bool
     
@@ -24,7 +24,7 @@ struct ModelSelectorView: View {
                     // Provider Header
                     Text(provider.uppercased())
                         .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                         .tracking(0.5)
                         .padding(.horizontal, 12)
                         .padding(.top, provider == AIModel.modelsByProvider.keys.sorted().first ? 8 : 12)
@@ -57,7 +57,11 @@ struct ModelSelectorView: View {
     
     private func selectModel(_ model: AIModel) {
         if let conversationId = conversationStore.selectedConversationId {
+            // Update existing conversation's model
             conversationStore.updateConversationModel(conversationId, modelId: model.id)
+        } else {
+            // Create a new conversation with the selected model
+            _ = conversationStore.createNewConversation(modelId: model.id)
         }
         withAnimation {
             isPresented = false
@@ -70,7 +74,7 @@ struct ModelRowView: View {
     let isSelected: Bool
     let onSelect: () -> Void
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isHovered: Bool = false
     
     var body: some View {
@@ -83,18 +87,18 @@ struct ModelRowView: View {
                     .overlay(
                         Text(model.iconLetter)
                             .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                     )
                 
                 // Model Info
                 VStack(alignment: .leading, spacing: 2) {
                     Text(model.displayName)
                         .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(ThemeColors.primaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.primaryText(colorScheme))
                     
                     Text(model.description)
                         .font(.system(size: 11))
-                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                 }
                 
                 Spacer()
@@ -103,7 +107,7 @@ struct ModelRowView: View {
                 if isSelected {
                     Image(systemName: "checkmark")
                         .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(Color.brandPrimary)
+                        .foregroundStyle(Color.brandPrimary)
                 }
             }
             .padding(.horizontal, 12)
@@ -126,14 +130,14 @@ struct ModelRowView: View {
         } else if isHovered {
             return ThemeColors.hoverBackground(colorScheme)
         } else {
-            return Color.clear
+            return .clear
         }
     }
 }
 
 #Preview {
     ModelSelectorView(isPresented: .constant(true))
-        .environmentObject(ConversationStore())
+        .environment(ConversationStore())
         .padding()
         .background(Color.gray.opacity(0.2))
 }

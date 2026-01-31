@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ChatHeaderView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(\.colorScheme) private var colorScheme
     
     @Binding var showModelSelector: Bool
     
@@ -18,7 +18,7 @@ struct ChatHeaderView: View {
             // Conversation Title
             Text(conversationStore.selectedConversation?.title ?? "New Chat")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(ThemeColors.primaryText(colorScheme))
+                .foregroundStyle(ThemeColors.primaryText(colorScheme))
             
             Spacer()
             
@@ -31,11 +31,11 @@ struct ChatHeaderView: View {
                 HStack(spacing: 8) {
                     Text(selectedModelName)
                         .font(.system(size: 12))
-                        .foregroundColor(showModelSelector ? Color.brandPrimary : ThemeColors.secondaryText(colorScheme))
+                        .foregroundStyle(showModelSelector ? Color.brandPrimary : ThemeColors.secondaryText(colorScheme))
                     
                     Image(systemName: "chevron.down")
                         .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(showModelSelector ? Color.brandPrimary : ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(showModelSelector ? Color.brandPrimary : ThemeColors.tertiaryText(colorScheme))
                         .rotationEffect(.degrees(showModelSelector ? 180 : 0))
                 }
                 .padding(.horizontal, 12)
@@ -67,5 +67,5 @@ struct ChatHeaderView: View {
 
 #Preview {
     ChatHeaderView(showModelSelector: .constant(false))
-        .environmentObject(ConversationStore())
+        .environment(ConversationStore())
 }

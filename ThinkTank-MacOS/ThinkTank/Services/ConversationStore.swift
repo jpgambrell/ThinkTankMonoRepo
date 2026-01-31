@@ -7,13 +7,18 @@
 
 import Foundation
 import SwiftUI
-import Combine
+import Observation
 
+@Observable
 @MainActor
-class ConversationStore: ObservableObject {
-    @Published var conversations: [Conversation] = []
-    @Published var selectedConversationId: UUID?
-    @Published var isLoading: Bool = false
+final class ConversationStore {
+    var conversations: [Conversation] = []
+    var selectedConversationId: UUID?
+    var isLoading: Bool = false
+    
+    // Streaming state
+    var streamingMessageId: UUID?
+    var streamingContent: String = ""
     
     private let apiClient = APIClient()
     
@@ -151,8 +156,8 @@ class ConversationStore: ObservableObject {
     
     // MARK: - Conversation Management
     
-    func createNewConversation(modelId: String = AIModel.defaultModel.id) -> Conversation {
-        let conversation = Conversation(modelId: modelId)
+    func createNewConversation(modelId: String? = nil) -> Conversation {
+        let conversation = Conversation(modelId: modelId ?? AIModel.defaultModel.id)
         conversations.insert(conversation, at: 0)
         selectedConversationId = conversation.id
         return conversation
@@ -193,14 +198,11 @@ class ConversationStore: ObservableObject {
         
         print("🔄 Updating conversation model: \(conversations[index].modelId) -> \(modelId)")
         
-        // Create a new conversation with the updated model to ensure SwiftUI detects the change
+        // Update the conversation - @Observable automatically tracks changes
         var updatedConversation = conversations[index]
         updatedConversation.modelId = modelId
         updatedConversation.updatedAt = Date()
         conversations[index] = updatedConversation
-        
-        // Force SwiftUI to recognize the change by toggling the selection
-        objectWillChange.send()
         
         print("✅ Model updated to: \(conversations[index].modelId)")
     }
@@ -225,7 +227,13 @@ class ConversationStore: ObservableObject {
         conversations.insert(conversation, at: 0)
     }
     
-    /// Send a message to the AI and get a response
+    func removeMessage(from conversationId: UUID, messageId: UUID) {
+        guard let index = conversations.firstIndex(where: { $0.id == conversationId }) else { return }
+        conversations[index].messages.removeAll { $0.id == messageId }
+        conversations[index].updatedAt = Date()
+    }
+    
+    /// Send a message to the AI and get a response (non-streaming)
     func sendMessage(conversationId: UUID, userMessage: Message) async throws -> Message {
         guard let conversation = conversations.first(where: { $0.id == conversationId }) else {
             throw NSError(domain: "ConversationStore", code: 404, userInfo: [NSLocalizedDescriptionKey: "Conversation not found"])
@@ -245,6 +253,57 @@ class ConversationStore: ObservableObject {
         )
         
         return response
+    }
+    
+    /// Send a message with streaming response
+    func sendMessageStreaming(conversationId: UUID, userMessage: Message) async throws -> Message {
+        guard let conversation = conversations.first(where: { $0.id == conversationId }) else {
+            throw NSError(domain: "ConversationStore", code: 404, userInfo: [NSLocalizedDescriptionKey: "Conversation not found"])
+        }
+        
+        print("📤 Sending streaming message with model: \(conversation.modelId)")
+        
+        // Get all messages including the new user message
+        var allMessages = conversation.messages
+        allMessages.append(userMessage)
+        
+        // Create a placeholder message for streaming
+        let messageId = UUID()
+        streamingMessageId = messageId
+        streamingContent = ""
+        
+        let modelId = conversation.modelId
+        
+        do {
+            try await apiClient.sendMessageStreaming(
+                conversationId: conversationId.uuidString,
+                modelId: modelId,
+                messages: allMessages
+            ) { [weak self] chunk in
+                await MainActor.run {
+                    self?.streamingContent += chunk
+                }
+            }
+            
+            // Create final message from accumulated content
+            let finalMessage = Message(
+                id: messageId,
+                role: .assistant,
+                content: streamingContent,
+                timestamp: Date(),
+                modelId: modelId
+            )
+            
+            // Clear streaming state
+            streamingMessageId = nil
+            
+            return finalMessage
+        } catch {
+            // Clear streaming state on error
+            streamingMessageId = nil
+            streamingContent = ""
+            throw error
+        }
     }
     
     private func generateTitle(from content: String) -> String {

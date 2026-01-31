@@ -15,6 +15,7 @@ interface ApiStackProps extends cdk.StackProps {
 
 export class ApiStack extends cdk.Stack {
   public readonly api: apigateway.RestApi;
+  public readonly streamingFunctionUrl: lambda.FunctionUrl;
 
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id, props);
@@ -43,15 +44,16 @@ export class ApiStack extends cdk.Stack {
       USER_POOL_ID: props.userPool.userPoolId,
       REGION: this.region,
       OPENROUTER_SECRET_ARN: openRouterSecret.secretArn,
+      COGNITO_USER_POOL_ID: props.userPool.userPoolId,
     };
 
-    // POST /chat - Send message to OpenRouter (NodejsFunction auto-compiles TypeScript)
+    // POST /chat - Send message to OpenRouter (non-streaming)
     const chatFunction = new NodejsFunction(this, 'ChatFunction', {
       entry: path.join(__dirname, '../../lambda/chat/index.ts'),
       handler: 'handler',
       runtime: lambda.Runtime.NODEJS_20_X,
       role: lambdaRole,
-      timeout: cdk.Duration.seconds(30),
+      timeout: cdk.Duration.seconds(60),
       memorySize: 512,
       environment: commonEnvironment,
       logRetention: logs.RetentionDays.ONE_WEEK,
@@ -60,6 +62,36 @@ export class ApiStack extends cdk.Stack {
         minify: false,
         sourceMap: true,
         forceDockerBundling: false, // Use local esbuild, not Docker
+      },
+    });
+
+    // Streaming chat function with Function URL
+    const streamingChatFunction = new NodejsFunction(this, 'StreamingChatFunction', {
+      entry: path.join(__dirname, '../../lambda/chat/index.ts'),
+      handler: 'streamHandler', // Use the streaming handler
+      runtime: lambda.Runtime.NODEJS_20_X,
+      role: lambdaRole,
+      timeout: cdk.Duration.seconds(120), // Longer timeout for streaming
+      memorySize: 512,
+      environment: commonEnvironment,
+      logRetention: logs.RetentionDays.ONE_WEEK,
+      bundling: {
+        externalModules: ['@aws-sdk/*'],
+        minify: false,
+        sourceMap: true,
+        forceDockerBundling: false,
+      },
+    });
+
+    // Add Function URL with streaming support
+    this.streamingFunctionUrl = streamingChatFunction.addFunctionUrl({
+      authType: lambda.FunctionUrlAuthType.NONE, // We validate Cognito token in Lambda
+      invokeMode: lambda.InvokeMode.RESPONSE_STREAM, // Enable response streaming
+      cors: {
+        allowedOrigins: ['*'],
+        allowedMethods: [lambda.HttpMethod.POST],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        maxAge: cdk.Duration.days(1),
       },
     });
 
@@ -150,6 +182,12 @@ export class ApiStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiId', {
       value: this.api.restApiId,
       description: 'API Gateway ID',
+    });
+
+    new cdk.CfnOutput(this, 'StreamingFunctionUrl', {
+      value: this.streamingFunctionUrl.url,
+      description: 'Lambda Function URL for streaming chat responses',
+      exportName: 'ThinkTankStreamingUrl',
     });
   }
 

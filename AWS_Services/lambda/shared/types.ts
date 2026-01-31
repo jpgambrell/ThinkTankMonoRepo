@@ -9,6 +9,7 @@ export interface ChatRequest {
   conversationId?: string;
   modelId: string;
   messages: Message[];
+  stream?: boolean;
 }
 
 export interface ChatResponse {

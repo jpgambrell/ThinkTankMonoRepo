@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ChatView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(\.colorScheme) private var colorScheme
     
     @State private var messageText: String = ""
     @State private var isLoading: Bool = false
     @State private var showModelSelector: Bool = false
+    @State private var retryingMessageId: UUID?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -30,7 +31,8 @@ struct ChatView: View {
                 } else {
                     MessageListView(
                         messages: conversation.messages,
-                        isLoading: isLoading
+                        isLoading: isLoading,
+                        onRetry: retryMessage
                     )
                 }
             } else {
@@ -75,24 +77,62 @@ struct ChatView: View {
         // Add user message
         conversationStore.addMessage(to: conversation.id, message: userMessage)
         messageText = ""
+        
+        // Send to AI
+        sendToAI(conversationId: conversation.id, userMessage: userMessage)
+    }
+    
+    private func retryMessage(errorMessageId: UUID) {
+        guard let conversation = conversationStore.selectedConversation else { return }
+        
+        // Find the user message before this error message
+        guard let errorIndex = conversation.messages.firstIndex(where: { $0.id == errorMessageId }),
+              errorIndex > 0 else { return }
+        
+        let userMessage = conversation.messages[errorIndex - 1]
+        guard userMessage.role == .user else { return }
+        
+        // Remove the error message
+        conversationStore.removeMessage(from: conversation.id, messageId: errorMessageId)
+        
+        // Retry sending
+        sendToAI(conversationId: conversation.id, userMessage: userMessage)
+    }
+    
+    private func sendToAI(conversationId: UUID, userMessage: Message) {
         isLoading = true
         
-        // Get AI response
         Task {
             do {
-                let response = try await conversationStore.sendMessage(
-                    conversationId: conversation.id,
-                    userMessage: userMessage
-                )
-                
-                await MainActor.run {
-                    conversationStore.addMessage(to: conversation.id, message: response)
-                    isLoading = false
+                // Use streaming if available, otherwise fall back to non-streaming
+                if AWSConfig.streamingEndpoint.isEmpty {
+                    // Non-streaming mode
+                    let response = try await conversationStore.sendMessage(
+                        conversationId: conversationId,
+                        userMessage: userMessage
+                    )
+                    
+                    await MainActor.run {
+                        conversationStore.addMessage(to: conversationId, message: response)
+                        isLoading = false
+                    }
+                } else {
+                    // Streaming mode
+                    let response = try await conversationStore.sendMessageStreaming(
+                        conversationId: conversationId,
+                        userMessage: userMessage
+                    )
+                    
+                    await MainActor.run {
+                        conversationStore.addMessage(to: conversationId, message: response)
+                        isLoading = false
+                    }
                 }
             } catch {
                 await MainActor.run {
+                    let errorMessage = Message.errorMessage(for: error)
+                    conversationStore.addMessage(to: conversationId, message: errorMessage)
                     isLoading = false
-                    // TODO: Show error alert to user
                     print("Error: \(error.localizedDescription)")
                 }
             }
@@ -103,6 +143,6 @@ struct ChatView: View {
 #Preview {
     ChatView()
         .frame(width: 800, height: 600)
-        .environmentObject(ConversationStore())
-        .environmentObject(ThemeManager())
+        .environment(ConversationStore())
+        .environment(ThemeManager())
 }

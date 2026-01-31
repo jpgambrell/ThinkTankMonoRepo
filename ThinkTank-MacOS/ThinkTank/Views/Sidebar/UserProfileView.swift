@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @EnvironmentObject var authService: CognitoAuthService
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(CognitoAuthService.self) private var authService
+    @Environment(\.colorScheme) private var colorScheme
     @Binding var showSettings: Bool
     
     private var user: User {
@@ -25,18 +25,18 @@ struct UserProfileView: View {
                 .overlay(
                     Text(user.avatarInitials)
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                 )
             
             // Name and Email
             VStack(alignment: .leading, spacing: 2) {
                 Text(user.fullName)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Text(user.email)
                     .font(.system(size: 12))
-                    .foregroundColor(ThemeColors.secondaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }
             
             Spacer()
@@ -47,7 +47,7 @@ struct UserProfileView: View {
             }) {
                 Image(systemName: "gearshape")
                     .font(.system(size: 16))
-                    .foregroundColor(ThemeColors.secondaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }
             .buttonStyle(.plain)
             .help("Settings")
@@ -61,4 +61,5 @@ struct UserProfileView: View {
 #Preview {
     UserProfileView(showSettings: .constant(false))
         .frame(width: 260)
+        .environment(CognitoAuthService.shared)
 }

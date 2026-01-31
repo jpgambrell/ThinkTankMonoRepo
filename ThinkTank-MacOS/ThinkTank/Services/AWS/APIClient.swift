@@ -10,6 +10,7 @@ actor APIClient {
         let conversationId: String?
         let modelId: String
         let messages: [MessageDTO]
+        let stream: Bool?
     }
     
     struct MessageDTO: Codable {
@@ -28,7 +29,32 @@ actor APIClient {
         }
     }
     
-    /// Send a message to the AI model
+    /// Streaming chunk from SSE response
+    struct StreamChunk: Codable {
+        let choices: [Choice]?
+        let error: StreamError?
+        
+        struct Choice: Codable {
+            let delta: Delta?
+            let finishReason: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case delta
+                case finishReason = "finish_reason"
+            }
+        }
+        
+        struct Delta: Codable {
+            let content: String?
+            let role: String?
+        }
+        
+        struct StreamError: Codable {
+            let message: String
+        }
+    }
+    
+    /// Send a message to the AI model (non-streaming)
     func sendMessage(conversationId: String?, modelId: String, messages: [Message]) async throws -> Message {
         let endpoint = URL(string: AWSConfig.chatEndpoint)!
         
@@ -40,7 +66,8 @@ actor APIClient {
         let requestBody = ChatRequest(
             conversationId: conversationId,
             modelId: modelId,
-            messages: messageDTOs
+            messages: messageDTOs,
+            stream: false
         )
         
         var request = URLRequest(url: endpoint)
@@ -78,6 +105,102 @@ actor APIClient {
             timestamp: Date(),
             modelId: modelId
         )
+    }
+    
+    /// Check if streaming is available
+    var isStreamingAvailable: Bool {
+        !AWSConfig.streamingEndpoint.isEmpty
+    }
+    
+    /// Send a message with streaming response
+    func sendMessageStreaming(
+        conversationId: String?,
+        modelId: String,
+        messages: [Message],
+        onChunk: @escaping @Sendable (String) async -> Void
+    ) async throws {
+        // Use streaming endpoint (Lambda Function URL)
+        guard !AWSConfig.streamingEndpoint.isEmpty else {
+            throw APIError.serverError(500, "Streaming endpoint not configured")
+        }
+        
+        let endpoint = URL(string: AWSConfig.streamingEndpoint)!
+        
+        // Convert messages to DTO format
+        let messageDTOs = messages.map { msg in
+            MessageDTO(role: msg.role.rawValue, content: msg.content)
+        }
+        
+        let requestBody = ChatRequest(
+            conversationId: conversationId,
+            modelId: modelId,
+            messages: messageDTOs,
+            stream: true
+        )
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
+        
+        // Add authentication token (validated by Lambda)
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = try JSONEncoder().encode(requestBody)
+        request.timeoutInterval = AWSConfig.streamingTimeout
+        
+        let (bytes, response) = try await URLSession.shared.bytes(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw APIError.serverError(httpResponse.statusCode, "Streaming request failed")
+        }
+        
+        // Parse SSE stream
+        for try await line in bytes.lines {
+            // SSE format: "data: {...}" or "data: [DONE]"
+            guard line.hasPrefix("data: ") else { continue }
+            
+            let jsonString = String(line.dropFirst(6)) // Remove "data: " prefix
+            
+            if jsonString == "[DONE]" {
+                break
+            }
+            
+            guard let jsonData = jsonString.data(using: .utf8) else { continue }
+            
+            do {
+                let chunk = try JSONDecoder().decode(StreamChunk.self, from: jsonData)
+                
+                // Check for errors
+                if let error = chunk.error {
+                    throw APIError.serverError(500, error.message)
+                }
+                
+                // Extract content from delta
+                if let content = chunk.choices?.first?.delta?.content {
+                    await onChunk(content)
+                }
+                
+                // Check if finished
+                if chunk.choices?.first?.finishReason != nil {
+                    break
+                }
+            } catch let error as APIError {
+                throw error
+            } catch {
+                // Skip malformed chunks
+                continue
+            }
+        }
     }
     
     // MARK: - Models Endpoint

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var authService: CognitoAuthService
+    @Environment(CognitoAuthService.self) private var authService
     @State private var email = ""
     @State private var password = ""
     @State private var showingRegistration = false
@@ -46,7 +46,7 @@ struct LoginView: View {
                             .font(.system(size: 15))
                             .padding(12)
                             .background(Color(.textBackgroundColor))
-                            .cornerRadius(8)
+                            .clipShape(.rect(cornerRadius: 8))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
@@ -66,7 +66,7 @@ struct LoginView: View {
                             .font(.system(size: 15))
                             .padding(12)
                             .background(Color(.textBackgroundColor))
-                            .cornerRadius(8)
+                            .clipShape(.rect(cornerRadius: 8))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
@@ -93,14 +93,14 @@ struct LoginView: View {
                         } else {
                             Text("Sign In")
                                 .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                         }
                     }
                     .buttonStyle(.plain)
                     .frame(height: 44)
                     .background(Color.brandPrimary)
-                    .cornerRadius(8)
+                    .clipShape(.rect(cornerRadius: 8))
                     .disabled(authService.isLoading || !isFormValid)
                     .opacity(isFormValid ? 1.0 : 0.5)
                     .padding(.top, 8)
@@ -128,7 +128,7 @@ struct LoginView: View {
         }
         .sheet(isPresented: $showingRegistration) {
             RegistrationView()
-                .environmentObject(authService)
+                .environment(authService)
         }
     }
     
@@ -151,6 +151,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-        .environmentObject(CognitoAuthService.shared)
+        .environment(CognitoAuthService.shared)
         .frame(width: 1200, height: 800)
 }

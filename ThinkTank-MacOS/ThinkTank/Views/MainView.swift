@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @EnvironmentObject var themeManager: ThemeManager
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(ThemeManager.self) private var themeManager
+    @Environment(\.colorScheme) private var colorScheme
     
     @State private var showSettings: Bool = false
     
@@ -54,6 +54,6 @@ struct MainView: View {
 
 #Preview {
     MainView()
-        .environmentObject(ConversationStore())
-        .environmentObject(ThemeManager())
+        .environment(ConversationStore())
+        .environment(ThemeManager())
 }

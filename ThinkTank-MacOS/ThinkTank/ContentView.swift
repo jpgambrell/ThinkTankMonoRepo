@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var authService = CognitoAuthService.shared
-    @StateObject private var conversationStore = ConversationStore()
-    @StateObject private var themeManager = ThemeManager()
+    @State private var authService = CognitoAuthService.shared
+    @State private var conversationStore = ConversationStore()
+    @State private var themeManager = ThemeManager()
     
     var body: some View {
         Group {
             if authService.isAuthenticated {
                 MainView()
-                    .environmentObject(conversationStore)
-                    .environmentObject(themeManager)
-                    .environmentObject(authService)
+                    .environment(conversationStore)
+                    .environment(themeManager)
+                    .environment(authService)
             } else {
                 LoginView()
-                    .environmentObject(authService)
+                    .environment(authService)
             }
         }
         .preferredColorScheme(themeManager.currentTheme.colorScheme)

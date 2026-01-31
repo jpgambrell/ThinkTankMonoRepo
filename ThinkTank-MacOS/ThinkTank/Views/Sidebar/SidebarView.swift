@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SidebarView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @EnvironmentObject var themeManager: ThemeManager
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(ThemeManager.self) private var themeManager
+    @Environment(\.colorScheme) private var colorScheme
     
     @State private var searchText: String = ""
     @Binding var showSettings: Bool
@@ -30,8 +30,8 @@ struct SidebarView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 40)
                 .background(ThemeColors.cardBackground(colorScheme))
-                .foregroundColor(ThemeColors.primaryText(colorScheme))
-                .cornerRadius(8)
+                .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                .clipShape(.rect(cornerRadius: 8))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(ThemeColors.border(colorScheme), lineWidth: 1)
@@ -45,7 +45,7 @@ struct SidebarView: View {
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 14))
-                    .foregroundColor(ThemeColors.placeholderText(colorScheme))
+                    .foregroundStyle(ThemeColors.placeholderText(colorScheme))
                 
                 TextField("Search chats...", text: $searchText)
                     .textFieldStyle(.plain)
@@ -55,7 +55,7 @@ struct SidebarView: View {
                     Button(action: { searchText = "" }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 12))
-                            .foregroundColor(ThemeColors.placeholderText(colorScheme))
+                            .foregroundStyle(ThemeColors.placeholderText(colorScheme))
                     }
                     .buttonStyle(.plain)
                 }
@@ -63,7 +63,7 @@ struct SidebarView: View {
             .padding(.horizontal, 12)
             .frame(height: 36)
             .background(ThemeColors.cardBackground(colorScheme))
-            .cornerRadius(8)
+            .clipShape(.rect(cornerRadius: 8))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(ThemeColors.border(colorScheme), lineWidth: 1)
@@ -79,13 +79,15 @@ struct SidebarView: View {
                     ForEach(groupedConversations, id: \.0) { section, conversations in
                         Section {
                             ForEach(conversations) { conversation in
-                                ConversationRowView(
-                                    conversation: conversation,
-                                    isSelected: conversation.id == conversationStore.selectedConversationId
-                                )
-                                .onTapGesture {
+                                Button {
                                     conversationStore.selectConversation(conversation)
+                                } label: {
+                                    ConversationRowView(
+                                        conversation: conversation,
+                                        isSelected: conversation.id == conversationStore.selectedConversationId
+                                    )
                                 }
+                                .buttonStyle(.plain)
                             }
                         } header: {
                             SectionHeaderView(title: section)
@@ -107,13 +109,13 @@ struct SidebarView: View {
 
 struct SectionHeaderView: View {
     let title: String
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         HStack {
             Text(title)
                 .font(.system(size: 11, weight: .semibold))
-                .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                 .tracking(0.5)
             Spacer()
         }
@@ -125,6 +127,6 @@ struct SectionHeaderView: View {
 
 #Preview {
     SidebarView(showSettings: .constant(false))
-        .environmentObject(ConversationStore())
-        .environmentObject(ThemeManager())
+        .environment(ConversationStore())
+        .environment(ThemeManager())
 }

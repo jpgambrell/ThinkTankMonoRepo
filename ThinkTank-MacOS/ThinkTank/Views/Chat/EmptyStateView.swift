@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmptyStateView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     let suggestions = [
         SuggestionCard(
@@ -51,11 +51,11 @@ struct EmptyStateView: View {
             VStack(spacing: 8) {
                 Text("How can I help you today?")
                     .font(.system(size: 28, weight: .semibold))
-                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Text("Start a conversation with ThinkTank powered by AWS Bedrock")
                     .font(.system(size: 15))
-                    .foregroundColor(ThemeColors.secondaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }
             
             // Suggestion Cards
@@ -83,7 +83,7 @@ struct SuggestionCard: Identifiable {
 }
 
 struct SuggestionCardView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isHovered: Bool = false
     
     let suggestion: SuggestionCard
@@ -92,11 +92,11 @@ struct SuggestionCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(suggestion.title)
                 .font(.system(size: 13, weight: .medium))
-                .foregroundColor(ThemeColors.primaryText(colorScheme))
+                .foregroundStyle(ThemeColors.primaryText(colorScheme))
             
             Text(suggestion.description)
                 .font(.system(size: 12))
-                .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

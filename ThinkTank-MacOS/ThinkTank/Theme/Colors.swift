@@ -58,7 +58,7 @@ struct ThemeColors {
     }
     
     static func cardBackground(_ colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? Color(hex: "2D2D2D") : Color.white
+        colorScheme == .dark ? Color(hex: "2D2D2D") : .white
     }
     
     static func inputBackground(_ colorScheme: ColorScheme) -> Color {
@@ -102,7 +102,7 @@ struct ThemeColors {
     
     // Selection/Hover states
     static func selectedBackground(_ colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? Color(hex: "3A3A3A") : Color.white
+        colorScheme == .dark ? Color(hex: "3A3A3A") : .white
     }
     
     static func hoverBackground(_ colorScheme: ColorScheme) -> Color {

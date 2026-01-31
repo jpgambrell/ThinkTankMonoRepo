@@ -7,11 +7,12 @@
 
 import Foundation
 import SwiftUI
-import Combine
+import Observation
 
+@Observable
 @MainActor
-class ThemeManager: ObservableObject {
-    @Published var currentTheme: AppTheme {
+final class ThemeManager {
+    var currentTheme: AppTheme {
         didSet {
             UserDefaults.standard.set(currentTheme.rawValue, forKey: "appTheme")
         }

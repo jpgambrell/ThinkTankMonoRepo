@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var themeManager: ThemeManager
-    @EnvironmentObject var authService: CognitoAuthService
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) var dismiss
+    @Environment(ThemeManager.self) private var themeManager
+    @Environment(CognitoAuthService.self) private var authService
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     
     @State private var selectedModel: AIModel = AIModel.defaultModel
     @State private var streamingEnabled: Bool = true
@@ -32,7 +32,7 @@ struct SettingsView: View {
                         Text("Back")
                             .font(.system(size: 14))
                     }
-                    .foregroundColor(ThemeColors.secondaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.secondaryText(colorScheme))
                 }
                 .buttonStyle(.plain)
                 
@@ -40,12 +40,13 @@ struct SettingsView: View {
                 
                 Text("Settings")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Spacer()
                 
                 // Balance the back button
-                Color.clear.frame(width: 60)
+                Color.clear
+                    .frame(width: 60)
             }
             .padding(.horizontal, 24)
             .frame(height: 56)
@@ -67,17 +68,17 @@ struct SettingsView: View {
                                     .overlay(
                                         Text(user.avatarInitials)
                                             .font(.system(size: 18, weight: .semibold))
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(.white)
                                     )
                                 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(user.fullName)
                                         .font(.system(size: 15, weight: .medium))
-                                        .foregroundColor(ThemeColors.primaryText(colorScheme))
+                                        .foregroundStyle(ThemeColors.primaryText(colorScheme))
                                     
                                     Text(user.email)
                                         .font(.system(size: 13))
-                                        .foregroundColor(ThemeColors.secondaryText(colorScheme))
+                                        .foregroundStyle(ThemeColors.secondaryText(colorScheme))
                                 }
                                 
                                 Spacer()
@@ -106,7 +107,7 @@ struct SettingsView: View {
                             HStack {
                                 Text("Default Model")
                                     .font(.system(size: 14))
-                                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                                 
                                 Spacer()
                                 
@@ -128,11 +129,11 @@ struct SettingsView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Enable Streaming Responses")
                                         .font(.system(size: 14))
-                                        .foregroundColor(ThemeColors.primaryText(colorScheme))
+                                        .foregroundStyle(ThemeColors.primaryText(colorScheme))
                                     
                                     Text("Show responses as they're generated")
                                         .font(.system(size: 12))
-                                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                                 }
                                 
                                 Spacer()
@@ -152,11 +153,12 @@ struct SettingsView: View {
                             HStack {
                                 Text("Theme")
                                     .font(.system(size: 14))
-                                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                                 
                                 Spacer()
                                 
-                                Picker("", selection: $themeManager.currentTheme) {
+                                @Bindable var bindableTheme = themeManager
+                                Picker("", selection: $bindableTheme.currentTheme) {
                                     ForEach(AppTheme.allCases) { theme in
                                         Label(theme.rawValue, systemImage: theme.iconName)
                                             .tag(theme)
@@ -174,7 +176,7 @@ struct SettingsView: View {
                             HStack {
                                 Text("Font Size")
                                     .font(.system(size: 14))
-                                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                                 
                                 Spacer()
                                 
@@ -204,7 +206,7 @@ struct SettingsView: View {
                     }) {
                         Text("Sign Out")
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(Color.destructive)
+                            .foregroundStyle(Color.destructive)
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
                             .background(
@@ -229,13 +231,13 @@ struct SettingsSectionView<Content: View>: View {
     let title: String
     @ViewBuilder let content: Content
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                 .tracking(0.5)
             
             VStack(spacing: 0) {
@@ -258,7 +260,7 @@ struct SettingsRowButton: View {
     let title: String
     let action: () -> Void
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isHovered: Bool = false
     
     var body: some View {
@@ -266,16 +268,16 @@ struct SettingsRowButton: View {
             HStack {
                 Text(title)
                     .font(.system(size: 14))
-                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
             }
             .padding(20)
-            .background(isHovered ? ThemeColors.hoverBackground(colorScheme) : Color.clear)
+            .background(isHovered ? ThemeColors.hoverBackground(colorScheme) : .clear)
         }
         .buttonStyle(.plain)
         .onHover { hovering in
@@ -286,12 +288,12 @@ struct SettingsRowButton: View {
 
 // MARK: - Button Styles
 struct SecondaryButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: 13, weight: .medium))
-            .foregroundColor(Color.brandPrimary)
+            .foregroundStyle(Color.brandPrimary)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .background(
@@ -318,5 +320,6 @@ enum FontSize: String, CaseIterable, Identifiable {
 #Preview {
     SettingsView()
         .frame(width: 800, height: 700)
-        .environmentObject(ThemeManager())
+        .environment(ThemeManager())
+        .environment(CognitoAuthService.shared)
 }

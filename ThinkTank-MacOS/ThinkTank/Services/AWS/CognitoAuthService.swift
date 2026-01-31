@@ -1,17 +1,18 @@
 import Foundation
-import Combine
+import Observation
 
 /// Handles Amazon Cognito authentication
+@Observable
 @MainActor
-class CognitoAuthService: ObservableObject {
-    @Published var isAuthenticated = false
-    @Published var currentUser: User?
-    @Published var isLoading = false
-    @Published var errorMessage: String?
+final class CognitoAuthService {
+    var isAuthenticated = false
+    var currentUser: User?
+    var isLoading = false
+    var errorMessage: String?
     
-    private var idToken: String?
-    private var accessToken: String?
-    private var refreshToken: String?
+    @ObservationIgnored private var idToken: String?
+    @ObservationIgnored private var accessToken: String?
+    @ObservationIgnored private var refreshToken: String?
     
     // Singleton instance
     static let shared = CognitoAuthService()

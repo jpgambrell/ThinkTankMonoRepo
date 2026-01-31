@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ConversationRowView: View {
-    @EnvironmentObject var conversationStore: ConversationStore
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(ConversationStore.self) private var conversationStore
+    @Environment(\.colorScheme) private var colorScheme
     
     let conversation: Conversation
     let isSelected: Bool
@@ -30,11 +30,11 @@ struct ConversationRowView: View {
                     })
                     .textFieldStyle(.plain)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(ThemeColors.primaryText(colorScheme))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 } else {
                     Text(conversation.title)
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(isSelected ? ThemeColors.primaryText(colorScheme) : ThemeColors.secondaryText(colorScheme))
+                        .foregroundStyle(isSelected ? ThemeColors.primaryText(colorScheme) : ThemeColors.secondaryText(colorScheme))
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
@@ -42,15 +42,15 @@ struct ConversationRowView: View {
                 HStack(spacing: 4) {
                     Text(modelDisplayName)
                         .font(.system(size: 12))
-                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                     
                     Text("•")
                         .font(.system(size: 12))
-                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                     
                     Text(timeAgoString)
                         .font(.system(size: 12))
-                        .foregroundColor(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
                 }
             }
             
@@ -105,7 +105,7 @@ struct ConversationRowView: View {
         } else if isHovered {
             return ThemeColors.hoverBackground(colorScheme)
         } else {
-            return Color.clear
+            return .clear
         }
     }
     
@@ -139,5 +139,5 @@ struct ConversationRowView: View {
     }
     .frame(width: 260)
     .background(Color(hex: "F0F0F1"))
-    .environmentObject(ConversationStore())
+    .environment(ConversationStore())
 }
