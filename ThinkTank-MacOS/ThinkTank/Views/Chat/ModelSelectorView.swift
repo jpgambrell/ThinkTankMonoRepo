@@ -56,6 +56,9 @@ struct ModelSelectorView: View {
     }
     
     private func selectModel(_ model: AIModel) {
+        // Save as the default model for future chats
+        AIModel.setDefaultModel(model)
+        
         if let conversationId = conversationStore.selectedConversationId {
             // Update existing conversation's model
             conversationStore.updateConversationModel(conversationId, modelId: model.id)

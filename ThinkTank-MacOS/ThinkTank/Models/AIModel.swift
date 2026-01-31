@@ -118,8 +118,32 @@ extension AIModel {
         Dictionary(grouping: availableModels, by: { $0.provider })
     }
     
+    // MARK: - Default Model Persistence
+    
+    private static let defaultModelKey = "ThinkTank.DefaultModelId"
+    
+    /// The user's preferred default model (persisted to UserDefaults)
     static var defaultModel: AIModel {
-        availableModels.first!
+        if let savedId = UserDefaults.standard.string(forKey: defaultModelKey),
+           let savedModel = model(for: savedId) {
+            print("📌 Using saved default model: \(savedId)")
+            return savedModel
+        }
+        print("📌 No saved model, using first available: \(availableModels.first!.id)")
+        return availableModels.first!
+    }
+    
+    /// Set the default model for all new conversations
+    static func setDefaultModel(_ model: AIModel) {
+        UserDefaults.standard.set(model.id, forKey: defaultModelKey)
+        UserDefaults.standard.synchronize()
+        print("✅ Default model set to: \(model.id)")
+    }
+    
+    /// Set the default model by ID
+    static func setDefaultModelId(_ modelId: String) {
+        UserDefaults.standard.set(modelId, forKey: defaultModelKey)
+        UserDefaults.standard.synchronize()
     }
     
     static func model(for id: String) -> AIModel? {

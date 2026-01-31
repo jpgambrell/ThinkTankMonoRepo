@@ -309,6 +309,7 @@ final class ConversationStore {
     
     func createNewConversation(modelId: String? = nil) -> Conversation {
         let model = modelId ?? AIModel.defaultModel.id
+        print("🆕 Creating new conversation with model: \(model)")
         let conversation = Conversation(modelId: model)
         conversations.insert(conversation, at: 0)
         selectedConversationId = conversation.id
@@ -430,6 +431,11 @@ final class ConversationStore {
             // Generate title from first message
             let title = generateTitle(from: message.content)
             conversations[index].title = title
+            
+            // Sync title to cloud
+            Task {
+                await syncConversationRename(conversationId, newTitle: title)
+            }
         }
         
         // Move conversation to top
