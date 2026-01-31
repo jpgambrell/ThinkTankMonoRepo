@@ -6,11 +6,13 @@ import * as logs from 'aws-cdk-lib/aws-logs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
 import * as path from 'path';
 
 interface ApiStackProps extends cdk.StackProps {
   userPool: cognito.UserPool;
+  chatHistoryTable: dynamodb.Table;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -45,7 +47,11 @@ export class ApiStack extends cdk.Stack {
       REGION: this.region,
       OPENROUTER_SECRET_ARN: openRouterSecret.secretArn,
       COGNITO_USER_POOL_ID: props.userPool.userPoolId,
+      CHAT_HISTORY_TABLE: props.chatHistoryTable.tableName,
     };
+
+    // Grant Lambda read/write access to the DynamoDB table
+    props.chatHistoryTable.grantReadWriteData(lambdaRole);
 
     // POST /chat - Send message to OpenRouter (non-streaming)
     const chatFunction = new NodejsFunction(this, 'ChatFunction', {
@@ -113,6 +119,24 @@ export class ApiStack extends cdk.Stack {
       },
     });
 
+    // Conversations CRUD Lambda
+    const conversationsFunction = new NodejsFunction(this, 'ConversationsFunction', {
+      entry: path.join(__dirname, '../../lambda/conversations/index.ts'),
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_20_X,
+      role: lambdaRole,
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+      environment: commonEnvironment,
+      logRetention: logs.RetentionDays.ONE_WEEK,
+      bundling: {
+        externalModules: ['@aws-sdk/*'],
+        minify: false,
+        sourceMap: true,
+        forceDockerBundling: false,
+      },
+    });
+
     // Create API Gateway with CORS
     this.api = new apigateway.RestApi(this, 'ThinkTankApi', {
       restApiName: 'ThinkTank API',
@@ -168,6 +192,54 @@ export class ApiStack extends cdk.Stack {
     // GET /models endpoint
     const modelsResource = this.api.root.addResource('models');
     modelsResource.addMethod('GET', new apigateway.LambdaIntegration(modelsFunction), {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+
+    // Conversations endpoints
+    const conversationsIntegration = new apigateway.LambdaIntegration(conversationsFunction);
+    
+    // /conversations resource
+    const conversationsResource = this.api.root.addResource('conversations');
+    
+    // GET /conversations - List all conversations
+    conversationsResource.addMethod('GET', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+    
+    // POST /conversations - Create new conversation
+    conversationsResource.addMethod('POST', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+
+    // /conversations/{conversationId} resource
+    const conversationResource = conversationsResource.addResource('{conversationId}');
+    
+    // GET /conversations/{conversationId} - Get conversation with messages
+    conversationResource.addMethod('GET', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+    
+    // PUT /conversations/{conversationId} - Update conversation
+    conversationResource.addMethod('PUT', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+    
+    // DELETE /conversations/{conversationId} - Delete conversation
+    conversationResource.addMethod('DELETE', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+
+    // /conversations/{conversationId}/messages resource
+    const messagesResource = conversationResource.addResource('messages');
+    
+    // POST /conversations/{conversationId}/messages - Add message
+    messagesResource.addMethod('POST', conversationsIntegration, {
       authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });

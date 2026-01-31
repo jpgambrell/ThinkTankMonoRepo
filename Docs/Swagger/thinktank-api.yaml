@@ -1,0 +1,624 @@
+openapi: 3.0.3
+info:
+  title: ThinkTank API
+  description: |
+    API for ThinkTank macOS AI Chat Application.
+    
+    ## Authentication
+    All endpoints require a valid Cognito JWT token in the Authorization header:
+    ```
+    Authorization: Bearer <id_token>
+    ```
+    
+    ## Endpoints Overview
+    - **Chat**: Send messages to AI models (streaming and non-streaming)
+    - **Models**: List available AI models
+    - **Conversations**: CRUD operations for chat history
+  version: 1.0.0
+  contact:
+    name: ThinkTank Support
+  license:
+    name: MIT
+
+servers:
+  - url: https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod
+    description: Production API Gateway
+  - url: https://krbsjrapw4xtourdlsd2callgq0kawoo.lambda-url.us-east-1.on.aws
+    description: Streaming Endpoint (Lambda Function URL)
+
+tags:
+  - name: Chat
+    description: Send messages to AI models
+  - name: Models
+    description: List available AI models
+  - name: Conversations
+    description: Manage chat history and conversations
+
+components:
+  securitySchemes:
+    CognitoAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Cognito User Pool JWT token (id_token)
+
+  schemas:
+    # Chat Schemas
+    Message:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+          description: Role of the message sender
+        content:
+          type: string
+          description: Content of the message
+
+    ChatRequest:
+      type: object
+      required:
+        - modelId
+        - messages
+      properties:
+        conversationId:
+          type: string
+          description: Optional conversation ID. If not provided, a new one will be generated.
+          example: "conv_1706745600000_abc123"
+        modelId:
+          type: string
+          description: ID of the AI model to use
+          example: "anthropic/claude-sonnet-4"
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+          minItems: 1
+          description: Array of messages in the conversation
+        stream:
+          type: boolean
+          default: false
+          description: Whether to stream the response (use streaming endpoint instead)
+
+    ChatResponse:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          description: The conversation ID
+          example: "conv_1706745600000_abc123"
+        message:
+          $ref: '#/components/schemas/Message'
+        usage:
+          type: object
+          properties:
+            inputTokens:
+              type: integer
+              description: Number of input tokens used
+            outputTokens:
+              type: integer
+              description: Number of output tokens generated
+
+    # Models Schemas
+    ModelInfo:
+      type: object
+      properties:
+        modelId:
+          type: string
+          description: Unique model identifier
+          example: "anthropic/claude-sonnet-4"
+        displayName:
+          type: string
+          description: Human-readable model name
+          example: "Claude Sonnet 4"
+        provider:
+          type: string
+          description: Model provider name
+          example: "Anthropic"
+        maxTokens:
+          type: integer
+          description: Maximum context length in tokens
+          example: 200000
+        streaming:
+          type: boolean
+          description: Whether the model supports streaming
+          example: true
+
+    ModelsResponse:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelInfo'
+
+    # Conversation Schemas
+    MessageDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique message ID
+          example: "msg_1706745600000_xyz789"
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+          description: Message content
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp
+        modelId:
+          type: string
+          description: Model used for assistant messages
+        isError:
+          type: boolean
+          description: Whether this message represents an error
+        errorMessage:
+          type: string
+          description: Error message details if isError is true
+
+    ConversationDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique conversation ID
+          example: "1706745600000_abc123"
+        title:
+          type: string
+          description: Conversation title
+          example: "Help with SwiftUI"
+        modelId:
+          type: string
+          description: Default model for the conversation
+          example: "anthropic/claude-sonnet-4"
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        messageCount:
+          type: integer
+          description: Number of messages in the conversation
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDTO'
+          description: Array of messages (included when fetching single conversation)
+
+    ConversationsListResponse:
+      type: object
+      properties:
+        conversations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationDTO'
+
+    ConversationResponse:
+      type: object
+      properties:
+        conversation:
+          $ref: '#/components/schemas/ConversationDTO'
+
+    CreateConversationRequest:
+      type: object
+      required:
+        - modelId
+      properties:
+        title:
+          type: string
+          description: Optional title for the conversation
+          default: "New Chat"
+        modelId:
+          type: string
+          description: Default model for the conversation
+          example: "anthropic/claude-sonnet-4"
+
+    UpdateConversationRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: New title for the conversation
+        modelId:
+          type: string
+          description: New default model for the conversation
+
+    AddMessageRequest:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+          description: Role of the message sender
+        content:
+          type: string
+          description: Message content
+        modelId:
+          type: string
+          description: Model used (for assistant messages)
+        isError:
+          type: boolean
+          description: Whether this is an error message
+        errorMessage:
+          type: string
+          description: Error details
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/MessageDTO'
+
+    DeleteResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Conversation deleted successfully"
+
+    # Error Schemas
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: "Bad Request"
+        message:
+          type: string
+          description: Error message
+          example: "modelId is required"
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 400
+
+security:
+  - CognitoAuth: []
+
+paths:
+  /chat:
+    post:
+      tags:
+        - Chat
+      summary: Send message to AI (non-streaming)
+      description: |
+        Send a message to an AI model and receive a complete response.
+        Messages are automatically saved to DynamoDB for chat history.
+      operationId: sendChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            example:
+              conversationId: "conv_1706745600000_abc123"
+              modelId: "anthropic/claude-sonnet-4"
+              messages:
+                - role: user
+                  content: "Hello, can you help me with Swift programming?"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /models:
+    get:
+      tags:
+        - Models
+      summary: List available AI models
+      description: Returns a list of all available AI models that can be used for chat.
+      operationId: listModels
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelsResponse'
+              example:
+                models:
+                  - modelId: "anthropic/claude-sonnet-4"
+                    displayName: "Claude Sonnet 4"
+                    provider: "Anthropic"
+                    maxTokens: 200000
+                    streaming: true
+                  - modelId: "openai/gpt-4o"
+                    displayName: "GPT-4o"
+                    provider: "OpenAI"
+                    maxTokens: 128000
+                    streaming: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /conversations:
+    get:
+      tags:
+        - Conversations
+      summary: List all conversations
+      description: Returns all conversations for the authenticated user, sorted by most recently updated.
+      operationId: listConversations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationsListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - Conversations
+      summary: Create a new conversation
+      description: Creates a new conversation with the specified model.
+      operationId: createConversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConversationRequest'
+            example:
+              title: "Help with SwiftUI"
+              modelId: "anthropic/claude-sonnet-4"
+      responses:
+        '201':
+          description: Conversation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /conversations/{conversationId}:
+    parameters:
+      - name: conversationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The conversation ID
+        example: "1706745600000_abc123"
+
+    get:
+      tags:
+        - Conversations
+      summary: Get conversation with messages
+      description: Returns a single conversation including all its messages.
+      operationId: getConversation
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags:
+        - Conversations
+      summary: Update conversation
+      description: Update conversation title or default model.
+      operationId: updateConversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConversationRequest'
+            example:
+              title: "Updated conversation title"
+              modelId: "anthropic/claude-opus-4"
+      responses:
+        '200':
+          description: Conversation updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - Conversations
+      summary: Delete conversation
+      description: Deletes a conversation and all its messages.
+      operationId: deleteConversation
+      responses:
+        '200':
+          description: Conversation deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /conversations/{conversationId}/messages:
+    parameters:
+      - name: conversationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The conversation ID
+        example: "1706745600000_abc123"
+
+    post:
+      tags:
+        - Conversations
+      summary: Add message to conversation
+      description: Adds a new message to an existing conversation.
+      operationId: addMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMessageRequest'
+            example:
+              role: "user"
+              content: "Can you explain async/await in Swift?"
+              modelId: "anthropic/claude-sonnet-4"
+      responses:
+        '201':
+          description: Message added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

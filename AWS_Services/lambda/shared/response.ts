@@ -10,8 +10,38 @@ export const corsHeaders = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*', // Restrict in production
   'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+  'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
 };
+
+/**
+ * Create a successful response with any status code
+ */
+export function createResponse<T>(statusCode: number, data: T): LambdaResponse {
+  return {
+    statusCode,
+    headers: corsHeaders,
+    body: JSON.stringify(data),
+  };
+}
+
+/**
+ * Create an error response
+ */
+export function createErrorResponse(
+  statusCode: number,
+  errorType: string,
+  message: string
+): LambdaResponse {
+  return {
+    statusCode,
+    headers: corsHeaders,
+    body: JSON.stringify({
+      error: errorType,
+      message,
+      statusCode,
+    }),
+  };
+}
 
 export function success<T>(data: T): LambdaResponse {
   return {

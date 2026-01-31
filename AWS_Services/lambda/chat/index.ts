@@ -5,6 +5,12 @@ import {
 } from '@aws-sdk/client-secrets-manager';
 import { ChatRequest, ChatResponse } from '../shared/types';
 import { success, badRequest, internalError } from '../shared/response';
+import {
+  addMessage,
+  updateConversation,
+  createConversation,
+  conversationExists,
+} from '../shared/dynamodb';
 
 // Lambda Response Streaming types - these are provided by the Lambda runtime globally
 declare global {
@@ -123,8 +129,52 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     const userId = event.requestContext.authorizer?.claims?.sub || 'anonymous';
     console.log('User ID:', userId);
 
+    // Get the last user message to save
+    const lastUserMessage = request.messages[request.messages.length - 1];
+
     // Invoke OpenRouter model (non-streaming)
     const response = await invokeOpenRouter(request.modelId, request.messages);
+
+    // Save messages to DynamoDB (fire and forget, don't block response)
+    try {
+      // Check if conversation exists, if not create it
+      const exists = await conversationExists(userId, conversationId);
+      if (!exists) {
+        // Create conversation with first message as title
+        const title = lastUserMessage.content.substring(0, 50) + (lastUserMessage.content.length > 50 ? '...' : '');
+        await createConversation(userId, {
+          id: conversationId,
+          title,
+          modelId: request.modelId,
+        });
+      }
+
+      // Save user message
+      await addMessage(userId, conversationId, {
+        id: generateMessageId(),
+        role: lastUserMessage.role,
+        content: lastUserMessage.content,
+        modelId: request.modelId,
+      });
+
+      // Save assistant message
+      await addMessage(userId, conversationId, {
+        id: generateMessageId(),
+        role: 'assistant',
+        content: response.content,
+        modelId: request.modelId,
+      });
+
+      // Update conversation timestamp and message count
+      await updateConversation(userId, conversationId, {
+        incrementMessageCount: 2,
+      });
+
+      console.log('Messages saved to DynamoDB for conversation:', conversationId);
+    } catch (dbError) {
+      // Log but don't fail the request if DynamoDB save fails
+      console.error('Failed to save messages to DynamoDB:', dbError);
+    }
 
     // Build response
     const chatResponse: ChatResponse = {
@@ -172,7 +222,8 @@ export const streamHandler = awslambda.streamifyResponse(
         return;
       }
 
-      console.log('User ID:', user.sub);
+      const userId = user.sub;
+      console.log('User ID:', userId);
 
       // Parse request body
       if (!event.body) {
@@ -190,10 +241,62 @@ export const streamHandler = awslambda.streamifyResponse(
         return;
       }
 
-      // Stream from OpenRouter
-      await invokeOpenRouterStreaming(request.modelId, request.messages, responseStream);
+      // Generate or use provided conversation ID
+      const conversationId = request.conversationId || generateConversationId();
+
+      // Get the last user message
+      const lastUserMessage = request.messages[request.messages.length - 1];
+
+      // Stream from OpenRouter and collect the full response
+      const fullContent = await invokeOpenRouterStreamingWithCollection(
+        request.modelId,
+        request.messages,
+        responseStream
+      );
 
       responseStream.write('data: [DONE]\n\n');
+
+      // Save messages to DynamoDB after streaming completes
+      try {
+        // Check if conversation exists, if not create it
+        const exists = await conversationExists(userId, conversationId);
+        if (!exists) {
+          // Create conversation with first message as title
+          const title = lastUserMessage.content.substring(0, 50) + (lastUserMessage.content.length > 50 ? '...' : '');
+          await createConversation(userId, {
+            id: conversationId,
+            title,
+            modelId: request.modelId,
+          });
+        }
+
+        // Save user message
+        await addMessage(userId, conversationId, {
+          id: generateMessageId(),
+          role: lastUserMessage.role,
+          content: lastUserMessage.content,
+          modelId: request.modelId,
+        });
+
+        // Save assistant message with collected content
+        await addMessage(userId, conversationId, {
+          id: generateMessageId(),
+          role: 'assistant',
+          content: fullContent,
+          modelId: request.modelId,
+        });
+
+        // Update conversation timestamp and message count
+        await updateConversation(userId, conversationId, {
+          incrementMessageCount: 2,
+        });
+
+        console.log('Messages saved to DynamoDB for conversation:', conversationId);
+      } catch (dbError) {
+        // Log but don't fail if DynamoDB save fails
+        console.error('Failed to save messages to DynamoDB:', dbError);
+      }
+
       responseStream.end();
     } catch (err) {
       console.error('Error in streaming handler:', err);
@@ -324,6 +427,85 @@ async function invokeOpenRouterStreaming(
   }
 }
 
+/**
+ * Stream from OpenRouter and collect the full response content for saving
+ */
+async function invokeOpenRouterStreamingWithCollection(
+  modelId: string,
+  messages: ChatRequest['messages'],
+  responseStream: ResponseStream
+): Promise<string> {
+  const apiKey = await getApiKey();
+
+  console.log('Calling OpenRouter with streaming (with collection), model:', modelId);
+
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://thinktank.app',
+      'X-Title': 'ThinkTank',
+    },
+    body: JSON.stringify({
+      model: modelId,
+      messages: messages.map((m) => ({ role: m.role, content: m.content })),
+      max_tokens: 4096,
+      stream: true,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('OpenRouter API error:', response.status, errorText);
+    throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`);
+  }
+
+  if (!response.body) {
+    throw new Error('No response body from OpenRouter');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let fullContent = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      
+      // Forward the SSE data to the client
+      responseStream.write(chunk);
+      
+      // Parse the SSE data to extract content for collection
+      const lines = chunk.split('\n');
+      for (const line of lines) {
+        if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+          try {
+            const data = JSON.parse(line.substring(6));
+            const delta = data.choices?.[0]?.delta?.content;
+            if (delta) {
+              fullContent += delta;
+            }
+          } catch {
+            // Ignore parse errors for incomplete JSON
+          }
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  return fullContent;
+}
+
 function generateConversationId(): string {
   return `conv_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+}
+
+function generateMessageId(): string {
+  return `msg_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 }

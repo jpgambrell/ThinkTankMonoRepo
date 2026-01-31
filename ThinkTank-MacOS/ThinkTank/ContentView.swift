@@ -25,6 +25,24 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(themeManager.currentTheme.colorScheme)
+        .onChange(of: authService.isAuthenticated) { oldValue, newValue in
+            if newValue && !oldValue {
+                // User just logged in - load conversations from cloud
+                Task {
+                    await conversationStore.loadConversationsFromCloud()
+                }
+            } else if !newValue && oldValue {
+                // User logged out - clear local conversations
+                conversationStore.conversations = []
+                conversationStore.selectedConversationId = nil
+            }
+        }
+        .task {
+            // Also check on app launch if already authenticated
+            if authService.isAuthenticated {
+                await conversationStore.loadConversationsFromCloud()
+            }
+        }
     }
 }
 

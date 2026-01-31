@@ -1,0 +1,441 @@
+{
+  "info": {
+    "_postman_id": "thinktank-api-collection",
+    "name": "ThinkTank API",
+    "description": "API collection for ThinkTank macOS AI Chat Application.\n\n## Setup Instructions\n\n1. Set up the environment variables in the \"ThinkTank Environment\"\n2. Get your Cognito tokens by signing in (use the Auth folder requests)\n3. The `id_token` will be automatically used for authentication\n\n## Available Endpoints\n\n- **Chat**: Send messages to AI models\n- **Models**: List available AI models\n- **Conversations**: CRUD operations for chat history",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod",
+      "type": "string"
+    },
+    {
+      "key": "streamingUrl",
+      "value": "https://krbsjrapw4xtourdlsd2callgq0kawoo.lambda-url.us-east-1.on.aws",
+      "type": "string"
+    },
+    {
+      "key": "cognitoUrl",
+      "value": "https://cognito-idp.us-east-1.amazonaws.com",
+      "type": "string"
+    },
+    {
+      "key": "userPoolClientId",
+      "value": "2ocgk8pjnp2ofkjpmfgq75iuls",
+      "type": "string"
+    },
+    {
+      "key": "id_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "conversationId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{id_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "Cognito authentication endpoints",
+      "item": [
+        {
+          "name": "Sign In",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.AuthenticationResult) {",
+                  "        pm.collectionVariables.set('id_token', response.AuthenticationResult.IdToken);",
+                  "        pm.collectionVariables.set('access_token', response.AuthenticationResult.AccessToken);",
+                  "        pm.collectionVariables.set('refresh_token', response.AuthenticationResult.RefreshToken);",
+                  "        console.log('Tokens saved successfully');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "X-Amz-Target",
+                "value": "AWSCognitoIdentityProviderService.InitiateAuth"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"ClientId\": \"{{userPoolClientId}}\",\n    \"AuthParameters\": {\n        \"USERNAME\": \"your-email@example.com\",\n        \"PASSWORD\": \"your-password\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{cognitoUrl}}",
+              "host": ["{{cognitoUrl}}"]
+            },
+            "description": "Sign in with email and password to get JWT tokens.\n\n**Instructions:**\n1. Replace `your-email@example.com` with your email\n2. Replace `your-password` with your password\n3. Send the request\n4. Tokens will be automatically saved to collection variables"
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Up",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "X-Amz-Target",
+                "value": "AWSCognitoIdentityProviderService.SignUp"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ClientId\": \"{{userPoolClientId}}\",\n    \"Username\": \"your-email@example.com\",\n    \"Password\": \"YourPassword123\",\n    \"UserAttributes\": [\n        {\n            \"Name\": \"email\",\n            \"Value\": \"your-email@example.com\"\n        },\n        {\n            \"Name\": \"name\",\n            \"Value\": \"Your Name\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{cognitoUrl}}",
+              "host": ["{{cognitoUrl}}"]
+            },
+            "description": "Register a new user account.\n\n**Note:** Users are auto-confirmed, no email verification required."
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.AuthenticationResult) {",
+                  "        pm.collectionVariables.set('id_token', response.AuthenticationResult.IdToken);",
+                  "        pm.collectionVariables.set('access_token', response.AuthenticationResult.AccessToken);",
+                  "        console.log('Tokens refreshed successfully');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "X-Amz-Target",
+                "value": "AWSCognitoIdentityProviderService.InitiateAuth"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"AuthFlow\": \"REFRESH_TOKEN_AUTH\",\n    \"ClientId\": \"{{userPoolClientId}}\",\n    \"AuthParameters\": {\n        \"REFRESH_TOKEN\": \"{{refresh_token}}\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{cognitoUrl}}",
+              "host": ["{{cognitoUrl}}"]
+            },
+            "description": "Refresh expired tokens using the refresh token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Models",
+      "description": "AI model endpoints",
+      "item": [
+        {
+          "name": "List Models",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/models",
+              "host": ["{{baseUrl}}"],
+              "path": ["models"]
+            },
+            "description": "Get a list of all available AI models."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "description": "Chat endpoints for sending messages to AI",
+      "item": [
+        {
+          "name": "Send Chat Message",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.conversationId) {",
+                  "        pm.collectionVariables.set('conversationId', response.conversationId);",
+                  "        console.log('Conversation ID saved:', response.conversationId);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"modelId\": \"anthropic/claude-sonnet-4\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Hello! Can you help me with Swift programming?\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat"]
+            },
+            "description": "Send a message to an AI model and receive a complete response.\n\n**Note:** For streaming responses, use the streaming endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "Send Chat Message (with conversationId)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"conversationId\": \"{{conversationId}}\",\n    \"modelId\": \"anthropic/claude-sonnet-4\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Hello! Can you help me with Swift programming?\"\n        },\n        {\n            \"role\": \"assistant\",\n            \"content\": \"Of course! I'd be happy to help you with Swift programming. What would you like to know?\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"How do I use async/await?\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat"]
+            },
+            "description": "Continue an existing conversation by providing the conversationId and full message history."
+          },
+          "response": []
+        },
+        {
+          "name": "Send Chat Message (Streaming)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"modelId\": \"anthropic/claude-sonnet-4\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Write a short poem about coding.\"\n        }\n    ],\n    \"stream\": true\n}"
+            },
+            "url": {
+              "raw": "{{streamingUrl}}",
+              "host": ["{{streamingUrl}}"]
+            },
+            "description": "Send a message with streaming response (Server-Sent Events).\n\n**Note:** This uses the Lambda Function URL, not API Gateway."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Conversations",
+      "description": "Chat history and conversation management",
+      "item": [
+        {
+          "name": "List Conversations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversations",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations"]
+            },
+            "description": "Get all conversations for the authenticated user, sorted by most recently updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Conversation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.conversation && response.conversation.id) {",
+                  "        pm.collectionVariables.set('conversationId', response.conversation.id);",
+                  "        console.log('Conversation ID saved:', response.conversation.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Help with SwiftUI\",\n    \"modelId\": \"anthropic/claude-sonnet-4\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations"]
+            },
+            "description": "Create a new conversation.\n\nThe conversation ID will be automatically saved for use in other requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Conversation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversations/{{conversationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", "{{conversationId}}"]
+            },
+            "description": "Get a single conversation with all its messages."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Conversation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Updated Conversation Title\",\n    \"modelId\": \"anthropic/claude-opus-4\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations/{{conversationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", "{{conversationId}}"]
+            },
+            "description": "Update a conversation's title or default model."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Conversation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversations/{{conversationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", "{{conversationId}}"]
+            },
+            "description": "Delete a conversation and all its messages."
+          },
+          "response": []
+        },
+        {
+          "name": "Add Message to Conversation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"role\": \"user\",\n    \"content\": \"Can you explain async/await in Swift?\",\n    \"modelId\": \"anthropic/claude-sonnet-4\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations/{{conversationId}}/messages",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", "{{conversationId}}", "messages"]
+            },
+            "description": "Add a new message to an existing conversation."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

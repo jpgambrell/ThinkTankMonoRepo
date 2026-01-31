@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { CognitoStack } from '../lib/cognito-stack';
+import { DatabaseStack } from '../lib/database-stack';
 import { ApiStack } from '../lib/api-stack';
 
 const app = new cdk.App();
@@ -18,11 +19,18 @@ const cognitoStack = new CognitoStack(app, 'ThinkTankCognitoStack', {
   description: 'ThinkTank Cognito User Pool and Identity Provider',
 });
 
-// Create API stack (API Gateway + Lambda + Bedrock)
+// Create Database stack (DynamoDB for chat history)
+const databaseStack = new DatabaseStack(app, 'ThinkTankDatabaseStack', {
+  env,
+  description: 'ThinkTank DynamoDB tables for chat history storage',
+});
+
+// Create API stack (API Gateway + Lambda + OpenRouter)
 const apiStack = new ApiStack(app, 'ThinkTankApiStack', {
   env,
-  description: 'ThinkTank API Gateway, Lambda Functions, and Bedrock Integration',
+  description: 'ThinkTank API Gateway, Lambda Functions, and OpenRouter Integration',
   userPool: cognitoStack.userPool,
+  chatHistoryTable: databaseStack.chatHistoryTable,
 });
 
 // Add tags to all resources

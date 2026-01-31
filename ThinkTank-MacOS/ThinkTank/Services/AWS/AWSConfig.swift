@@ -11,6 +11,7 @@ struct AWSConfig {
     static let apiBaseUrl = "https://dguk8v0urb.execute-api.us-east-1.amazonaws.com/prod/"
     static let chatEndpoint = "\(apiBaseUrl)chat"
     static let modelsEndpoint = "\(apiBaseUrl)models"
+    static let conversationsEndpoint = "\(apiBaseUrl)conversations"
     
     // Lambda Function URL for Streaming
     static let streamingEndpoint = "https://krbsjrapw4xtourdlsd2callgq0kawoo.lambda-url.us-east-1.on.aws/"

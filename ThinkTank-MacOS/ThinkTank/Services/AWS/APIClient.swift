@@ -203,6 +203,276 @@ actor APIClient {
         }
     }
     
+    // MARK: - Conversations Endpoint
+    
+    struct ConversationDTO: Codable {
+        let id: String
+        let title: String
+        let modelId: String
+        let createdAt: String
+        let updatedAt: String
+        let messageCount: Int
+        var messages: [ConversationMessageDTO]?
+    }
+    
+    struct ConversationMessageDTO: Codable {
+        let id: String
+        let role: String
+        let content: String
+        let timestamp: String
+        let modelId: String?
+        let isError: Bool?
+        let errorMessage: String?
+    }
+    
+    struct ConversationsListResponse: Codable {
+        let conversations: [ConversationDTO]
+    }
+    
+    struct ConversationResponse: Codable {
+        let conversation: ConversationDTO
+    }
+    
+    struct CreateConversationRequest: Codable {
+        let title: String?
+        let modelId: String
+    }
+    
+    struct UpdateConversationRequest: Codable {
+        let title: String?
+        let modelId: String?
+    }
+    
+    struct AddMessageRequest: Codable {
+        let role: String
+        let content: String
+        let modelId: String?
+        let isError: Bool?
+        let errorMessage: String?
+    }
+    
+    struct MessageResponse: Codable {
+        let message: ConversationMessageDTO
+    }
+    
+    /// Fetch all conversations for the current user
+    func listConversations() async throws -> [ConversationDTO] {
+        let endpoint = URL(string: AWSConfig.conversationsEndpoint)!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "GET"
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+        
+        let listResponse = try JSONDecoder().decode(ConversationsListResponse.self, from: data)
+        return listResponse.conversations
+    }
+    
+    /// Create a new conversation
+    func createConversation(title: String?, modelId: String) async throws -> ConversationDTO {
+        let endpoint = URL(string: AWSConfig.conversationsEndpoint)!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let requestBody = CreateConversationRequest(title: title, modelId: modelId)
+        request.httpBody = try JSONEncoder().encode(requestBody)
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        guard httpResponse.statusCode == 201 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+        
+        let convResponse = try JSONDecoder().decode(ConversationResponse.self, from: data)
+        return convResponse.conversation
+    }
+    
+    /// Get a conversation with all its messages
+    func getConversation(_ id: String) async throws -> ConversationDTO {
+        let endpoint = URL(string: "\(AWSConfig.conversationsEndpoint)/\(id)")!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "GET"
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        if httpResponse.statusCode == 404 {
+            throw APIError.serverError(404, "Conversation not found")
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+        
+        let convResponse = try JSONDecoder().decode(ConversationResponse.self, from: data)
+        return convResponse.conversation
+    }
+    
+    /// Update a conversation (title, modelId)
+    func updateConversation(_ id: String, title: String? = nil, modelId: String? = nil) async throws -> ConversationDTO {
+        let endpoint = URL(string: "\(AWSConfig.conversationsEndpoint)/\(id)")!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let requestBody = UpdateConversationRequest(title: title, modelId: modelId)
+        request.httpBody = try JSONEncoder().encode(requestBody)
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        if httpResponse.statusCode == 404 {
+            throw APIError.serverError(404, "Conversation not found")
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+        
+        let convResponse = try JSONDecoder().decode(ConversationResponse.self, from: data)
+        return convResponse.conversation
+    }
+    
+    /// Delete a conversation and all its messages
+    func deleteConversation(_ id: String) async throws {
+        let endpoint = URL(string: "\(AWSConfig.conversationsEndpoint)/\(id)")!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "DELETE"
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        if httpResponse.statusCode == 404 {
+            throw APIError.serverError(404, "Conversation not found")
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+    }
+    
+    /// Add a message to a conversation
+    func addMessage(
+        to conversationId: String,
+        role: String,
+        content: String,
+        modelId: String? = nil,
+        isError: Bool? = nil,
+        errorMessage: String? = nil
+    ) async throws -> ConversationMessageDTO {
+        let endpoint = URL(string: "\(AWSConfig.conversationsEndpoint)/\(conversationId)/messages")!
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let token = try await authService.getIdToken()
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let requestBody = AddMessageRequest(
+            role: role,
+            content: content,
+            modelId: modelId,
+            isError: isError,
+            errorMessage: errorMessage
+        )
+        request.httpBody = try JSONEncoder().encode(requestBody)
+        request.timeoutInterval = AWSConfig.requestTimeout
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 401 {
+            throw APIError.unauthorized
+        }
+        
+        if httpResponse.statusCode == 404 {
+            throw APIError.serverError(404, "Conversation not found")
+        }
+        
+        guard httpResponse.statusCode == 201 else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw APIError.serverError(httpResponse.statusCode, errorMessage)
+        }
+        
+        let msgResponse = try JSONDecoder().decode(MessageResponse.self, from: data)
+        return msgResponse.message
+    }
+    
     // MARK: - Models Endpoint
     
     struct ModelsResponse: Codable {

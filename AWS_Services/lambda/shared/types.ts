@@ -38,3 +38,55 @@ export interface ErrorResponse {
   message: string;
   statusCode: number;
 }
+
+// Conversation and Message DTOs for API responses
+
+export interface MessageDTO {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  modelId?: string;
+  isError?: boolean;
+  errorMessage?: string;
+}
+
+export interface ConversationDTO {
+  id: string;
+  title: string;
+  modelId: string;
+  createdAt: string;
+  updatedAt: string;
+  messageCount: number;
+  messages?: MessageDTO[];
+}
+
+export interface ConversationsListResponse {
+  conversations: ConversationDTO[];
+}
+
+export interface ConversationResponse {
+  conversation: ConversationDTO;
+}
+
+export interface MessageResponse {
+  message: MessageDTO;
+}
+
+export interface CreateConversationRequest {
+  title?: string;
+  modelId: string;
+}
+
+export interface UpdateConversationRequest {
+  title?: string;
+  modelId?: string;
+}
+
+export interface AddMessageRequest {
+  role: 'user' | 'assistant';
+  content: string;
+  modelId?: string;
+  isError?: boolean;
+  errorMessage?: string;
+}

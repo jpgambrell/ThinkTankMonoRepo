@@ -16,18 +16,9 @@ struct MessageListView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     // MARK: - Scroll State
-    // Core state: is auto-scroll paused by user interaction?
-    @State private var isAutoScrollPaused: Bool = false
-    // Is user currently dragging the scroll view?
-    @State private var isUserDragging: Bool = false
-    // Is the scroll position near the bottom?
-    @State private var isNearBottom: Bool = true
-    // Reference to scroll proxy for programmatic scrolling
-    @State private var scrollProxy: ScrollViewProxy?
-    // Task for debouncing streaming scroll updates
+    // When true, we stop auto-scrolling and let user read freely
+    @State private var userTookControl: Bool = false
     @State private var scrollTask: Task<Void, Never>?
-    // Track previous message count to detect new user messages
-    @State private var previousMessageCount: Int = 0
     
     private var isStreaming: Bool {
         conversationStore.streamingMessageId != nil
@@ -37,156 +28,97 @@ struct MessageListView: View {
         conversationStore.streamingContent
     }
     
-    // Show follow button when auto-scroll is paused during active content generation
-    private var showScrollToBottomButton: Bool {
-        isAutoScrollPaused && (isStreaming || isLoading)
-    }
-    
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ScrollViewReader { proxy in
-                ScrollView {
-                    LazyVStack(spacing: 24) {
-                        ForEach(messages) { message in
-                            MessageBubbleView(message: message, onRetry: onRetry)
-                                .id(message.id)
-                        }
-                        
-                        // Streaming message view
-                        if isStreaming {
-                            StreamingMessageView(content: streamingContent)
-                                .id("streaming")
-                        } else if isLoading {
-                            // Show typing indicator only before streaming starts
-                            TypingIndicatorView()
-                                .id("typing")
-                        }
-                        
-                        // Invisible anchor at the very bottom
-                        Color.clear
-                            .frame(height: 1)
-                            .id("bottom")
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 24) {
+                    ForEach(messages) { message in
+                        MessageBubbleView(message: message, onRetry: onRetry)
+                            .id(message.id)
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 24)
-                }
-                // Detect user-initiated scrolling via drag gesture
-                // Using simultaneousGesture allows ScrollView to still function normally
-                .simultaneousGesture(
-                    DragGesture(minimumDistance: 5)
-                        .onChanged { _ in
-                            // Mark that user is actively dragging
-                            isUserDragging = true
-                            // Pause auto-scroll only during active content generation
-                            if isStreaming || isLoading {
-                                isAutoScrollPaused = true
-                            }
-                        }
-                        .onEnded { _ in
-                            // User stopped dragging
-                            isUserDragging = false
-                            // If user dragged to bottom, resume auto-scroll
-                            if isNearBottom && isAutoScrollPaused {
-                                isAutoScrollPaused = false
-                            }
-                        }
-                )
-                // Track scroll position to know if we're at bottom
-                .onScrollGeometryChange(for: Bool.self) { geometry in
-                    let visibleHeight = geometry.visibleRect.height
-                    let contentHeight = geometry.contentSize.height
-                    let scrollOffset = geometry.contentOffset.y
-                    let distanceFromBottom = contentHeight - (scrollOffset + visibleHeight)
-                    return distanceFromBottom < 50
-                } action: { _, nowAtBottom in
-                    isNearBottom = nowAtBottom
                     
-                    // If user manually scrolled to bottom (drag ended at bottom), resume auto-scroll
-                    // We check !isUserDragging because onEnded may fire slightly before this
-                    if nowAtBottom && isAutoScrollPaused && !isUserDragging {
-                        // Small delay to ensure drag gesture has fully ended
-                        Task { @MainActor in
-                            try? await Task.sleep(for: .milliseconds(50))
-                            if isNearBottom && !isUserDragging {
-                                isAutoScrollPaused = false
-                            }
-                        }
+                    // Streaming message view
+                    if isStreaming {
+                        StreamingMessageView(content: streamingContent)
+                            .id("streaming")
+                    } else if isLoading {
+                        // Show typing indicator only before streaming starts
+                        TypingIndicatorView()
+                            .id("typing")
                     }
+                    
+                    // Invisible anchor at the very bottom
+                    Color.clear
+                        .frame(height: 1)
+                        .id("bottom")
                 }
-                .onAppear {
-                    scrollProxy = proxy
-                    previousMessageCount = messages.count
+                .padding(.horizontal, 24)
+                .padding(.vertical, 24)
+            }
+            // Detect when user scrolls - they're taking control
+            .onScrollPhaseChange { oldPhase, newPhase in
+                // User started interacting with scroll
+                if newPhase == .interacting {
+                    userTookControl = true
                 }
-                .onChange(of: isStreaming) { oldValue, newValue in
-                    // When streaming STARTS: reset pause state and scroll to follow
-                    if newValue && !oldValue {
-                        isAutoScrollPaused = false
-                        scrollToBottom(proxy: proxy, animated: true, anchorId: "streaming")
-                    }
-                    // When streaming ENDS: if still paused, keep paused (user's choice)
-                    // No action needed
+            }
+            // Track when user scrolls to bottom to give control back
+            .onScrollGeometryChange(for: Bool.self) { geometry in
+                let visibleHeight = geometry.visibleRect.height
+                let contentHeight = geometry.contentSize.height
+                let scrollOffset = geometry.contentOffset.y
+                let distanceFromBottom = contentHeight - (scrollOffset + visibleHeight)
+                // Very close to bottom (within 20px)
+                return distanceFromBottom < 20
+            } action: { _, isAtBottom in
+                // Only resume auto-scroll if user scrolled all the way to bottom
+                if isAtBottom && userTookControl {
+                    userTookControl = false
                 }
-                .onChange(of: messages.count) { oldCount, newCount in
-                    // Detect if a new user message was added (user sent a message)
-                    // User messages mean user wants to see the response
-                    if newCount > oldCount {
-                        if let lastMessage = messages.last, lastMessage.role == .user {
-                            // User just sent a message - resume auto-scroll
-                            isAutoScrollPaused = false
-                            scrollToBottom(proxy: proxy, animated: true)
-                        } else if !isAutoScrollPaused {
-                            // New assistant message and not paused - scroll to it
-                            scrollToBottom(proxy: proxy, animated: true)
-                        }
-                    }
-                    previousMessageCount = newCount
+            }
+            .onChange(of: isStreaming) { oldValue, newValue in
+                // When streaming STARTS: scroll to the streaming message
+                if newValue && !oldValue {
+                    userTookControl = false
+                    scrollToBottom(proxy: proxy, animated: true, anchorId: "streaming")
                 }
-                .onChange(of: isLoading) { _, newValue in
-                    // When loading starts (typing indicator), scroll to show it
-                    if newValue && !isStreaming && !isAutoScrollPaused {
-                        scrollToBottom(proxy: proxy, animated: true, anchorId: "typing")
-                    }
-                }
-                .onChange(of: streamingContent) { _, _ in
-                    // Content is streaming in - scroll if not paused
-                    if !isAutoScrollPaused {
-                        scheduleStreamingScroll(proxy: proxy)
+            }
+            .onChange(of: messages.count) { oldCount, newCount in
+                // New message added
+                if newCount > oldCount {
+                    if let lastMessage = messages.last, lastMessage.role == .user {
+                        // User sent a message - they want to see the response
+                        userTookControl = false
+                        scrollToBottom(proxy: proxy, animated: true)
+                    } else if !userTookControl {
+                        // New assistant message and user hasn't taken control
+                        scrollToBottom(proxy: proxy, animated: true)
                     }
                 }
             }
-            
-            // Floating "Follow" button - appears when user has paused auto-scroll
-            if showScrollToBottomButton {
-                ScrollToBottomButton {
-                    resumeAutoScroll()
+            .onChange(of: isLoading) { _, newValue in
+                // When loading starts, scroll to show typing indicator (if user hasn't taken control)
+                if newValue && !isStreaming && !userTookControl {
+                    scrollToBottom(proxy: proxy, animated: true, anchorId: "typing")
                 }
-                .padding(.bottom, 16)
-                .transition(.opacity.combined(with: .scale))
+            }
+            .onChange(of: streamingContent) { _, _ in
+                // Content is streaming in - only scroll if user hasn't taken control
+                if !userTookControl {
+                    scheduleStreamingScroll(proxy: proxy)
+                }
             }
         }
-        .animation(.easeInOut(duration: 0.2), value: showScrollToBottomButton)
     }
     
     // MARK: - Private Methods
-    
-    /// Resume auto-scrolling and immediately scroll to current content
-    private func resumeAutoScroll() {
-        isAutoScrollPaused = false
-        isNearBottom = true
-        
-        if let proxy = scrollProxy {
-            scrollToBottom(proxy: proxy, animated: true, anchorId: currentScrollAnchor())
-            // Also schedule an immediate streaming scroll update
-            scheduleStreamingScroll(proxy: proxy)
-        }
-    }
     
     /// Debounced scroll during streaming to avoid excessive scroll calls
     private func scheduleStreamingScroll(proxy: ScrollViewProxy) {
         scrollTask?.cancel()
         scrollTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(50))
-            guard !Task.isCancelled, !isAutoScrollPaused else { return }
+            guard !Task.isCancelled, !userTookControl else { return }
             scrollToBottom(proxy: proxy, animated: false, anchorId: currentScrollAnchor())
         }
     }
@@ -216,40 +148,6 @@ struct MessageListView: View {
             }
         } else {
             proxy.scrollTo(anchorId, anchor: .bottom)
-        }
-    }
-}
-
-// Floating button to scroll to bottom and resume auto-scroll
-struct ScrollToBottomButton: View {
-    let action: () -> Void
-    
-    @Environment(\.colorScheme) private var colorScheme
-    @State private var isHovered: Bool = false
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 6) {
-                Image(systemName: "arrow.down")
-                    .font(.system(size: 12, weight: .semibold))
-                Text("Follow")
-                    .font(.system(size: 12, weight: .medium))
-            }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(
-                Capsule()
-                    .fill(Color.brandPrimary)
-                    .shadow(color: .black.opacity(0.2), radius: 4, y: 2)
-            )
-            .scaleEffect(isHovered ? 1.05 : 1.0)
-        }
-        .buttonStyle(.plain)
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
         }
     }
 }
