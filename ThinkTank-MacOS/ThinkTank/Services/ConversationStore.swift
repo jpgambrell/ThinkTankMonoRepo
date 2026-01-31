@@ -499,14 +499,14 @@ final class ConversationStore {
         let modelId = conversation.modelId
         
         do {
+            // Capture self explicitly for @Sendable closure
+            let store = self
             try await apiClient.sendMessageStreaming(
                 conversationId: chatConversationId,
                 modelId: modelId,
                 messages: allMessages
-            ) { [weak self] chunk in
-                await MainActor.run {
-                    self?.streamingContent += chunk
-                }
+            ) { chunk in
+                await store.appendStreamingContent(chunk)
             }
             
             // Create final message from accumulated content
@@ -528,6 +528,11 @@ final class ConversationStore {
             streamingContent = ""
             throw error
         }
+    }
+    
+    /// Helper method to append streaming content (for @Sendable closure compatibility)
+    private func appendStreamingContent(_ chunk: String) {
+        streamingContent += chunk
     }
     
     private func generateTitle(from content: String) -> String {

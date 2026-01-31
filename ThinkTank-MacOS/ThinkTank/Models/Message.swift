@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum MessageRole: String, Codable {
+enum MessageRole: String, Codable, Sendable {
     case user
     case assistant
 }
 
-struct Message: Identifiable, Codable, Equatable {
+struct Message: Identifiable, Codable, Equatable, Sendable {
     let id: UUID
     let role: MessageRole
     let content: String
@@ -21,7 +21,7 @@ struct Message: Identifiable, Codable, Equatable {
     let errorMessage: String?
     let isError: Bool
     
-    init(
+    nonisolated init(
         id: UUID = UUID(),
         role: MessageRole,
         content: String,
@@ -40,7 +40,7 @@ struct Message: Identifiable, Codable, Equatable {
     }
     
     /// Create an error message for display
-    static func errorMessage(for error: Error, originalContent: String = "") -> Message {
+    nonisolated static func errorMessage(for error: Error, originalContent: String = "") -> Message {
         let errorText: String
         if let localizedError = error as? LocalizedError {
             errorText = localizedError.localizedDescription

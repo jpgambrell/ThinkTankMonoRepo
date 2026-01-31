@@ -2,7 +2,14 @@ import Foundation
 
 /// Real API client for ThinkTank backend
 actor APIClient {
-    private let authService = CognitoAuthService.shared
+    
+    /// Get the ID token from the auth service (accessing @MainActor from actor)
+    private func getIdToken() async throws -> String {
+        try await MainActor.run {
+            // Access the @MainActor isolated shared instance
+            CognitoAuthService.shared
+        }.getIdToken()
+    }
     
     // MARK: - Chat Endpoint
     
@@ -75,7 +82,7 @@ actor APIClient {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // Add authentication token
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = try JSONEncoder().encode(requestBody)
@@ -144,7 +151,7 @@ actor APIClient {
         request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
         
         // Add authentication token (validated by Lambda)
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = try JSONEncoder().encode(requestBody)
@@ -262,7 +269,7 @@ actor APIClient {
         var request = URLRequest(url: endpoint)
         request.httpMethod = "GET"
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.timeoutInterval = AWSConfig.requestTimeout
         
@@ -293,7 +300,7 @@ actor APIClient {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let requestBody = CreateConversationRequest(title: title, modelId: modelId)
@@ -326,7 +333,7 @@ actor APIClient {
         var request = URLRequest(url: endpoint)
         request.httpMethod = "GET"
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.timeoutInterval = AWSConfig.requestTimeout
         
@@ -361,7 +368,7 @@ actor APIClient {
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let requestBody = UpdateConversationRequest(title: title, modelId: modelId)
@@ -398,7 +405,7 @@ actor APIClient {
         var request = URLRequest(url: endpoint)
         request.httpMethod = "DELETE"
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.timeoutInterval = AWSConfig.requestTimeout
         
@@ -437,7 +444,7 @@ actor APIClient {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let requestBody = AddMessageRequest(
@@ -495,7 +502,7 @@ actor APIClient {
         request.httpMethod = "GET"
         
         // Add authentication token
-        let token = try await authService.getIdToken()
+        let token = try await getIdToken()
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         request.timeoutInterval = AWSConfig.requestTimeout
