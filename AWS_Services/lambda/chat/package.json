@@ -1,9 +1,9 @@
 {
   "name": "thinktank-chat-function",
   "version": "1.0.0",
-  "description": "Lambda function for chat with Bedrock",
+  "description": "Lambda function for chat with OpenRouter",
   "main": "index.js",
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.490.0"
+    "@aws-sdk/client-secrets-manager": "^3.490.0"
   }
 }

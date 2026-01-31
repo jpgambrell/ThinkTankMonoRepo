@@ -22,10 +22,12 @@ struct AIModel: Identifiable, Equatable, Hashable {
             return Color(hex: "059669")
         case "deepseek":
             return Color(hex: "4D6BFE")
-        case "amazon":
-            return Color(hex: "FF9900")
+        case "openai":
+            return Color(hex: "10A37F")
         case "meta":
             return Color(hex: "0668E1")
+        case "google":
+            return Color(hex: "4285F4")
         case "mistral":
             return Color(hex: "F54E42")
         default:
@@ -38,29 +40,29 @@ struct AIModel: Identifiable, Equatable, Hashable {
     }
 }
 
-// MARK: - Available Models
+// MARK: - Available Models (OpenRouter)
 extension AIModel {
     static let availableModels: [AIModel] = [
-        // Anthropic Claude 4.5 Family
+        // Anthropic Claude Family
         AIModel(
-            id: "anthropic.claude-opus-4-5",
-            displayName: "Claude Opus 4.5",
-            provider: "Anthropic",
-            description: "Most capable",
-            maxTokens: 200000,
-            supportsStreaming: true
-        ),
-        AIModel(
-            id: "anthropic.claude-sonnet-4-5",
-            displayName: "Claude Sonnet 4.5",
+            id: "anthropic/claude-sonnet-4",
+            displayName: "Claude Sonnet 4",
             provider: "Anthropic",
             description: "Fast & intelligent",
             maxTokens: 200000,
             supportsStreaming: true
         ),
         AIModel(
-            id: "anthropic.claude-haiku-4-5",
-            displayName: "Claude Haiku 4.5",
+            id: "anthropic/claude-opus-4",
+            displayName: "Claude Opus 4",
+            provider: "Anthropic",
+            description: "Most capable",
+            maxTokens: 200000,
+            supportsStreaming: true
+        ),
+        AIModel(
+            id: "anthropic/claude-3.5-haiku",
+            displayName: "Claude 3.5 Haiku",
             provider: "Anthropic",
             description: "Fastest responses",
             maxTokens: 200000,
@@ -68,11 +70,46 @@ extension AIModel {
         ),
         // DeepSeek
         AIModel(
-            id: "deepseek.r1",
+            id: "deepseek/deepseek-r1",
             displayName: "DeepSeek-R1",
             provider: "DeepSeek",
             description: "Advanced reasoning",
             maxTokens: 128000,
+            supportsStreaming: true
+        ),
+        // OpenAI
+        AIModel(
+            id: "openai/gpt-4o",
+            displayName: "GPT-4o",
+            provider: "OpenAI",
+            description: "Multimodal flagship",
+            maxTokens: 128000,
+            supportsStreaming: true
+        ),
+        AIModel(
+            id: "openai/gpt-4o-mini",
+            displayName: "GPT-4o Mini",
+            provider: "OpenAI",
+            description: "Fast & affordable",
+            maxTokens: 128000,
+            supportsStreaming: true
+        ),
+        // Meta Llama
+        AIModel(
+            id: "meta-llama/llama-3.3-70b-instruct",
+            displayName: "Llama 3.3 70B",
+            provider: "Meta",
+            description: "Open source",
+            maxTokens: 131072,
+            supportsStreaming: true
+        ),
+        // Google
+        AIModel(
+            id: "google/gemini-2.0-flash-001",
+            displayName: "Gemini 2.0 Flash",
+            provider: "Google",
+            description: "Ultra-fast multimodal",
+            maxTokens: 1048576,
             supportsStreaming: true
         )
     ]

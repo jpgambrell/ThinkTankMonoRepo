@@ -5,6 +5,7 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
 import * as path from 'path';
 
@@ -18,7 +19,14 @@ export class ApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id, props);
 
-    // Create IAM role for Lambda functions with Bedrock access
+    // Import the OpenRouter API key secret
+    const openRouterSecret = secretsmanager.Secret.fromSecretNameV2(
+      this,
+      'OpenRouterSecret',
+      'thinktank/openrouter'
+    );
+
+    // Create IAM role for Lambda functions
     const lambdaRole = new iam.Role(this, 'ThinkTankLambdaRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       description: 'Execution role for ThinkTank Lambda functions',
@@ -27,40 +35,17 @@ export class ApiStack extends cdk.Stack {
       ],
     });
 
-    // Add Bedrock permissions
-    lambdaRole.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: [
-          'bedrock:InvokeModel',
-          'bedrock:InvokeModelWithResponseStream',
-          'bedrock:ListFoundationModels',
-          'bedrock:GetFoundationModel',
-        ],
-        resources: ['*'],
-      })
-    );
-
-    // Add AWS Marketplace permissions for model access
-    lambdaRole.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: [
-          'aws-marketplace:ViewSubscriptions',
-          'aws-marketplace:Subscribe',
-          'aws-marketplace:Unsubscribe',
-        ],
-        resources: ['*'],
-      })
-    );
+    // Grant Lambda read access to the OpenRouter secret
+    openRouterSecret.grantRead(lambdaRole);
 
     // Common Lambda environment variables
     const commonEnvironment = {
       USER_POOL_ID: props.userPool.userPoolId,
       REGION: this.region,
+      OPENROUTER_SECRET_ARN: openRouterSecret.secretArn,
     };
 
-    // POST /chat - Send message to Bedrock (NodejsFunction auto-compiles TypeScript)
+    // POST /chat - Send message to OpenRouter (NodejsFunction auto-compiles TypeScript)
     const chatFunction = new NodejsFunction(this, 'ChatFunction', {
       entry: path.join(__dirname, '../../lambda/chat/index.ts'),
       handler: 'handler',
@@ -78,7 +63,7 @@ export class ApiStack extends cdk.Stack {
       },
     });
 
-    // GET /models - List available Bedrock models
+    // GET /models - List available OpenRouter models
     const modelsFunction = new NodejsFunction(this, 'ModelsFunction', {
       entry: path.join(__dirname, '../../lambda/models/index.ts'),
       handler: 'handler',

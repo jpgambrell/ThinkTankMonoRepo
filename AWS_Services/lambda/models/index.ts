@@ -2,49 +2,68 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ModelsResponse, ModelInfo } from '../shared/types';
 import { success, internalError } from '../shared/response';
 
-// Static list of available Bedrock models
-// In production, this could query Bedrock ListFoundationModels API
+// Available models via OpenRouter
+// See https://openrouter.ai/models for full list and pricing
 const AVAILABLE_MODELS: ModelInfo[] = [
+  // Anthropic Claude Family
   {
-    modelId: 'anthropic.claude-3-5-sonnet',
-    displayName: 'Claude 3.5 Sonnet',
+    modelId: 'anthropic/claude-sonnet-4',
+    displayName: 'Claude Sonnet 4',
     provider: 'Anthropic',
     maxTokens: 200000,
     streaming: true,
   },
   {
-    modelId: 'anthropic.claude-3-opus',
-    displayName: 'Claude 3 Opus',
+    modelId: 'anthropic/claude-opus-4',
+    displayName: 'Claude Opus 4',
     provider: 'Anthropic',
     maxTokens: 200000,
     streaming: true,
   },
   {
-    modelId: 'anthropic.claude-3-haiku',
-    displayName: 'Claude 3 Haiku',
+    modelId: 'anthropic/claude-3.5-haiku',
+    displayName: 'Claude 3.5 Haiku',
     provider: 'Anthropic',
     maxTokens: 200000,
     streaming: true,
   },
+  // DeepSeek
   {
-    modelId: 'amazon.titan-text-express',
-    displayName: 'Titan Text Express',
-    provider: 'Amazon',
-    maxTokens: 8000,
+    modelId: 'deepseek/deepseek-r1',
+    displayName: 'DeepSeek-R1',
+    provider: 'DeepSeek',
+    maxTokens: 128000,
+    streaming: true,
+  },
+  // OpenAI
+  {
+    modelId: 'openai/gpt-4o',
+    displayName: 'GPT-4o',
+    provider: 'OpenAI',
+    maxTokens: 128000,
     streaming: true,
   },
   {
-    modelId: 'meta.llama3-70b',
-    displayName: 'Llama 3 70B',
+    modelId: 'openai/gpt-4o-mini',
+    displayName: 'GPT-4o Mini',
+    provider: 'OpenAI',
+    maxTokens: 128000,
+    streaming: true,
+  },
+  // Meta Llama
+  {
+    modelId: 'meta-llama/llama-3.3-70b-instruct',
+    displayName: 'Llama 3.3 70B',
     provider: 'Meta',
-    maxTokens: 8000,
+    maxTokens: 131072,
     streaming: true,
   },
+  // Google
   {
-    modelId: 'mistral.mixtral-8x7b',
-    displayName: 'Mixtral 8x7B',
-    provider: 'Mistral',
-    maxTokens: 32000,
+    modelId: 'google/gemini-2.0-flash-001',
+    displayName: 'Gemini 2.0 Flash',
+    provider: 'Google',
+    maxTokens: 1048576,
     streaming: true,
   },
 ];
@@ -59,7 +78,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
     // In a real implementation, you might:
     // 1. Filter models based on user permissions/subscription
-    // 2. Query Bedrock API for dynamic model availability
+    // 2. Query OpenRouter API for dynamic model availability
     // 3. Return model pricing information
 
     const response: ModelsResponse = {
