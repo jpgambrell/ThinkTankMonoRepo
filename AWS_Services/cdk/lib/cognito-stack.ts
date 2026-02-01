@@ -44,7 +44,7 @@ export class CognitoStack extends cdk.Stack {
       standardAttributes: {
         email: {
           required: true,
-          mutable: false,
+          mutable: true,  // Must be true to allow guest account email upgrades
         },
         fullname: {
           required: false,

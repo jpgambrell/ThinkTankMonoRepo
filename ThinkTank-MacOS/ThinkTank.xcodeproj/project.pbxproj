@@ -36,6 +36,8 @@
 		C9CA80312F2C045F00756F8C /* AWSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA802C2F2C045F00756F8C /* AWSConfig.swift */; };
 		C9CA80352F2C047100756F8C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80322F2C047100756F8C /* LoginView.swift */; };
 		C9CA80362F2C047100756F8C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80332F2C047100756F8C /* RegistrationView.swift */; };
+		C9CA80372F2C048000756F8C /* GuestMessageBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */; };
+		C9CA80392F2C048000756F8C /* GuestUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		C9CA802D2F2C045F00756F8C /* CognitoAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitoAuthService.swift; sourceTree = "<group>"; };
 		C9CA80322F2C047100756F8C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C9CA80332F2C047100756F8C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestMessageBanner.swift; sourceTree = "<group>"; };
+		C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestUpgradeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 				C9CA7FFD2F2BD08F00756F8C /* ChatInputView.swift */,
 				C9CA7FFE2F2BD08F00756F8C /* ChatView.swift */,
 				C9CA7FFF2F2BD08F00756F8C /* EmptyStateView.swift */,
+				C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */,
 				C9CA80002F2BD08F00756F8C /* MessageBubbleView.swift */,
 				C9CA80012F2BD08F00756F8C /* MessageListView.swift */,
 				C9CA80022F2BD08F00756F8C /* ModelSelectorView.swift */,
@@ -200,6 +205,7 @@
 		C9CA80342F2C047100756F8C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */,
 				C9CA80322F2C047100756F8C /* LoginView.swift */,
 				C9CA80332F2C047100756F8C /* RegistrationView.swift */,
 			);
@@ -303,6 +309,8 @@
 				C9CA80262F2BD08F00756F8C /* ModelSelectorView.swift in Sources */,
 				C9CA80352F2C047100756F8C /* LoginView.swift in Sources */,
 				C9CA80362F2C047100756F8C /* RegistrationView.swift in Sources */,
+				C9CA80372F2C048000756F8C /* GuestMessageBanner.swift in Sources */,
+				C9CA80392F2C048000756F8C /* GuestUpgradeView.swift in Sources */,
 				C9CA80272F2BD08F00756F8C /* ThinkTankApp.swift in Sources */,
 				C9CA80282F2BD08F00756F8C /* ContentView.swift in Sources */,
 				C9CA80292F2BD08F00756F8C /* ThemeManager.swift in Sources */,

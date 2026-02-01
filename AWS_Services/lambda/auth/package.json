@@ -1,0 +1,9 @@
+{
+  "name": "thinktank-auth-function",
+  "version": "1.0.0",
+  "description": "Lambda function for auth operations including guest account upgrade",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.490.0"
+  }
+}

@@ -99,11 +99,50 @@ struct LoginView: View {
                     }
                     .buttonStyle(.plain)
                     .frame(height: 44)
-                    .background(Color.brandPrimary)
+                    .background(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.063, green: 0.725, blue: 0.506), // #10B981
+                                Color(red: 0.020, green: 0.588, blue: 0.412)  // #059669
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(.rect(cornerRadius: 8))
+                    .shadow(color: Color.brandPrimary.opacity(0.4), radius: 15, x: 0, y: 8)
                     .disabled(authService.isLoading || !isFormValid)
                     .opacity(isFormValid ? 1.0 : 0.5)
                     .padding(.top, 8)
+                    
+                    // Try the App Button (Guest mode)
+                    Button(action: tryAsGuest) {
+                        HStack {
+                            if authService.isLoading {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                                    .controlSize(.small)
+                            } else {
+                                Image(systemName: "sparkles")
+                                Text("Try the App")
+                                    .fontWeight(.medium)
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.plain)
+                    .frame(height: 44)
+                    .background(Color(.textBackgroundColor))
+                    .clipShape(.rect(cornerRadius: 8))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    )
+                    .disabled(authService.isLoading)
+                    
+                    Text("Try with 10 free messages, no sign-up required")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.secondary)
                     
                     // Register Link
                     HStack(spacing: 4) {
@@ -142,6 +181,18 @@ struct LoginView: View {
         Task {
             do {
                 try await authService.signIn(email: email, password: password)
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    private func tryAsGuest() {
+        errorMessage = nil
+        
+        Task {
+            do {
+                try await authService.createGuestAccount()
             } catch {
                 errorMessage = error.localizedDescription
             }

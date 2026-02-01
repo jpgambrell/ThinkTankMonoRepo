@@ -17,7 +17,45 @@ final class CognitoAuthService {
     // Singleton instance
     static let shared = CognitoAuthService()
     
+    // MARK: - Guest Account Constants
+    @ObservationIgnored private let isGuestAccountKey = "com.thinktank.isGuestAccount"
+    @ObservationIgnored private let guestEmailKey = "com.thinktank.guestEmail"
+    @ObservationIgnored private let guestPasswordKey = "com.thinktank.guestPassword"
+    @ObservationIgnored private let guestMessageCountKey = "com.thinktank.guestMessageCount"
+    @ObservationIgnored private let maxGuestMessages = 10
+    
+    // MARK: - Guest Account Properties (stored for @Observable tracking)
+    
+    /// Check if current account is a guest account
+    var isGuestAccount: Bool = false {
+        didSet { UserDefaults.standard.set(isGuestAccount, forKey: isGuestAccountKey) }
+    }
+    
+    /// Current guest message count
+    var guestMessageCount: Int = 0 {
+        didSet { UserDefaults.standard.set(guestMessageCount, forKey: guestMessageCountKey) }
+    }
+    
+    /// Check if guest user can send more messages
+    var canGuestSendMessage: Bool {
+        !isGuestAccount || guestMessageCount < maxGuestMessages
+    }
+    
+    /// Remaining guest messages before requiring upgrade
+    var remainingGuestMessages: Int {
+        max(0, maxGuestMessages - guestMessageCount)
+    }
+    
+    /// Maximum allowed guest messages
+    var maxAllowedGuestMessages: Int {
+        maxGuestMessages
+    }
+    
     private init() {
+        // Load guest state from UserDefaults
+        isGuestAccount = UserDefaults.standard.bool(forKey: isGuestAccountKey)
+        guestMessageCount = UserDefaults.standard.integer(forKey: guestMessageCountKey)
+        
         // Check for stored tokens on init
         loadStoredTokens()
     }
@@ -130,6 +168,9 @@ final class CognitoAuthService {
         UserDefaults.standard.removeObject(forKey: "idToken")
         UserDefaults.standard.removeObject(forKey: "accessToken")
         UserDefaults.standard.removeObject(forKey: "refreshToken")
+        
+        // Clear guest data
+        clearGuestData()
     }
     
     /// Get the current ID token for API requests
@@ -141,7 +182,202 @@ final class CognitoAuthService {
         throw AuthError.notAuthenticated
     }
     
+    // MARK: - Guest Account Methods
+    
+    /// Create a silent guest account with random credentials
+    func createGuestAccount() async throws {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+        
+        let guestId = UUID().uuidString.lowercased()
+        let guestEmail = "guest_\(guestId)@thinktank.guest"
+        let guestPassword = generateSecurePassword()
+        
+        // Sign up with guest credentials (auto-confirmed via Lambda trigger)
+        try await signUpInternal(email: guestEmail, password: guestPassword, fullName: "Guest User")
+        
+        // Sign in immediately
+        try await signInInternal(email: guestEmail, password: guestPassword)
+        
+        // Mark as guest account and store credentials for re-auth
+        isGuestAccount = true
+        UserDefaults.standard.set(guestEmail, forKey: guestEmailKey)
+        UserDefaults.standard.set(guestPassword, forKey: guestPasswordKey)
+        guestMessageCount = 0
+        
+        isAuthenticated = true
+    }
+    
+    /// Upgrade guest account to full account
+    func upgradeGuestAccount(email: String, password: String, fullName: String) async throws {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+        
+        guard let token = idToken else {
+            throw AuthError.notAuthenticated
+        }
+        
+        // Call the upgrade endpoint
+        let endpoint = "\(AWSConfig.apiBaseUrl)auth/upgrade"
+        
+        let payload: [String: Any] = [
+            "email": email,
+            "password": password,
+            "fullName": fullName
+        ]
+        
+        var request = URLRequest(url: URL(string: endpoint)!)
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response")
+        }
+        
+        if httpResponse.statusCode == 200 {
+            // Clear guest flags
+            clearGuestData()
+            
+            // Sign in with new credentials to get fresh tokens
+            try await signIn(email: email, password: password)
+            
+            // Update user info
+            currentUser = User(fullName: fullName, email: email)
+        } else {
+            if let errorResponse = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let errorMessage = errorResponse["error"] as? String {
+                throw AuthError.upgradeFailed(errorMessage)
+            }
+            throw AuthError.upgradeFailed("Upgrade failed")
+        }
+    }
+    
+    /// Increment guest message count (call after successful message send)
+    func incrementGuestMessageCount() {
+        if isGuestAccount {
+            guestMessageCount += 1
+        }
+    }
+    
+    /// Clear all guest-related data
+    func clearGuestData() {
+        isGuestAccount = false
+        guestMessageCount = 0
+        UserDefaults.standard.removeObject(forKey: guestEmailKey)
+        UserDefaults.standard.removeObject(forKey: guestPasswordKey)
+    }
+    
+    /// Generate a secure random password that meets Cognito requirements
+    private func generateSecurePassword() -> String {
+        let lowercase = "abcdefghijklmnopqrstuvwxyz"
+        let uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let digits = "0123456789"
+        let special = "!@#$%^&*"
+        
+        // Ensure at least one of each required character type
+        var password = ""
+        password += String(lowercase.randomElement()!)
+        password += String(uppercase.randomElement()!)
+        password += String(digits.randomElement()!)
+        password += String(special.randomElement()!)
+        
+        // Fill remaining with random characters from all sets
+        let allChars = lowercase + uppercase + digits + special
+        for _ in 0..<12 {
+            password += String(allChars.randomElement()!)
+        }
+        
+        // Shuffle the password
+        return String(password.shuffled())
+    }
+    
     // MARK: - Private Methods
+    
+    /// Internal sign up without loading state management (for guest account creation)
+    private func signUpInternal(email: String, password: String, fullName: String) async throws {
+        let endpoint = "https://cognito-idp.\(AWSConfig.cognitoRegion).amazonaws.com/"
+        
+        let payload: [String: Any] = [
+            "ClientId": AWSConfig.cognitoClientId,
+            "Username": email,
+            "Password": password,
+            "UserAttributes": [
+                ["Name": "email", "Value": email],
+                ["Name": "name", "Value": fullName]
+            ]
+        ]
+        
+        var request = URLRequest(url: URL(string: endpoint)!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-amz-json-1.1", forHTTPHeaderField: "Content-Type")
+        request.setValue("AWSCognitoIdentityProviderService.SignUp", forHTTPHeaderField: "X-Amz-Target")
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response")
+        }
+        
+        if httpResponse.statusCode != 200 {
+            let errorResponse = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let message = errorResponse?["message"] as? String ?? "Registration failed"
+            throw AuthError.registrationFailed(message)
+        }
+    }
+    
+    /// Internal sign in without loading state management (for guest account creation)
+    private func signInInternal(email: String, password: String) async throws {
+        let endpoint = "https://cognito-idp.\(AWSConfig.cognitoRegion).amazonaws.com/"
+        
+        let payload: [String: Any] = [
+            "ClientId": AWSConfig.cognitoClientId,
+            "AuthFlow": "USER_PASSWORD_AUTH",
+            "AuthParameters": [
+                "USERNAME": email,
+                "PASSWORD": password
+            ]
+        ]
+        
+        var request = URLRequest(url: URL(string: endpoint)!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-amz-json-1.1", forHTTPHeaderField: "Content-Type")
+        request.setValue("AWSCognitoIdentityProviderService.InitiateAuth", forHTTPHeaderField: "X-Amz-Target")
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response")
+        }
+        
+        if httpResponse.statusCode == 200 {
+            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            guard let authResult = json?["AuthenticationResult"] as? [String: Any] else {
+                throw AuthError.signInFailed("Invalid response format")
+            }
+            
+            idToken = authResult["IdToken"] as? String
+            accessToken = authResult["AccessToken"] as? String
+            refreshToken = authResult["RefreshToken"] as? String
+            
+            // Store tokens securely
+            storeTokens()
+            
+            // Parse user info from ID token
+            try parseUserFromToken()
+        } else {
+            let errorResponse = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let message = errorResponse?["message"] as? String ?? "Sign in failed"
+            throw AuthError.signInFailed(message)
+        }
+    }
     
     private func storeTokens() {
         if let idToken = idToken {
@@ -213,6 +449,8 @@ enum AuthError: LocalizedError {
     case signInFailed(String)
     case notAuthenticated
     case invalidToken
+    case upgradeFailed(String)
+    case guestLimitReached
     
     var errorDescription: String? {
         switch self {
@@ -226,6 +464,10 @@ enum AuthError: LocalizedError {
             return "Not authenticated"
         case .invalidToken:
             return "Invalid authentication token"
+        case .upgradeFailed(let message):
+            return "Account upgrade failed: \(message)"
+        case .guestLimitReached:
+            return "You've used all 10 free messages. Create an account to continue chatting."
         }
     }
 }

@@ -56,4 +56,5 @@ struct MainView: View {
     MainView()
         .environment(ConversationStore())
         .environment(ThemeManager())
+        .environment(CognitoAuthService.shared)
 }

@@ -137,6 +137,36 @@ export class ApiStack extends cdk.Stack {
       },
     });
 
+    // Auth Lambda for guest account upgrade
+    const authFunction = new NodejsFunction(this, 'AuthFunction', {
+      entry: path.join(__dirname, '../../lambda/auth/index.ts'),
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_20_X,
+      role: lambdaRole,
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+      environment: commonEnvironment,
+      logRetention: logs.RetentionDays.ONE_WEEK,
+      bundling: {
+        externalModules: ['@aws-sdk/*'],
+        minify: false,
+        sourceMap: true,
+        forceDockerBundling: false,
+      },
+    });
+
+    // Grant auth function permissions to update Cognito user attributes
+    authFunction.addToRolePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: [
+          'cognito-idp:AdminUpdateUserAttributes',
+          'cognito-idp:AdminSetUserPassword',
+        ],
+        resources: [props.userPool.userPoolArn],
+      })
+    );
+
     // Create API Gateway with CORS
     this.api = new apigateway.RestApi(this, 'ThinkTankApi', {
       restApiName: 'ThinkTank API',
@@ -240,6 +270,21 @@ export class ApiStack extends cdk.Stack {
     
     // POST /conversations/{conversationId}/messages - Add message
     messagesResource.addMethod('POST', conversationsIntegration, {
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
+
+    // Auth endpoints
+    const authIntegration = new apigateway.LambdaIntegration(authFunction);
+    
+    // /auth resource
+    const authResource = this.api.root.addResource('auth');
+    
+    // /auth/upgrade resource
+    const upgradeResource = authResource.addResource('upgrade');
+    
+    // PATCH /auth/upgrade - Upgrade guest account to full account
+    upgradeResource.addMethod('PATCH', authIntegration, {
       authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });

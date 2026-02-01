@@ -11,9 +11,15 @@ info:
     ```
     
     ## Endpoints Overview
+    - **Auth**: Account management (upgrade guest accounts)
     - **Chat**: Send messages to AI models (streaming and non-streaming)
     - **Models**: List available AI models
     - **Conversations**: CRUD operations for chat history
+    
+    ## Guest/Trial Mode
+    Users can try the app with up to 10 free messages without creating an account.
+    Guest accounts can be upgraded to full accounts via the `/auth/upgrade` endpoint,
+    preserving all conversation history.
   version: 1.0.0
   contact:
     name: ThinkTank Support
@@ -33,6 +39,8 @@ tags:
     description: List available AI models
   - name: Conversations
     description: Manage chat history and conversations
+  - name: Auth
+    description: Authentication and account management
 
 components:
   securitySchemes:
@@ -268,6 +276,41 @@ components:
         message:
           type: string
           example: "Conversation deleted successfully"
+
+    # Auth Schemas
+    UpgradeGuestRequest:
+      type: object
+      required:
+        - email
+        - password
+        - fullName
+      properties:
+        email:
+          type: string
+          format: email
+          description: New email address for the account
+          example: "user@example.com"
+        password:
+          type: string
+          format: password
+          description: New password (min 8 chars, must include uppercase, lowercase, and number)
+          example: "SecurePass123"
+        fullName:
+          type: string
+          description: User's full name
+          example: "John Doe"
+
+    UpgradeGuestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the upgrade was successful
+          example: true
+        message:
+          type: string
+          description: Status message
+          example: "Account upgraded successfully. Please sign in with your new credentials."
 
     # Error Schemas
     ErrorResponse:
@@ -616,6 +659,87 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/upgrade:
+    patch:
+      tags:
+        - Auth
+      summary: Upgrade guest account to full account
+      description: |
+        Upgrades a guest (trial) account to a full account with real credentials.
+        
+        **Requirements:**
+        - Must be authenticated as a guest user (email ends with @thinktank.guest)
+        - New email must be a valid, non-guest email address
+        - Password must meet Cognito requirements (8+ chars, uppercase, lowercase, number)
+        
+        After upgrading, the user must sign in again with their new credentials.
+        All existing conversations and messages are preserved.
+      operationId: upgradeGuestAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeGuestRequest'
+            example:
+              email: "user@example.com"
+              password: "SecurePass123"
+              fullName: "John Doe"
+      responses:
+        '200':
+          description: Account upgraded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeGuestResponse'
+        '400':
+          description: Bad request (invalid email, weak password, or not a guest account)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notGuest:
+                  summary: Not a guest account
+                  value:
+                    error: "Bad Request"
+                    message: "Only guest accounts can be upgraded"
+                    statusCode: 400
+                invalidEmail:
+                  summary: Invalid email
+                  value:
+                    error: "Bad Request"
+                    message: "Invalid email address"
+                    statusCode: 400
+                weakPassword:
+                  summary: Weak password
+                  value:
+                    error: "Bad Request"
+                    message: "Password must be at least 8 characters"
+                    statusCode: 400
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Conflict"
+                message: "An account with this email already exists"
+                statusCode: 409
         '500':
           description: Internal server error
           content:

@@ -20,7 +20,7 @@ struct UserProfileView: View {
         HStack(spacing: 12) {
             // Avatar
             Circle()
-                .fill(Color.brandPrimary)
+                .fill(authService.isGuestAccount ? Color.gray : Color.brandPrimary)
                 .frame(width: 36, height: 36)
                 .overlay(
                     Text(user.avatarInitials)
@@ -30,11 +30,23 @@ struct UserProfileView: View {
             
             // Name and Email
             VStack(alignment: .leading, spacing: 2) {
-                Text(user.fullName)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                HStack(spacing: 6) {
+                    Text(authService.isGuestAccount ? "Guest User" : user.fullName)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                    
+                    if authService.isGuestAccount {
+                        Text("Trial")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(Color.brandPrimary)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.brandPrimaryLight)
+                            .clipShape(Capsule())
+                    }
+                }
                 
-                Text(user.email)
+                Text(authService.isGuestAccount ? "Guest Account" : user.email)
                     .font(.system(size: 12))
                     .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }

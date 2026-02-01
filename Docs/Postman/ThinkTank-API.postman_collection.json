@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "thinktank-api-collection",
     "name": "ThinkTank API",
-    "description": "API collection for ThinkTank macOS AI Chat Application.\n\n## Setup Instructions\n\n1. Set up the environment variables in the \"ThinkTank Environment\"\n2. Get your Cognito tokens by signing in (use the Auth folder requests)\n3. The `id_token` will be automatically used for authentication\n\n## Available Endpoints\n\n- **Chat**: Send messages to AI models\n- **Models**: List available AI models\n- **Conversations**: CRUD operations for chat history",
+    "description": "API collection for ThinkTank macOS AI Chat Application.\n\n## Setup Instructions\n\n1. Set up the environment variables in the \"ThinkTank Environment\"\n2. Get your Cognito tokens by signing in (use the Auth folder requests)\n3. The `id_token` will be automatically used for authentication\n\n## Available Endpoints\n\n- **Auth**: Sign in, sign up, refresh tokens, upgrade guest accounts\n- **Chat**: Send messages to AI models\n- **Models**: List available AI models\n- **Conversations**: CRUD operations for chat history",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -183,6 +183,29 @@
               "host": ["{{cognitoUrl}}"]
             },
             "description": "Refresh expired tokens using the refresh token."
+          },
+          "response": []
+        },
+        {
+          "name": "Upgrade Guest Account",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"your-real-email@example.com\",\n    \"password\": \"YourNewPassword123\",\n    \"fullName\": \"Your Full Name\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/upgrade",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "upgrade"]
+            },
+            "description": "Upgrade a guest (trial) account to a full account.\n\n**Requirements:**\n- Must be signed in as a guest user\n- Email must be a valid, non-guest email\n- Password must be 8+ chars with uppercase, lowercase, and number\n\n**Note:** After upgrading, you must sign in again with your new credentials. All conversations are preserved."
           },
           "response": []
         }

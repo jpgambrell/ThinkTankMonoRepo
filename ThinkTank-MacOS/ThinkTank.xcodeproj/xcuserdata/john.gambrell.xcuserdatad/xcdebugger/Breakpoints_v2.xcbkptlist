@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
-            landmarkName = "parseUserFromToken()"
+            landmarkName = "createGuestAccount()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
