@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatView: View {
     @Environment(ConversationStore.self) private var conversationStore
     @Environment(CognitoAuthService.self) private var authService
+    @Environment(SubscriptionService.self) private var subscriptionService
     @Environment(\.colorScheme) private var colorScheme
     
     @State private var messageText: String = ""
@@ -18,6 +19,12 @@ struct ChatView: View {
     @State private var retryingMessageId: UUID?
     @State private var showGuestUpgrade: Bool = false
     @State private var showGuestLimitOverlay: Bool = false
+    @State private var showPaywall: Bool = false
+    
+    /// Whether the user can send unlimited messages (Pro subscriber or non-guest)
+    private var hasUnlimitedMessages: Bool {
+        subscriptionService.isProUser || !authService.isGuestAccount
+    }
     
     var body: some View {
         ZStack {
@@ -28,12 +35,19 @@ struct ChatView: View {
                 Divider()
                     .background(ThemeColors.divider(colorScheme))
                 
-                // Guest Message Banner
-                if authService.isGuestAccount {
+                // Free Tier Message Banner (shown for all non-Pro users)
+                if !subscriptionService.isProUser {
                     GuestMessageBanner(
-                        remainingMessages: authService.remainingGuestMessages,
-                        maxMessages: authService.maxAllowedGuestMessages,
-                        onUpgrade: { showGuestUpgrade = true }
+                        remainingMessages: authService.remainingFreeMessages,
+                        maxMessages: authService.maxAllowedFreeMessages,
+                        onUpgrade: { 
+                            if authService.isGuestAccount {
+                                showGuestUpgrade = true
+                            } else {
+                                showPaywall = true
+                            }
+                        },
+                        buttonText: authService.isGuestAccount ? "Create Account" : "Upgrade"
                     )
                 }
                 
@@ -78,27 +92,45 @@ struct ChatView: View {
                 GuestLimitReachedOverlay(
                     onUpgrade: {
                         showGuestLimitOverlay = false
-                        showGuestUpgrade = true
+                        if authService.isGuestAccount {
+                            showGuestUpgrade = true
+                        } else {
+                            showPaywall = true
+                        }
                     },
                     onSignOut: {
                         showGuestLimitOverlay = false
                         authService.signOut()
-                    }
+                    },
+                    isGuestAccount: authService.isGuestAccount
                 )
             }
         }
-        .sheet(isPresented: $showGuestUpgrade) {
-            GuestUpgradeView()
-                .environment(authService)
-                .frame(minWidth: 500, minHeight: 700)
+        .overlay {
+            if showGuestUpgrade {
+                GuestUpgradeView(isPresented: $showGuestUpgrade)
+                    .environment(authService)
+                    .environment(subscriptionService)
+                    .transition(.opacity)
+            }
         }
+        .overlay {
+            if showPaywall {
+                SubscriptionPaywallView(isPresented: $showPaywall, showSkipButton: true)
+                    .environment(subscriptionService)
+                    .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: showGuestUpgrade)
+        .animation(.easeInOut(duration: 0.2), value: showPaywall)
     }
     
     private func sendMessage() {
         guard !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
-        // Check if guest user has reached message limit
-        if authService.isGuestAccount && !authService.canGuestSendMessage {
+        // Pro subscribers always have unlimited messages
+        // Non-Pro users have message limits
+        if !subscriptionService.isProUser && authService.freeMessageCount >= authService.maxAllowedFreeMessages {
             showGuestLimitOverlay = true
             return
         }
@@ -120,8 +152,10 @@ struct ChatView: View {
         conversationStore.addMessage(to: conversation.id, message: userMessage)
         messageText = ""
         
-        // Increment guest message count before sending
-        authService.incrementGuestMessageCount()
+        // Increment free message count for non-Pro users
+        if !subscriptionService.isProUser {
+            authService.incrementFreeMessageCount()
+        }
         
         // Send to AI
         sendToAI(conversationId: conversation.id, userMessage: userMessage)
@@ -191,4 +225,5 @@ struct ChatView: View {
         .environment(ConversationStore())
         .environment(ThemeManager())
         .environment(CognitoAuthService.shared)
+        .environment(SubscriptionService())
 }

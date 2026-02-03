@@ -10,12 +10,19 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(ThemeManager.self) private var themeManager
     @Environment(CognitoAuthService.self) private var authService
+    @Environment(SubscriptionService.self) private var subscriptionService
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
+    
+    @Binding var isPresented: Bool
     
     @State private var selectedModel: AIModel = AIModel.defaultModel
     @State private var streamingEnabled: Bool = true
     @State private var fontSize: FontSize = .medium
+    @State private var showingPaywall: Bool = false
+    @State private var showingSubscriptionManagement: Bool = false
+    @State private var isRestoringPurchases: Bool = false
+    @State private var showRestoreError: Bool = false
+    @State private var restoreErrorMessage: String = ""
     
     private var user: User {
         authService.currentUser ?? User.mock
@@ -25,7 +32,7 @@ struct SettingsView: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Button(action: { dismiss() }) {
+                Button(action: { isPresented = false }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 12, weight: .medium))
@@ -97,6 +104,83 @@ struct SettingsView: View {
                             SettingsRowButton(title: "Change Password", action: {
                                 // Change password placeholder
                             })
+                        }
+                    }
+                    
+                    // Subscription Section
+                    SettingsSectionView(title: "SUBSCRIPTION") {
+                        VStack(spacing: 0) {
+                            // Current Plan Row
+                            HStack(spacing: 16) {
+                                Image(systemName: subscriptionService.isProUser ? "checkmark.seal.fill" : "person.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundStyle(subscriptionService.isProUser ? Color.brandPrimary : ThemeColors.secondaryText(colorScheme))
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack(spacing: 8) {
+                                        Text(subscriptionService.subscriptionTier.displayName)
+                                            .font(.system(size: 15, weight: .medium))
+                                            .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                                        
+                                        if subscriptionService.isProUser {
+                                            Text("Active")
+                                                .font(.system(size: 10, weight: .semibold))
+                                                .foregroundStyle(.white)
+                                                .padding(.horizontal, 6)
+                                                .padding(.vertical, 2)
+                                                .background(Color.brandPrimary)
+                                                .clipShape(.capsule)
+                                        }
+                                    }
+                                    
+                                    Text(subscriptionService.subscriptionStatusText)
+                                        .font(.system(size: 13))
+                                        .foregroundStyle(ThemeColors.secondaryText(colorScheme))
+                                }
+                                
+                                Spacer()
+                                
+                                if subscriptionService.isProUser {
+                                    Button("Manage") {
+                                        showingSubscriptionManagement = true
+                                    }
+                                    .buttonStyle(SecondaryButtonStyle())
+                                } else {
+                                    Button("Upgrade") {
+                                        showingPaywall = true
+                                    }
+                                    .buttonStyle(PrimaryButtonStyle())
+                                }
+                            }
+                            .padding(20)
+                            
+                            if !subscriptionService.isProUser {
+                                Divider()
+                                    .padding(.horizontal, 20)
+                                
+                                // Restore Purchases Row
+                                Button(action: restorePurchases) {
+                                    HStack {
+                                        Text("Restore Purchases")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                                        
+                                        Spacer()
+                                        
+                                        if isRestoringPurchases {
+                                            ProgressView()
+                                                .controlSize(.small)
+                                        } else {
+                                            Image(systemName: "arrow.clockwise")
+                                                .font(.system(size: 12, weight: .medium))
+                                                .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
+                                        }
+                                    }
+                                    .padding(20)
+                                }
+                                .buttonStyle(.plain)
+                                .disabled(isRestoringPurchases)
+                            }
                         }
                     }
                     
@@ -202,7 +286,7 @@ struct SettingsView: View {
                     // Sign Out Button
                     Button(action: {
                         authService.signOut()
-                        dismiss()
+                        isPresented = false
                     }) {
                         Text("Sign Out")
                             .font(.system(size: 14, weight: .medium))
@@ -223,6 +307,43 @@ struct SettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ThemeColors.cardBackground(colorScheme))
+        .overlay {
+            if showingPaywall {
+                SubscriptionPaywallView(isPresented: $showingPaywall, showSkipButton: true)
+                    .environment(subscriptionService)
+                    .transition(.opacity)
+            }
+        }
+        .overlay {
+            if showingSubscriptionManagement {
+                SubscriptionManagementView(isPresented: $showingSubscriptionManagement)
+                    .environment(subscriptionService)
+                    .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: showingPaywall)
+        .animation(.easeInOut(duration: 0.2), value: showingSubscriptionManagement)
+        .alert("Restore Failed", isPresented: $showRestoreError) {
+            Button("OK") { showRestoreError = false }
+        } message: {
+            Text(restoreErrorMessage)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    private func restorePurchases() {
+        isRestoringPurchases = true
+        
+        Task {
+            do {
+                try await subscriptionService.restorePurchases()
+            } catch {
+                restoreErrorMessage = error.localizedDescription
+                showRestoreError = true
+            }
+            isRestoringPurchases = false
+        }
     }
 }
 
@@ -308,6 +429,21 @@ struct SecondaryButtonStyle: ButtonStyle {
     }
 }
 
+struct PrimaryButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 13, weight: .medium))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Color.brandPrimary)
+            )
+            .opacity(configuration.isPressed ? 0.8 : 1.0)
+    }
+}
+
 // MARK: - Font Size Enum
 enum FontSize: String, CaseIterable, Identifiable {
     case small = "Small"
@@ -318,8 +454,9 @@ enum FontSize: String, CaseIterable, Identifiable {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(isPresented: .constant(true))
         .frame(width: 800, height: 700)
         .environment(ThemeManager())
         .environment(CognitoAuthService.shared)
+        .environment(SubscriptionService())
 }

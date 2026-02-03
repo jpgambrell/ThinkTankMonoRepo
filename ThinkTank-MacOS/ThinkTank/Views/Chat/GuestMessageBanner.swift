@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-/// Banner displayed for guest users showing remaining free messages
+/// Banner displayed for free tier users showing remaining free messages
 struct GuestMessageBanner: View {
     let remainingMessages: Int
     let maxMessages: Int
     let onUpgrade: () -> Void
+    var buttonText: String = "Upgrade"
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -72,7 +73,7 @@ struct GuestMessageBanner: View {
             Spacer()
             
             Button(action: onUpgrade) {
-                Text("Create Account")
+                Text(buttonText)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(.white)
                     .padding(.horizontal, 16)
@@ -104,10 +105,11 @@ struct GuestMessageBanner: View {
     }
 }
 
-/// Overlay shown when guest has reached message limit
+/// Overlay shown when user has reached free message limit
 struct GuestLimitReachedOverlay: View {
     let onUpgrade: () -> Void
     let onSignOut: () -> Void
+    var isGuestAccount: Bool = true
     
     var body: some View {
         VStack(spacing: 24) {
@@ -116,10 +118,12 @@ struct GuestLimitReachedOverlay: View {
                 .foregroundStyle(Color.brandPrimary)
             
             VStack(spacing: 8) {
-                Text("Free Trial Complete")
+                Text("Free Messages Used")
                     .font(.system(size: 24, weight: .bold))
                 
-                Text("You've used all 10 free messages.\nCreate an account to continue chatting and access your conversation history from any device.")
+                Text(isGuestAccount 
+                     ? "You've used all 10 free messages.\nCreate an account to continue chatting and access your conversation history from any device."
+                     : "You've used all 10 free messages.\nUpgrade to Pro for unlimited messages and access to advanced features.")
                     .font(.system(size: 15))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -128,7 +132,7 @@ struct GuestLimitReachedOverlay: View {
             
             VStack(spacing: 12) {
                 Button(action: onUpgrade) {
-                    Text("Create Account")
+                    Text(isGuestAccount ? "Create Account" : "Upgrade to Pro")
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)

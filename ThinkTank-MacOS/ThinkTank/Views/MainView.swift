@@ -33,7 +33,7 @@ struct MainView: View {
             
             // Settings Overlay
             if showSettings {
-                SettingsView()
+                SettingsView(isPresented: $showSettings)
                     .transition(.opacity)
             }
         }

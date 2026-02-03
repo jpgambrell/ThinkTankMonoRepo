@@ -21,8 +21,8 @@ final class CognitoAuthService {
     @ObservationIgnored private let isGuestAccountKey = "com.thinktank.isGuestAccount"
     @ObservationIgnored private let guestEmailKey = "com.thinktank.guestEmail"
     @ObservationIgnored private let guestPasswordKey = "com.thinktank.guestPassword"
-    @ObservationIgnored private let guestMessageCountKey = "com.thinktank.guestMessageCount"
-    @ObservationIgnored private let maxGuestMessages = 10
+    @ObservationIgnored private let freeMessageCountKey = "com.thinktank.freeMessageCount"
+    @ObservationIgnored private let maxFreeMessages = 10
     
     // MARK: - Guest Account Properties (stored for @Observable tracking)
     
@@ -31,30 +31,55 @@ final class CognitoAuthService {
         didSet { UserDefaults.standard.set(isGuestAccount, forKey: isGuestAccountKey) }
     }
     
-    /// Current guest message count
-    var guestMessageCount: Int = 0 {
-        didSet { UserDefaults.standard.set(guestMessageCount, forKey: guestMessageCountKey) }
+    /// Current message count for free (non-Pro) users
+    var freeMessageCount: Int = 0 {
+        didSet { UserDefaults.standard.set(freeMessageCount, forKey: freeMessageCountKey) }
     }
     
-    /// Check if guest user can send more messages
-    var canGuestSendMessage: Bool {
-        !isGuestAccount || guestMessageCount < maxGuestMessages
+    /// Remaining free messages before requiring upgrade
+    var remainingFreeMessages: Int {
+        max(0, maxFreeMessages - freeMessageCount)
     }
     
-    /// Remaining guest messages before requiring upgrade
+    /// Maximum allowed free messages
+    var maxAllowedFreeMessages: Int {
+        maxFreeMessages
+    }
+    
+    // MARK: - Backward Compatibility (deprecated, use free message properties)
+    
+    @available(*, deprecated, renamed: "freeMessageCount")
+    var guestMessageCount: Int {
+        get { freeMessageCount }
+        set { freeMessageCount = newValue }
+    }
+    
+    @available(*, deprecated, renamed: "remainingFreeMessages")
     var remainingGuestMessages: Int {
-        max(0, maxGuestMessages - guestMessageCount)
+        remainingFreeMessages
     }
     
-    /// Maximum allowed guest messages
+    @available(*, deprecated, renamed: "maxAllowedFreeMessages")
     var maxAllowedGuestMessages: Int {
-        maxGuestMessages
+        maxAllowedFreeMessages
+    }
+    
+    @available(*, deprecated, message: "Use subscription status to check message limits")
+    var canGuestSendMessage: Bool {
+        freeMessageCount < maxFreeMessages
     }
     
     private init() {
         // Load guest state from UserDefaults
         isGuestAccount = UserDefaults.standard.bool(forKey: isGuestAccountKey)
-        guestMessageCount = UserDefaults.standard.integer(forKey: guestMessageCountKey)
+        
+        // Migrate old guest message count to new free message count key if needed
+        if UserDefaults.standard.object(forKey: freeMessageCountKey) == nil {
+            let oldCount = UserDefaults.standard.integer(forKey: "com.thinktank.guestMessageCount")
+            freeMessageCount = oldCount
+        } else {
+            freeMessageCount = UserDefaults.standard.integer(forKey: freeMessageCountKey)
+        }
         
         // Check for stored tokens on init
         loadStoredTokens()
@@ -204,7 +229,7 @@ final class CognitoAuthService {
         isGuestAccount = true
         UserDefaults.standard.set(guestEmail, forKey: guestEmailKey)
         UserDefaults.standard.set(guestPassword, forKey: guestPasswordKey)
-        guestMessageCount = 0
+        freeMessageCount = 0
         
         isAuthenticated = true
     }
@@ -241,8 +266,10 @@ final class CognitoAuthService {
         }
         
         if httpResponse.statusCode == 200 {
-            // Clear guest flags
-            clearGuestData()
+            // Clear guest flags but keep message count (they need to subscribe for unlimited)
+            isGuestAccount = false
+            UserDefaults.standard.removeObject(forKey: guestEmailKey)
+            UserDefaults.standard.removeObject(forKey: guestPasswordKey)
             
             // Sign in with new credentials to get fresh tokens
             try await signIn(email: email, password: password)
@@ -258,19 +285,29 @@ final class CognitoAuthService {
         }
     }
     
-    /// Increment guest message count (call after successful message send)
-    func incrementGuestMessageCount() {
-        if isGuestAccount {
-            guestMessageCount += 1
-        }
+    /// Increment free message count (call after successful message send for non-Pro users)
+    func incrementFreeMessageCount() {
+        freeMessageCount += 1
+    }
+    
+    /// Reset message count (call when user subscribes to Pro)
+    func resetMessageCount() {
+        freeMessageCount = 0
     }
     
     /// Clear all guest-related data
     func clearGuestData() {
         isGuestAccount = false
-        guestMessageCount = 0
+        freeMessageCount = 0
         UserDefaults.standard.removeObject(forKey: guestEmailKey)
         UserDefaults.standard.removeObject(forKey: guestPasswordKey)
+    }
+    
+    // MARK: - Backward Compatibility
+    
+    @available(*, deprecated, renamed: "incrementFreeMessageCount")
+    func incrementGuestMessageCount() {
+        incrementFreeMessageCount()
     }
     
     /// Generate a secure random password that meets Cognito requirements

@@ -9,8 +9,11 @@ import SwiftUI
 
 /// View for upgrading a guest account to a full account
 struct GuestUpgradeView: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(CognitoAuthService.self) private var authService
+    @Environment(SubscriptionService.self) private var subscriptionService
+    @Environment(\.colorScheme) private var colorScheme
+    
+    @Binding var isPresented: Bool
     
     @State private var fullName = ""
     @State private var email = ""
@@ -18,17 +21,18 @@ struct GuestUpgradeView: View {
     @State private var confirmPassword = ""
     @State private var errorMessage: String?
     @State private var isUpgrading = false
+    @State private var showingPaywall = false
     
     var body: some View {
         ZStack {
-            // Background
-            Color.brandPrimary.opacity(0.03)
+            // Background - solid color to cover underlying content
+            ThemeColors.windowBackground(colorScheme)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Header
                 HStack {
-                    Button(action: { dismiss() }) {
+                    Button(action: { isPresented = false }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(.primary)
@@ -232,6 +236,13 @@ struct GuestUpgradeView: View {
                 }
             }
         }
+        .overlay {
+            if showingPaywall {
+                paywallSheet
+                    .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: showingPaywall)
     }
     
     private var isFormValid: Bool {
@@ -262,7 +273,8 @@ struct GuestUpgradeView: View {
                 )
                 await MainActor.run {
                     isUpgrading = false
-                    dismiss()
+                    // Show paywall after successful account creation
+                    showingPaywall = true
                 }
             } catch {
                 await MainActor.run {
@@ -271,6 +283,21 @@ struct GuestUpgradeView: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Paywall Sheet Extension
+extension GuestUpgradeView {
+    @ViewBuilder
+    var paywallSheet: some View {
+        SubscriptionPaywallView(
+            isPresented: $showingPaywall,
+            onPurchaseCompleted: {
+                isPresented = false
+            },
+            showSkipButton: true
+        )
+        .environment(subscriptionService)
     }
 }
 
@@ -293,7 +320,8 @@ private struct BenefitRow: View {
 }
 
 #Preview {
-    GuestUpgradeView()
+    GuestUpgradeView(isPresented: .constant(true))
         .environment(CognitoAuthService.shared)
+        .environment(SubscriptionService())
         .frame(width: 600, height: 800)
 }

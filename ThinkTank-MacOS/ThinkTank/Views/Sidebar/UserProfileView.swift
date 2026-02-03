@@ -9,11 +9,21 @@ import SwiftUI
 
 struct UserProfileView: View {
     @Environment(CognitoAuthService.self) private var authService
+    @Environment(SubscriptionService.self) private var subscriptionService
     @Environment(\.colorScheme) private var colorScheme
     @Binding var showSettings: Bool
     
     private var user: User {
         authService.currentUser ?? User.mock
+    }
+    
+    /// Badge to display based on subscription status
+    private var statusBadge: (text: String, foreground: Color, background: Color)? {
+        if subscriptionService.isProUser {
+            return ("Pro", .white, Color.brandPrimary)
+        } else {
+            return ("Free", ThemeColors.secondaryText(colorScheme), ThemeColors.border(colorScheme).opacity(0.5))
+        }
     }
     
     var body: some View {
@@ -35,13 +45,13 @@ struct UserProfileView: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(ThemeColors.primaryText(colorScheme))
                     
-                    if authService.isGuestAccount {
-                        Text("Trial")
+                    if let badge = statusBadge {
+                        Text(badge.text)
                             .font(.system(size: 10, weight: .semibold))
-                            .foregroundStyle(Color.brandPrimary)
+                            .foregroundStyle(badge.foreground)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.brandPrimaryLight)
+                            .background(badge.background)
                             .clipShape(Capsule())
                     }
                 }
@@ -74,4 +84,5 @@ struct UserProfileView: View {
     UserProfileView(showSettings: .constant(false))
         .frame(width: 260)
         .environment(CognitoAuthService.shared)
+        .environment(SubscriptionService())
 }

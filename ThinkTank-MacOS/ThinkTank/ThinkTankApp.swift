@@ -9,6 +9,12 @@ import SwiftUI
 
 @main
 struct ThinkTankApp: App {
+    
+    init() {
+        // Configure RevenueCat SDK
+        SubscriptionService.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9RC00012F3A000000000001 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00022F3A000000000002 /* RevenueCat */; };
+		C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00042F3A000000000004 /* RevenueCatUI */; };
 		C9CA80132F2BD08F00756F8C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA800A2F2BD08F00756F8C /* MainView.swift */; };
 		C9CA80142F2BD08F00756F8C /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80082F2BD08F00756F8C /* UserProfileView.swift */; };
 		C9CA80152F2BD08F00756F8C /* ConversationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80062F2BD08F00756F8C /* ConversationRowView.swift */; };
@@ -38,6 +40,10 @@
 		C9CA80362F2C047100756F8C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80332F2C047100756F8C /* RegistrationView.swift */; };
 		C9CA80372F2C048000756F8C /* GuestMessageBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */; };
 		C9CA80392F2C048000756F8C /* GuestUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */; };
+		C9RC00062F3A000000000006 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00072F3A000000000007 /* Subscription.swift */; };
+		C9RC00082F3A000000000008 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00092F3A000000000009 /* SubscriptionService.swift */; };
+		C9RC000A2F3A00000000000A /* SubscriptionPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */; };
+		C9RC000C2F3A00000000000C /* SubscriptionManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC000D2F3A00000000000D /* SubscriptionManagementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +79,10 @@
 		C9CA80332F2C047100756F8C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestMessageBanner.swift; sourceTree = "<group>"; };
 		C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestUpgradeView.swift; sourceTree = "<group>"; };
+		C9RC00072F3A000000000007 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		C9RC00092F3A000000000009 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
+		C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaywallView.swift; sourceTree = "<group>"; };
+		C9RC000D2F3A00000000000D /* SubscriptionManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManagementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9RC00012F3A000000000001 /* RevenueCat in Frameworks */,
+				C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +121,7 @@
 				C9CA7FF12F2BD08F00756F8C /* AppTheme.swift */,
 				C9CA7FF22F2BD08F00756F8C /* Conversation.swift */,
 				C9CA7FF32F2BD08F00756F8C /* Message.swift */,
+				C9RC00072F3A000000000007 /* Subscription.swift */,
 				C9CA7FF42F2BD08F00756F8C /* User.swift */,
 			);
 			path = Models;
@@ -120,6 +133,7 @@
 				C9CA802E2F2C045F00756F8C /* AWS */,
 				C9CA7FF62F2BD08F00756F8C /* ConversationStore.swift */,
 				C9CA7FF72F2BD08F00756F8C /* MockChatService.swift */,
+				C9RC00092F3A000000000009 /* SubscriptionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -173,9 +187,19 @@
 				C9CA80032F2BD08F00756F8C /* Chat */,
 				C9CA80052F2BD08F00756F8C /* Settings */,
 				C9CA80092F2BD08F00756F8C /* Sidebar */,
+				C9RC000E2F3A00000000000E /* Subscription */,
 				C9CA800A2F2BD08F00756F8C /* MainView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C9RC000E2F3A00000000000E /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */,
+				C9RC000D2F3A00000000000D /* SubscriptionManagementView.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 		C9CA80102F2BD08F00756F8C /* ThinkTank */ = {
@@ -229,6 +253,8 @@
 			);
 			name = ThinkTank;
 			packageProductDependencies = (
+				C9RC00022F3A000000000002 /* RevenueCat */,
+				C9RC00042F3A000000000004 /* RevenueCatUI */,
 			);
 			productName = ThinkTank;
 			productReference = C9273EA02F2BBCD7008DC939 /* ThinkTank.app */;
@@ -258,6 +284,9 @@
 			);
 			mainGroup = C9273E972F2BBCD7008DC939;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C9273EA12F2BBCD7008DC939 /* Products */;
 			projectDirPath = "";
@@ -314,6 +343,10 @@
 				C9CA80272F2BD08F00756F8C /* ThinkTankApp.swift in Sources */,
 				C9CA80282F2BD08F00756F8C /* ContentView.swift in Sources */,
 				C9CA80292F2BD08F00756F8C /* ThemeManager.swift in Sources */,
+				C9RC00062F3A000000000006 /* Subscription.swift in Sources */,
+				C9RC00082F3A000000000008 /* SubscriptionService.swift in Sources */,
+				C9RC000A2F3A00000000000A /* SubscriptionPaywallView.swift in Sources */,
+				C9RC000C2F3A00000000000C /* SubscriptionManagementView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +583,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C9RC00022F3A000000000002 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		C9RC00042F3A000000000004 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C9273E982F2BBCD7008DC939 /* Project object */;
 }
