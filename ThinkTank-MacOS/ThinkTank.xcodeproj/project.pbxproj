@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C9RC00012F3A000000000001 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00022F3A000000000002 /* RevenueCat */; };
-		C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00042F3A000000000004 /* RevenueCatUI */; };
 		C9CA80132F2BD08F00756F8C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA800A2F2BD08F00756F8C /* MainView.swift */; };
 		C9CA80142F2BD08F00756F8C /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80082F2BD08F00756F8C /* UserProfileView.swift */; };
 		C9CA80152F2BD08F00756F8C /* ConversationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80062F2BD08F00756F8C /* ConversationRowView.swift */; };
@@ -40,6 +38,9 @@
 		C9CA80362F2C047100756F8C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80332F2C047100756F8C /* RegistrationView.swift */; };
 		C9CA80372F2C048000756F8C /* GuestMessageBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */; };
 		C9CA80392F2C048000756F8C /* GuestUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */; };
+		C9ECFD6E2F3210CA006857B4 /* ThinkTank.storekit in Resources */ = {isa = PBXBuildFile; fileRef = C9ECFD6D2F320FE7006857B4 /* ThinkTank.storekit */; };
+		C9RC00012F3A000000000001 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00022F3A000000000002 /* RevenueCat */; };
+		C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00042F3A000000000004 /* RevenueCatUI */; };
 		C9RC00062F3A000000000006 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00072F3A000000000007 /* Subscription.swift */; };
 		C9RC00082F3A000000000008 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00092F3A000000000009 /* SubscriptionService.swift */; };
 		C9RC000A2F3A00000000000A /* SubscriptionPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */; };
@@ -79,6 +80,7 @@
 		C9CA80332F2C047100756F8C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestMessageBanner.swift; sourceTree = "<group>"; };
 		C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestUpgradeView.swift; sourceTree = "<group>"; };
+		C9ECFD6D2F320FE7006857B4 /* ThinkTank.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = ThinkTank.storekit; path = ThinkTank/ThinkTank.storekit; sourceTree = "<group>"; };
 		C9RC00072F3A000000000007 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		C9RC00092F3A000000000009 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
 		C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaywallView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		C9273E972F2BBCD7008DC939 = {
 			isa = PBXGroup;
 			children = (
+				C9ECFD6D2F320FE7006857B4 /* ThinkTank.storekit */,
 				C9CA80102F2BD08F00756F8C /* ThinkTank */,
 				C9273EA12F2BBCD7008DC939 /* Products */,
 			);
@@ -193,15 +196,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		C9RC000E2F3A00000000000E /* Subscription */ = {
-			isa = PBXGroup;
-			children = (
-				C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */,
-				C9RC000D2F3A00000000000D /* SubscriptionManagementView.swift */,
-			);
-			path = Subscription;
-			sourceTree = "<group>";
-		};
 		C9CA80102F2BD08F00756F8C /* ThinkTank */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +228,15 @@
 				C9CA80332F2C047100756F8C /* RegistrationView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		C9RC000E2F3A00000000000E /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */,
+				C9RC000D2F3A00000000000D /* SubscriptionManagementView.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9CA802A2F2BD08F00756F8C /* Assets.xcassets in Resources */,
+				C9ECFD6E2F3210CA006857B4 /* ThinkTank.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
