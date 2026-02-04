@@ -24,6 +24,10 @@ struct SettingsView: View {
     @State private var isRestoringPurchases: Bool = false
     @State private var showRestoreError: Bool = false
     @State private var restoreErrorMessage: String = ""
+    @State private var showingDeleteConfirmation: Bool = false
+    @State private var isDeletingAccount: Bool = false
+    @State private var showDeleteError: Bool = false
+    @State private var deleteErrorMessage: String = ""
     
     private var user: User {
         authService.currentUser ?? User.mock
@@ -301,6 +305,29 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.plain)
                     .padding(.horizontal, 100)
+                    
+                    // Delete Account Button (App Store requirement)
+                    Button(action: {
+                        showingDeleteConfirmation = true
+                    }) {
+                        HStack(spacing: 8) {
+                            if isDeletingAccount {
+                                ProgressView()
+                                    .controlSize(.small)
+                            } else {
+                                Image(systemName: "trash")
+                                    .font(.system(size: 14))
+                            }
+                            Text("Delete Account")
+                                .font(.system(size: 14, weight: .medium))
+                        }
+                        .foregroundStyle(Color.destructive.opacity(0.8))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 100)
+                    .disabled(isDeletingAccount)
                 }
                 .padding(.vertical, 32)
                 .padding(.horizontal, 100)
@@ -308,6 +335,23 @@ struct SettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ThemeColors.cardBackground(colorScheme))
+        .confirmationDialog(
+            "Delete Account",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete Account", role: .destructive) {
+                deleteAccount()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to permanently delete your account? This action cannot be undone. All your data, conversations, and subscription will be lost.")
+        }
+        .alert("Delete Failed", isPresented: $showDeleteError) {
+            Button("OK") { showDeleteError = false }
+        } message: {
+            Text(deleteErrorMessage)
+        }
         .overlay {
             if showingGuestUpgrade {
                 GuestUpgradeView(
@@ -366,6 +410,22 @@ struct SettingsView: View {
                 showRestoreError = true
             }
             isRestoringPurchases = false
+        }
+    }
+    
+    private func deleteAccount() {
+        isDeletingAccount = true
+        
+        Task {
+            do {
+                try await authService.deleteAccount()
+                // Account deleted, dismiss settings
+                isPresented = false
+            } catch {
+                deleteErrorMessage = error.localizedDescription
+                showDeleteError = true
+            }
+            isDeletingAccount = false
         }
     }
 }

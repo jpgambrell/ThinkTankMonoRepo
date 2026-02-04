@@ -198,6 +198,54 @@ final class CognitoAuthService {
         clearGuestData()
     }
     
+    /// Permanently delete the user's account
+    /// This is required by App Store guidelines for apps that offer account creation
+    func deleteAccount() async throws {
+        guard let token = accessToken else {
+            throw AuthError.notAuthenticated
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+        
+        let endpoint = "https://cognito-idp.\(AWSConfig.cognitoRegion).amazonaws.com/"
+        
+        guard let url = URL(string: endpoint) else {
+            throw AuthError.networkError("Invalid URL")
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-amz-json-1.1", forHTTPHeaderField: "Content-Type")
+        request.setValue("AWSCognitoIdentityProviderService.DeleteUser", forHTTPHeaderField: "X-Amz-Target")
+        
+        let payload: [String: Any] = [
+            "AccessToken": token
+        ]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response")
+        }
+        
+        // 200 means success for DeleteUser
+        guard httpResponse.statusCode == 200 else {
+            throw AuthError.networkError("Failed to delete account. Please try again.")
+        }
+        
+        // Clear all local data after successful deletion
+        signOut()
+        
+        // Also clear message count
+        UserDefaults.standard.removeObject(forKey: freeMessageCountKey)
+        
+        print("✅ Account deleted successfully")
+    }
+    
     /// Get the current ID token for API requests
     func getIdToken() async throws -> String {
         if let token = idToken {
