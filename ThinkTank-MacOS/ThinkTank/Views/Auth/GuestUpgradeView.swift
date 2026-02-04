@@ -10,10 +10,12 @@ import SwiftUI
 /// View for upgrading a guest account to a full account
 struct GuestUpgradeView: View {
     @Environment(CognitoAuthService.self) private var authService
-    @Environment(SubscriptionService.self) private var subscriptionService
     @Environment(\.colorScheme) private var colorScheme
     
     @Binding var isPresented: Bool
+    
+    /// Callback when account is successfully created - used to show paywall
+    var onAccountCreated: (() -> Void)?
     
     @State private var fullName = ""
     @State private var email = ""
@@ -21,7 +23,6 @@ struct GuestUpgradeView: View {
     @State private var confirmPassword = ""
     @State private var errorMessage: String?
     @State private var isUpgrading = false
-    @State private var showingPaywall = false
     
     var body: some View {
         ZStack {
@@ -236,13 +237,6 @@ struct GuestUpgradeView: View {
                 }
             }
         }
-        .overlay {
-            if showingPaywall {
-                paywallSheet
-                    .transition(.opacity)
-            }
-        }
-        .animation(.easeInOut(duration: 0.2), value: showingPaywall)
     }
     
     private var isFormValid: Bool {
@@ -273,8 +267,9 @@ struct GuestUpgradeView: View {
                 )
                 await MainActor.run {
                     isUpgrading = false
-                    // Show paywall after successful account creation
-                    showingPaywall = true
+                    // Dismiss this view and trigger callback to show paywall
+                    isPresented = false
+                    onAccountCreated?()
                 }
             } catch {
                 await MainActor.run {
@@ -283,21 +278,6 @@ struct GuestUpgradeView: View {
                 }
             }
         }
-    }
-}
-
-// MARK: - Paywall Sheet Extension
-extension GuestUpgradeView {
-    @ViewBuilder
-    var paywallSheet: some View {
-        SubscriptionPaywallView(
-            isPresented: $showingPaywall,
-            onPurchaseCompleted: {
-                isPresented = false
-            },
-            showSkipButton: true
-        )
-        .environment(subscriptionService)
     }
 }
 
@@ -322,6 +302,5 @@ private struct BenefitRow: View {
 #Preview {
     GuestUpgradeView(isPresented: .constant(true))
         .environment(CognitoAuthService.shared)
-        .environment(SubscriptionService())
         .frame(width: 600, height: 800)
 }

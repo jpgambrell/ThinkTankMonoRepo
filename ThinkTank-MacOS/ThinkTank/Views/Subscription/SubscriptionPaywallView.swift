@@ -2,12 +2,11 @@
 //  SubscriptionPaywallView.swift
 //  ThinkTank
 //
-//  Created for RevenueCat integration.
+//  Subscription paywall using native StoreKit 2.
 //
 
 import SwiftUI
-import RevenueCat
-import RevenueCatUI
+import StoreKit
 
 /// A view that presents subscription options to the user
 struct SubscriptionPaywallView: View {
@@ -16,13 +15,19 @@ struct SubscriptionPaywallView: View {
     
     @Binding var isPresented: Bool
     
+    /// Whether the current user is a guest account
+    var isGuestAccount: Bool = false
+    
     /// Callback when purchase completes successfully
     var onPurchaseCompleted: (() -> Void)?
+    
+    /// Callback when guest needs to create account first
+    var onCreateAccountRequired: (() -> Void)?
     
     /// Whether to show the skip button (for optional paywall presentation)
     var showSkipButton: Bool = true
     
-    @State private var selectedPackage: Package?
+    @State private var selectedProduct: Product?
     @State private var errorMessage: String?
     @State private var showError: Bool = false
     
@@ -41,6 +46,11 @@ struct SubscriptionPaywallView: View {
                         // Hero section
                         heroSection
                         
+                        // Account Required Banner (for guests)
+                        if isGuestAccount {
+                            accountRequiredBanner
+                        }
+                        
                         // Features list
                         featuresSection
                         
@@ -50,8 +60,10 @@ struct SubscriptionPaywallView: View {
                         // Purchase button
                         purchaseButton
                         
-                        // Restore purchases
-                        restoreButton
+                        // Restore purchases (only for non-guests)
+                        if !isGuestAccount {
+                            restoreButton
+                        }
                         
                         // Terms
                         termsSection
@@ -68,14 +80,14 @@ struct SubscriptionPaywallView: View {
             Text(errorMessage ?? "An error occurred")
         }
         .task {
-            // Fetch offerings if not already loaded
-            if subscriptionService.offerings == nil {
-                await subscriptionService.fetchOfferings()
+            // Load products if not already loaded
+            if subscriptionService.products.isEmpty {
+                await subscriptionService.loadProducts()
             }
             
             // Default selection to yearly (better value)
-            if selectedPackage == nil {
-                selectedPackage = subscriptionService.yearlyPackage ?? subscriptionService.monthlyPackage
+            if selectedProduct == nil {
+                selectedProduct = subscriptionService.yearlyProduct ?? subscriptionService.monthlyProduct
             }
         }
     }
@@ -127,6 +139,37 @@ struct SubscriptionPaywallView: View {
         .padding(.top, 20)
     }
     
+    // MARK: - Account Required Banner
+    
+    private var accountRequiredBanner: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 20))
+                .foregroundStyle(.orange)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Account Required")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                
+                Text("Create an account to subscribe. This ensures you can always access your subscription.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(ThemeColors.secondaryText(colorScheme))
+            }
+            
+            Spacer()
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.orange.opacity(0.15))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+        )
+    }
+    
     // MARK: - Features Section
     
     private var featuresSection: some View {
@@ -152,26 +195,26 @@ struct SubscriptionPaywallView: View {
     
     private var pricingSection: some View {
         HStack(spacing: 16) {
-            if let monthly = subscriptionService.monthlyPackage {
+            if let monthly = subscriptionService.monthlyProduct {
                 PricingCard(
-                    package: monthly,
+                    product: monthly,
                     title: "Monthly",
-                    isSelected: selectedPackage?.identifier == monthly.identifier,
+                    isSelected: selectedProduct?.id == monthly.id,
                     colorScheme: colorScheme
                 ) {
-                    selectedPackage = monthly
+                    selectedProduct = monthly
                 }
             }
             
-            if let yearly = subscriptionService.yearlyPackage {
+            if let yearly = subscriptionService.yearlyProduct {
                 PricingCard(
-                    package: yearly,
+                    product: yearly,
                     title: "Yearly",
-                    badge: calculateSavingsBadge(monthly: subscriptionService.monthlyPackage, yearly: yearly),
-                    isSelected: selectedPackage?.identifier == yearly.identifier,
+                    badge: calculateSavingsBadge(monthly: subscriptionService.monthlyProduct, yearly: yearly),
+                    isSelected: selectedProduct?.id == yearly.id,
                     colorScheme: colorScheme
                 ) {
-                    selectedPackage = yearly
+                    selectedProduct = yearly
                 }
             }
         }
@@ -188,8 +231,14 @@ struct SubscriptionPaywallView: View {
                         .controlSize(.small)
                         .tint(.white)
                 } else {
-                    Text(purchaseButtonTitle)
-                        .font(.system(size: 16, weight: .semibold))
+                    HStack(spacing: 8) {
+                        if isGuestAccount {
+                            Image(systemName: "person.badge.plus")
+                                .font(.system(size: 16))
+                        }
+                        Text(purchaseButtonTitle)
+                            .font(.system(size: 16, weight: .semibold))
+                    }
                 }
             }
             .foregroundStyle(.white)
@@ -199,17 +248,25 @@ struct SubscriptionPaywallView: View {
         .buttonStyle(.plain)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.brandPrimary)
+                .fill(isGuestAccount ? Color.brandPrimary : Color.brandPrimary)
         )
-        .disabled(selectedPackage == nil || subscriptionService.purchaseInProgress)
-        .opacity(selectedPackage == nil ? 0.5 : 1.0)
+        .disabled(selectedProduct == nil || subscriptionService.purchaseInProgress)
+        .opacity(selectedProduct == nil ? 0.5 : 1.0)
     }
     
     private var purchaseButtonTitle: String {
-        guard let package = selectedPackage else {
+        guard selectedProduct != nil else {
             return "Select a plan"
         }
-        return "Subscribe for \(package.storeProduct.localizedPriceString)"
+        
+        if isGuestAccount {
+            return "Create Account & Subscribe"
+        }
+        
+        guard let product = selectedProduct else {
+            return "Select a plan"
+        }
+        return "Subscribe for \(product.displayPrice)"
     }
     
     // MARK: - Restore Button
@@ -252,17 +309,28 @@ struct SubscriptionPaywallView: View {
     // MARK: - Actions
     
     private func handlePurchase() {
-        guard let package = selectedPackage else { return }
+        // If guest, need to create account first
+        if isGuestAccount {
+            isPresented = false
+            onCreateAccountRequired?()
+            return
+        }
+        
+        guard let product = selectedProduct else { return }
         
         Task {
             do {
-                try await subscriptionService.purchase(package: package)
+                try await subscriptionService.purchase(product: product)
                 // Give a moment for subscription state to update
                 try? await Task.sleep(for: .milliseconds(500))
                 onPurchaseCompleted?()
                 isPresented = false
             } catch SubscriptionError.userCancelled {
                 // User cancelled, do nothing
+            } catch SubscriptionError.pending {
+                // Purchase is pending approval
+                errorMessage = "Your purchase is pending approval."
+                showError = true
             } catch {
                 errorMessage = error.localizedDescription
                 showError = true
@@ -286,11 +354,11 @@ struct SubscriptionPaywallView: View {
     }
     
     /// Calculate savings badge for yearly vs monthly
-    private func calculateSavingsBadge(monthly: Package?, yearly: Package) -> String? {
+    private func calculateSavingsBadge(monthly: Product?, yearly: Product) -> String? {
         guard let monthly = monthly else { return nil }
         
-        let monthlyPrice = monthly.storeProduct.price as Decimal
-        let yearlyPrice = yearly.storeProduct.price as Decimal
+        let monthlyPrice = monthly.price
+        let yearlyPrice = yearly.price
         let annualMonthlyPrice = monthlyPrice * 12
         
         guard annualMonthlyPrice > yearlyPrice else { return nil }
@@ -326,7 +394,7 @@ private struct FeatureRow: View {
 // MARK: - Pricing Card
 
 private struct PricingCard: View {
-    let package: Package
+    let product: Product
     let title: String
     var badge: String? = nil
     let isSelected: Bool
@@ -353,7 +421,7 @@ private struct PricingCard: View {
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
-                Text(package.storeProduct.localizedPriceString)
+                Text(product.displayPrice)
                     .font(.system(size: 24, weight: .bold))
                     .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
@@ -376,12 +444,18 @@ private struct PricingCard: View {
     }
     
     private var priceDescription: String {
-        switch package.packageType {
-        case .monthly:
+        guard let subscription = product.subscription else { return "" }
+        
+        switch subscription.subscriptionPeriod.unit {
+        case .month:
             return "per month"
-        case .annual:
+        case .year:
             return "per year"
-        default:
+        case .week:
+            return "per week"
+        case .day:
+            return "per day"
+        @unknown default:
             return ""
         }
     }
@@ -390,7 +464,7 @@ private struct PricingCard: View {
 // MARK: - Preview
 
 #Preview {
-    SubscriptionPaywallView(isPresented: .constant(true))
+    SubscriptionPaywallView(isPresented: .constant(true), isGuestAccount: true)
         .environment(SubscriptionService())
         .frame(width: 600, height: 800)
 }

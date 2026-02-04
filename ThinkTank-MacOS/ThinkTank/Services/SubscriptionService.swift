@@ -2,20 +2,22 @@
 //  SubscriptionService.swift
 //  ThinkTank
 //
-//  Created for RevenueCat integration.
+//  StoreKit 2 subscription management service.
 //
 
 import Foundation
-import RevenueCat
+import StoreKit
 import Observation
 
 /// Error types for subscription operations
 enum SubscriptionError: LocalizedError {
     case purchaseFailed(String)
     case restoreFailed(String)
-    case offeringsNotAvailable
+    case productsNotAvailable
     case userCancelled
     case networkError
+    case verificationFailed
+    case pending
     
     var errorDescription: String? {
         switch self {
@@ -23,23 +25,27 @@ enum SubscriptionError: LocalizedError {
             return "Purchase failed: \(message)"
         case .restoreFailed(let message):
             return "Restore failed: \(message)"
-        case .offeringsNotAvailable:
+        case .productsNotAvailable:
             return "Subscription plans are not available at this time"
         case .userCancelled:
             return "Purchase was cancelled"
         case .networkError:
             return "Network error. Please check your connection and try again."
+        case .verificationFailed:
+            return "Transaction verification failed"
+        case .pending:
+            return "Purchase is pending approval"
         }
     }
 }
 
-/// Service to manage RevenueCat subscriptions
+/// Service to manage StoreKit 2 subscriptions
 @Observable
 @MainActor
 final class SubscriptionService {
     // MARK: - Published State
     
-    /// Whether the user has an active "ThinkTank Pro" entitlement
+    /// Whether the user has an active subscription
     var isProUser: Bool = false
     
     /// Current subscription tier
@@ -48,34 +54,24 @@ final class SubscriptionService {
     /// Current subscription status
     var subscriptionStatus: SubscriptionStatus = .none
     
-    /// Customer info from RevenueCat
-    var customerInfo: CustomerInfo?
+    /// Available subscription products from StoreKit
+    var products: [Product] = []
     
-    /// Available offerings from RevenueCat
-    var offerings: Offerings?
-    
-    /// Current offering (default)
-    var currentOffering: Offering? {
-        offerings?.current
+    /// Monthly subscription product
+    var monthlyProduct: Product? {
+        products.first { $0.id == StoreKitConfig.ProductIdentifiers.monthly }
     }
     
-    /// Monthly package from current offering
-    var monthlyPackage: Package? {
-        currentOffering?.package(identifier: RevenueCatConfig.ProductIdentifiers.monthly)
-            ?? currentOffering?.monthly
-    }
-    
-    /// Yearly package from current offering
-    var yearlyPackage: Package? {
-        currentOffering?.package(identifier: RevenueCatConfig.ProductIdentifiers.yearly)
-            ?? currentOffering?.annual
+    /// Yearly subscription product
+    var yearlyProduct: Product? {
+        products.first { $0.id == StoreKitConfig.ProductIdentifiers.yearly }
     }
     
     /// Whether a purchase is currently in progress
     var purchaseInProgress: Bool = false
     
-    /// Whether offerings are being loaded
-    var isLoadingOfferings: Bool = false
+    /// Whether products are being loaded
+    var isLoadingProducts: Bool = false
     
     /// Last error that occurred
     var errorMessage: String?
@@ -85,108 +81,81 @@ final class SubscriptionService {
     /// Track previous Pro status to detect when user first becomes Pro
     @ObservationIgnored private var wasProUser: Bool = false
     
+    /// Current subscription info
+    private var currentSubscription: Product.SubscriptionInfo.Status?
+    
     /// Subscription expiration date (if subscribed)
     var expirationDate: Date? {
-        customerInfo?.entitlements[RevenueCatConfig.proEntitlementIdentifier]?.expirationDate
+        guard let transaction = currentSubscription?.transaction,
+              case .verified(let tx) = transaction else {
+            return nil
+        }
+        return tx.expirationDate
     }
     
     /// Whether subscription will renew
     var willRenew: Bool {
-        customerInfo?.entitlements[RevenueCatConfig.proEntitlementIdentifier]?.willRenew ?? false
+        guard let renewalInfo = currentSubscription?.renewalInfo,
+              case .verified(let info) = renewalInfo else {
+            return false
+        }
+        return info.willAutoRenew
     }
     
     // MARK: - Private Properties
     
-    /// Task for listening to customer info updates - stored to keep the stream alive
-    /// Uses weak self, so no explicit cancellation needed in deinit
-    private var customerInfoTask: Task<Void, Never>?
+    /// Task for listening to transaction updates - stored to keep alive, uses weak self so no cancel needed
+    @ObservationIgnored private var transactionListenerTask: Task<Void, Never>?
     
     // MARK: - Initialization
     
     init() {
-        // RevenueCat is configured in ThinkTankApp
-        // Listen for customer info updates
-        setupCustomerInfoListener()
-    }
-    
-    // MARK: - Configuration
-    
-    /// Configure RevenueCat SDK (call from App init)
-    static func configure() {
-        #if DEBUG
-        Purchases.logLevel = .debug
-        #else
-        Purchases.logLevel = .warn
-        #endif
+        // Start listening for transactions
+        setupTransactionListener()
         
-        Purchases.configure(withAPIKey: RevenueCatConfig.apiKey)
-        print("✅ RevenueCat configured with API key")
-    }
-    
-    // MARK: - User Management
-    
-    /// Login user to RevenueCat (call after Cognito auth)
-    func login(userId: String) async {
-        do {
-            let (customerInfo, _) = try await Purchases.shared.logIn(userId)
-            self.customerInfo = customerInfo
-            updateSubscriptionState(from: customerInfo)
-            print("✅ RevenueCat user logged in: \(userId)")
-            
-            // Fetch offerings after login
-            await fetchOfferings()
-        } catch {
-            print("❌ RevenueCat login failed: \(error)")
-            errorMessage = error.localizedDescription
+        // Load products and check entitlements on init
+        Task {
+            await loadProducts()
+            await checkSubscriptionStatus()
         }
     }
     
-    /// Logout user from RevenueCat (call on sign out)
-    func logout() async {
-        do {
-            let customerInfo = try await Purchases.shared.logOut()
-            self.customerInfo = customerInfo
-            updateSubscriptionState(from: customerInfo)
-            print("✅ RevenueCat user logged out")
-        } catch {
-            print("❌ RevenueCat logout failed: \(error)")
-            // Reset state anyway
-            resetState()
-        }
-    }
+    // MARK: - Product Loading
     
-    // MARK: - Offerings
-    
-    /// Fetch available offerings from RevenueCat
-    func fetchOfferings() async {
-        guard !isLoadingOfferings else { return }
+    /// Load available subscription products from the App Store
+    func loadProducts() async {
+        guard !isLoadingProducts else { return }
         
-        isLoadingOfferings = true
+        isLoadingProducts = true
         errorMessage = nil
         
         do {
-            let offerings = try await Purchases.shared.offerings()
-            self.offerings = offerings
+            let productIDs = StoreKitConfig.ProductIdentifiers.allSubscriptions
+            let storeProducts = try await Product.products(for: productIDs)
             
-            if let current = offerings.current {
-                print("✅ Loaded offerings: \(current.identifier)")
-                print("   Monthly: \(monthlyPackage?.storeProduct.localizedPriceString ?? "N/A")")
-                print("   Yearly: \(yearlyPackage?.storeProduct.localizedPriceString ?? "N/A")")
-            } else {
-                print("⚠️ No current offering available")
+            // Sort products: monthly first, then yearly
+            products = storeProducts.sorted { p1, p2 in
+                if p1.id == StoreKitConfig.ProductIdentifiers.monthly { return true }
+                if p2.id == StoreKitConfig.ProductIdentifiers.monthly { return false }
+                return p1.id < p2.id
+            }
+            
+            print("✅ Loaded \(products.count) products:")
+            for product in products {
+                print("   - \(product.id): \(product.displayPrice)")
             }
         } catch {
-            print("❌ Failed to fetch offerings: \(error)")
+            print("❌ Failed to load products: \(error)")
             errorMessage = error.localizedDescription
         }
         
-        isLoadingOfferings = false
+        isLoadingProducts = false
     }
     
     // MARK: - Purchases
     
-    /// Purchase a package
-    func purchase(package: Package) async throws {
+    /// Purchase a product
+    func purchase(product: Product) async throws {
         guard !purchaseInProgress else { return }
         
         purchaseInProgress = true
@@ -197,25 +166,37 @@ final class SubscriptionService {
         }
         
         do {
-            let result = try await Purchases.shared.purchase(package: package)
+            let result = try await product.purchase()
             
-            if !result.userCancelled {
-                customerInfo = result.customerInfo
-                updateSubscriptionState(from: result.customerInfo)
-                print("✅ Purchase successful: \(package.identifier)")
-            } else {
+            switch result {
+            case .success(let verification):
+                // Check verification
+                switch verification {
+                case .verified(let transaction):
+                    // Transaction is verified, finish it
+                    await transaction.finish()
+                    await checkSubscriptionStatus()
+                    print("✅ Purchase successful: \(product.id)")
+                    
+                case .unverified(_, let error):
+                    print("❌ Transaction verification failed: \(error)")
+                    throw SubscriptionError.verificationFailed
+                }
+                
+            case .userCancelled:
                 throw SubscriptionError.userCancelled
+                
+            case .pending:
+                // Transaction is pending (e.g., parental approval)
+                print("⏳ Purchase pending approval")
+                throw SubscriptionError.pending
+                
+            @unknown default:
+                throw SubscriptionError.purchaseFailed("Unknown result")
             }
         } catch let error as SubscriptionError {
             throw error
         } catch {
-            let nsError = error as NSError
-            
-            // Check for user cancellation
-            if nsError.domain == "RevenueCat.ErrorCode" && nsError.code == 1 {
-                throw SubscriptionError.userCancelled
-            }
-            
             print("❌ Purchase failed: \(error)")
             errorMessage = error.localizedDescription
             throw SubscriptionError.purchaseFailed(error.localizedDescription)
@@ -234,10 +215,13 @@ final class SubscriptionService {
         }
         
         do {
-            let customerInfo = try await Purchases.shared.restorePurchases()
-            self.customerInfo = customerInfo
-            updateSubscriptionState(from: customerInfo)
-            print("✅ Purchases restored")
+            // Sync with App Store
+            try await AppStore.sync()
+            
+            // Check subscription status after sync
+            await checkSubscriptionStatus()
+            
+            print("✅ Purchases synced")
             
             if !isProUser {
                 throw SubscriptionError.restoreFailed("No active subscriptions found")
@@ -251,45 +235,89 @@ final class SubscriptionService {
         }
     }
     
-    // MARK: - Entitlement Checking
+    // MARK: - Subscription Status
     
-    /// Check if user has Pro entitlement
-    func checkProEntitlement() async {
-        do {
-            let customerInfo = try await Purchases.shared.customerInfo()
-            self.customerInfo = customerInfo
-            updateSubscriptionState(from: customerInfo)
-        } catch {
-            print("❌ Failed to check entitlement: \(error)")
+    /// Check current subscription status
+    func checkSubscriptionStatus() async {
+        // Check for active subscription entitlements
+        var hasActiveSubscription = false
+        var latestStatus: Product.SubscriptionInfo.Status?
+        
+        // Iterate through all subscription statuses
+        for await result in Transaction.currentEntitlements {
+            if case .verified(let transaction) = result {
+                // Check if this is one of our subscription products
+                if StoreKitConfig.ProductIdentifiers.allSubscriptions.contains(transaction.productID) {
+                    hasActiveSubscription = true
+                    
+                    // Get the subscription status for more details
+                    if let product = products.first(where: { $0.id == transaction.productID }),
+                       let subscription = product.subscription {
+                        do {
+                            let statuses = try await subscription.status
+                            for status in statuses {
+                                if case .verified(_) = status.transaction {
+                                    latestStatus = status
+                                    break
+                                }
+                            }
+                        } catch {
+                            print("⚠️ Could not get subscription status: \(error)")
+                        }
+                    }
+                    break
+                }
+            }
         }
+        
+        currentSubscription = latestStatus
+        updateSubscriptionState(isActive: hasActiveSubscription, status: latestStatus)
     }
     
-    /// Refresh customer info
+    /// Refresh subscription status
     func refreshCustomerInfo() async {
-        await checkProEntitlement()
+        await checkSubscriptionStatus()
+    }
+    
+    // MARK: - User Management (for Cognito integration)
+    
+    /// Called after user logs in - refresh subscription status
+    func login(userId: String) async {
+        print("✅ StoreKit user context set for: \(userId)")
+        await loadProducts()
+        await checkSubscriptionStatus()
+    }
+    
+    /// Called when user logs out - resets subscription state
+    /// Subscriptions are tied to user accounts, not devices
+    func logout() async {
+        print("✅ StoreKit user logged out - resetting subscription state")
+        resetState()
+    }
+    
+    /// Called when a guest account is created - ensures free tier
+    func setGuestMode() {
+        print("✅ Guest mode - setting free tier")
+        resetState()
     }
     
     // MARK: - Private Methods
     
-    private func setupCustomerInfoListener() {
-        // Create a detached task to listen for customer info updates
-        customerInfoTask = Task.detached { [weak self] in
-            for await customerInfo in Purchases.shared.customerInfoStream {
-                await self?.handleCustomerInfoUpdate(customerInfo)
+    private func setupTransactionListener() {
+        transactionListenerTask = Task.detached { [weak self] in
+            // Listen for transaction updates
+            for await result in Transaction.updates {
+                if case .verified(let transaction) = result {
+                    await transaction.finish()
+                    await self?.checkSubscriptionStatus()
+                    print("📥 Transaction updated: \(transaction.productID)")
+                }
             }
         }
     }
     
-    private func handleCustomerInfoUpdate(_ customerInfo: CustomerInfo) {
-        self.customerInfo = customerInfo
-        updateSubscriptionState(from: customerInfo)
-        print("📥 Customer info updated")
-    }
-    
-    private func updateSubscriptionState(from customerInfo: CustomerInfo) {
-        let proEntitlement = customerInfo.entitlements[RevenueCatConfig.proEntitlementIdentifier]
-        
-        let newIsProUser = proEntitlement?.isActive ?? false
+    private func updateSubscriptionState(isActive: Bool, status: Product.SubscriptionInfo.Status?) {
+        let newIsProUser = isActive
         
         // Check if user just became Pro (transition from free to pro)
         if newIsProUser && !wasProUser {
@@ -304,15 +332,21 @@ final class SubscriptionService {
         if isProUser {
             subscriptionTier = .pro
             
-            if let entitlement = proEntitlement {
-                if entitlement.willRenew {
+            if let status = status {
+                // Check renewal info - it's a VerificationResult, not Optional
+                switch status.renewalInfo {
+                case .verified(let info):
+                    if info.willAutoRenew {
+                        subscriptionStatus = .active
+                    } else {
+                        // Active but won't renew (cancelled but still within period)
+                        subscriptionStatus = .cancelled
+                    }
+                case .unverified(_, _):
                     subscriptionStatus = .active
-                } else if entitlement.isActive {
-                    // Active but won't renew (cancelled but still within period)
-                    subscriptionStatus = .cancelled
-                } else {
-                    subscriptionStatus = .expired
                 }
+            } else {
+                subscriptionStatus = .active
             }
         } else {
             subscriptionTier = .free
@@ -326,8 +360,7 @@ final class SubscriptionService {
         isProUser = false
         subscriptionTier = .free
         subscriptionStatus = .none
-        customerInfo = nil
-        offerings = nil
+        currentSubscription = nil
         errorMessage = nil
     }
 }

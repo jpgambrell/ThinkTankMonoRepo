@@ -2,14 +2,13 @@
 //  SubscriptionManagementView.swift
 //  ThinkTank
 //
-//  Created for RevenueCat integration.
+//  Subscription management using native StoreKit 2.
 //
 
 import SwiftUI
-import RevenueCat
-import RevenueCatUI
+import StoreKit
 
-/// A view for managing the user's subscription (Customer Center)
+/// A view for managing the user's subscription
 struct SubscriptionManagementView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(SubscriptionService.self) private var subscriptionService

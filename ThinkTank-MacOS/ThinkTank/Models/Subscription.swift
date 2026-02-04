@@ -2,7 +2,7 @@
 //  Subscription.swift
 //  ThinkTank
 //
-//  Created for RevenueCat integration.
+//  Subscription models for StoreKit 2 integration.
 //
 
 import Foundation
@@ -43,14 +43,17 @@ enum SubscriptionStatus: String, Codable, Sendable {
     }
 }
 
-/// RevenueCat configuration constants
-enum RevenueCatConfig {
-    static let apiKey = "test_RqquTkEvbTbmkhGVQcOjEboPxoH"
-    static let proEntitlementIdentifier = "ThinkTank Pro"
-    
-    /// Product identifiers configured in RevenueCat
+/// StoreKit configuration constants
+enum StoreKitConfig {
+    /// Product identifiers matching your App Store Connect / StoreKit configuration
     enum ProductIdentifiers {
-        static let monthly = "monthly"
+        static let monthly = "Monthly"
         static let yearly = "yearly"
+        
+        /// All subscription product IDs
+        static let allSubscriptions: [String] = [monthly, yearly]
     }
+    
+    /// Subscription group identifier
+    static let subscriptionGroupID = "973D1FB6"
 }

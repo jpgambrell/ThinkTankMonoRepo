@@ -39,8 +39,6 @@
 		C9CA80372F2C048000756F8C /* GuestMessageBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA80382F2C048000756F8C /* GuestMessageBanner.swift */; };
 		C9CA80392F2C048000756F8C /* GuestUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA803A2F2C048000756F8C /* GuestUpgradeView.swift */; };
 		C9ECFD6E2F3210CA006857B4 /* ThinkTank.storekit in Resources */ = {isa = PBXBuildFile; fileRef = C9ECFD6D2F320FE7006857B4 /* ThinkTank.storekit */; };
-		C9RC00012F3A000000000001 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00022F3A000000000002 /* RevenueCat */; };
-		C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = C9RC00042F3A000000000004 /* RevenueCatUI */; };
 		C9RC00062F3A000000000006 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00072F3A000000000007 /* Subscription.swift */; };
 		C9RC00082F3A000000000008 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC00092F3A000000000009 /* SubscriptionService.swift */; };
 		C9RC000A2F3A00000000000A /* SubscriptionPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9RC000B2F3A00000000000B /* SubscriptionPaywallView.swift */; };
@@ -92,8 +90,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9RC00012F3A000000000001 /* RevenueCat in Frameworks */,
-				C9RC00032F3A000000000003 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,10 +251,6 @@
 			dependencies = (
 			);
 			name = ThinkTank;
-			packageProductDependencies = (
-				C9RC00022F3A000000000002 /* RevenueCat */,
-				C9RC00042F3A000000000004 /* RevenueCatUI */,
-			);
 			productName = ThinkTank;
 			productReference = C9273EA02F2BBCD7008DC939 /* ThinkTank.app */;
 			productType = "com.apple.product-type.application";
@@ -287,9 +279,6 @@
 			);
 			mainGroup = C9273E972F2BBCD7008DC939;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C9273EA12F2BBCD7008DC939 /* Products */;
 			projectDirPath = "";
@@ -587,30 +576,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C9RC00022F3A000000000002 /* RevenueCat */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCat;
-		};
-		C9RC00042F3A000000000004 /* RevenueCatUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9RC00052F3A000000000005 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCatUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C9273E982F2BBCD7008DC939 /* Project object */;
 }

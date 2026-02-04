@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State private var streamingEnabled: Bool = true
     @State private var fontSize: FontSize = .medium
     @State private var showingPaywall: Bool = false
+    @State private var showingGuestUpgrade: Bool = false
     @State private var showingSubscriptionManagement: Bool = false
     @State private var isRestoringPurchases: Bool = false
     @State private var showRestoreError: Bool = false
@@ -308,10 +309,31 @@ struct SettingsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ThemeColors.cardBackground(colorScheme))
         .overlay {
+            if showingGuestUpgrade {
+                GuestUpgradeView(
+                    isPresented: $showingGuestUpgrade,
+                    onAccountCreated: {
+                        // Show paywall after account is created
+                        showingPaywall = true
+                    }
+                )
+                .environment(authService)
+                .transition(.opacity)
+            }
+        }
+        .overlay {
             if showingPaywall {
-                SubscriptionPaywallView(isPresented: $showingPaywall, showSkipButton: true)
-                    .environment(subscriptionService)
-                    .transition(.opacity)
+                SubscriptionPaywallView(
+                    isPresented: $showingPaywall,
+                    isGuestAccount: authService.isGuestAccount,
+                    onCreateAccountRequired: {
+                        // Guest tapped "Create Account & Subscribe" - show account creation
+                        showingGuestUpgrade = true
+                    },
+                    showSkipButton: true
+                )
+                .environment(subscriptionService)
+                .transition(.opacity)
             }
         }
         .overlay {
@@ -321,6 +343,7 @@ struct SettingsView: View {
                     .transition(.opacity)
             }
         }
+        .animation(.easeInOut(duration: 0.2), value: showingGuestUpgrade)
         .animation(.easeInOut(duration: 0.2), value: showingPaywall)
         .animation(.easeInOut(duration: 0.2), value: showingSubscriptionManagement)
         .alert("Restore Failed", isPresented: $showRestoreError) {

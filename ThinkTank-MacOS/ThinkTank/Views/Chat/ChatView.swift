@@ -41,13 +41,9 @@ struct ChatView: View {
                         remainingMessages: authService.remainingFreeMessages,
                         maxMessages: authService.maxAllowedFreeMessages,
                         onUpgrade: { 
-                            if authService.isGuestAccount {
-                                showGuestUpgrade = true
-                            } else {
-                                showPaywall = true
-                            }
+                            showPaywall = true
                         },
-                        buttonText: authService.isGuestAccount ? "Create Account" : "Upgrade"
+                        buttonText: "Upgrade"
                     )
                 }
                 
@@ -92,11 +88,7 @@ struct ChatView: View {
                 GuestLimitReachedOverlay(
                     onUpgrade: {
                         showGuestLimitOverlay = false
-                        if authService.isGuestAccount {
-                            showGuestUpgrade = true
-                        } else {
-                            showPaywall = true
-                        }
+                        showPaywall = true
                     },
                     onSignOut: {
                         showGuestLimitOverlay = false
@@ -108,17 +100,30 @@ struct ChatView: View {
         }
         .overlay {
             if showGuestUpgrade {
-                GuestUpgradeView(isPresented: $showGuestUpgrade)
-                    .environment(authService)
-                    .environment(subscriptionService)
-                    .transition(.opacity)
+                GuestUpgradeView(
+                    isPresented: $showGuestUpgrade,
+                    onAccountCreated: {
+                        // Show paywall after account is created
+                        showPaywall = true
+                    }
+                )
+                .environment(authService)
+                .transition(.opacity)
             }
         }
         .overlay {
             if showPaywall {
-                SubscriptionPaywallView(isPresented: $showPaywall, showSkipButton: true)
-                    .environment(subscriptionService)
-                    .transition(.opacity)
+                SubscriptionPaywallView(
+                    isPresented: $showPaywall,
+                    isGuestAccount: authService.isGuestAccount,
+                    onCreateAccountRequired: {
+                        // Guest tapped "Create Account & Subscribe" - show account creation
+                        showGuestUpgrade = true
+                    },
+                    showSkipButton: true
+                )
+                .environment(subscriptionService)
+                .transition(.opacity)
             }
         }
         .animation(.easeInOut(duration: 0.2), value: showGuestUpgrade)

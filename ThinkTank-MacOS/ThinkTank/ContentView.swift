@@ -34,13 +34,17 @@ struct ContentView: View {
                 Task {
                     await conversationStore.loadConversationsFromCloud()
                     
-                    // Login to RevenueCat with user ID
-                    if let user = authService.currentUser {
+                    // Sync subscription state based on account type
+                    if authService.isGuestAccount {
+                        // Guest accounts don't have subscriptions
+                        subscriptionService.setGuestMode()
+                    } else if let user = authService.currentUser {
+                        // Check device subscription entitlements for authenticated users
                         await subscriptionService.login(userId: user.id.uuidString)
                     }
                 }
             } else if !newValue && oldValue {
-                // User logged out - clear local data and logout from RevenueCat
+                // User logged out - clear local data and reset subscription state
                 conversationStore.conversations = []
                 conversationStore.selectedConversationId = nil
                 
@@ -49,13 +53,26 @@ struct ContentView: View {
                 }
             }
         }
+        .onChange(of: authService.isGuestAccount) { oldValue, newValue in
+            // Handle guest account upgrade - when user upgrades from guest to full account
+            if !newValue && oldValue && authService.isAuthenticated {
+                // User just upgraded from guest - now check their subscription entitlements
+                Task {
+                    if let user = authService.currentUser {
+                        await subscriptionService.login(userId: user.id.uuidString)
+                    }
+                }
+            }
+        }
         .task {
             // Also check on app launch if already authenticated
             if authService.isAuthenticated {
                 await conversationStore.loadConversationsFromCloud()
                 
-                // Sync subscription state
-                if let user = authService.currentUser {
+                // Sync subscription state based on account type
+                if authService.isGuestAccount {
+                    subscriptionService.setGuestMode()
+                } else if let user = authService.currentUser {
                     await subscriptionService.login(userId: user.id.uuidString)
                 }
             }
