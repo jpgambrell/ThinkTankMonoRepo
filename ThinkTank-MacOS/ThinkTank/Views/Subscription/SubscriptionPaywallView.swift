@@ -42,7 +42,7 @@ struct SubscriptionPaywallView: View {
                 header
                 
                 ScrollView {
-                    VStack(spacing: 24) {
+                    VStack(spacing: 16) {
                         // Hero section
                         heroSection
                         
@@ -69,11 +69,11 @@ struct SubscriptionPaywallView: View {
                         termsSection
                     }
                     .padding(.horizontal, 40)
-                    .padding(.vertical, 32)
+                    .padding(.vertical, 16)
                 }
             }
         }
-        .frame(minWidth: 500, minHeight: 700)
+        .frame(minWidth: 500, minHeight: 600)
         .alert("Error", isPresented: $showError) {
             Button("OK") { showError = false }
         } message: {
@@ -121,51 +121,50 @@ struct SubscriptionPaywallView: View {
     // MARK: - Hero Section
     
     private var heroSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             // App icon or logo
             Image(systemName: "brain.head.profile")
-                .font(.system(size: 64))
+                .font(.system(size: 48))
                 .foregroundStyle(Color.brandPrimary)
             
             Text("Upgrade to ThinkTank Pro")
-                .font(.system(size: 28, weight: .bold))
+                .font(.system(size: 24, weight: .bold))
                 .foregroundStyle(ThemeColors.primaryText(colorScheme))
             
             Text("Unlock unlimited AI conversations and premium features")
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .foregroundStyle(ThemeColors.secondaryText(colorScheme))
                 .multilineTextAlignment(.center)
         }
-        .padding(.top, 20)
     }
     
     // MARK: - Account Required Banner
     
     private var accountRequiredBanner: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 20))
+                .font(.system(size: 16))
                 .foregroundStyle(.orange)
             
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 1) {
                 Text("Account Required")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Text("Create an account to subscribe. This ensures you can always access your subscription.")
-                    .font(.system(size: 12))
+                    .font(.system(size: 11))
                     .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }
             
             Spacer()
         }
-        .padding(16)
+        .padding(12)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(Color.orange.opacity(0.15))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.orange.opacity(0.3), lineWidth: 1)
         )
     }
@@ -173,20 +172,20 @@ struct SubscriptionPaywallView: View {
     // MARK: - Features Section
     
     private var featuresSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             FeatureRow(icon: "infinity", text: "Unlimited messages")
             FeatureRow(icon: "cpu", text: "Access to all AI models")
             FeatureRow(icon: "icloud", text: "Cloud sync across devices")
             FeatureRow(icon: "bolt.fill", text: "Priority response times")
             FeatureRow(icon: "sparkles", text: "Early access to new features")
         }
-        .padding(20)
+        .padding(14)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(ThemeColors.cardBackground(colorScheme))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .stroke(ThemeColors.border(colorScheme), lineWidth: 1)
         )
     }
@@ -234,21 +233,21 @@ struct SubscriptionPaywallView: View {
                     HStack(spacing: 8) {
                         if isGuestAccount {
                             Image(systemName: "person.badge.plus")
-                                .font(.system(size: 16))
+                                .font(.system(size: 14))
                         }
                         Text(purchaseButtonTitle)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 15, weight: .semibold))
                     }
                 }
             }
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
-            .frame(height: 50)
+            .frame(height: 44)
         }
         .buttonStyle(.plain)
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(isGuestAccount ? Color.brandPrimary : Color.brandPrimary)
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.brandPrimary)
         )
         .disabled(selectedProduct == nil || subscriptionService.purchaseInProgress)
         .opacity(selectedProduct == nil ? 0.5 : 1.0)
@@ -284,9 +283,9 @@ struct SubscriptionPaywallView: View {
     // MARK: - Terms Section
     
     private var termsSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             Text("Recurring billing. Cancel anytime.")
-                .font(.system(size: 12))
+                .font(.system(size: 11))
                 .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
             
             HStack(spacing: 16) {
@@ -300,10 +299,9 @@ struct SubscriptionPaywallView: View {
                 }
                 .buttonStyle(.plain)
             }
-            .font(.system(size: 12))
+            .font(.system(size: 11))
             .foregroundStyle(ThemeColors.secondaryText(colorScheme))
         }
-        .padding(.top, 8)
     }
     
     // MARK: - Actions
@@ -378,14 +376,14 @@ private struct FeatureRow: View {
     let text: String
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .foregroundStyle(Color.brandPrimary)
-                .frame(width: 24)
+                .frame(width: 20)
             
             Text(text)
-                .font(.system(size: 14))
+                .font(.system(size: 13))
                 .foregroundStyle(.primary)
         }
     }
@@ -403,40 +401,40 @@ private struct PricingCard: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
+            VStack(spacing: 4) {
                 if let badge = badge {
                     Text(badge)
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.system(size: 9, weight: .semibold))
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
                         .background(Color.brandPrimary)
                         .clipShape(.capsule)
                 } else {
                     Color.clear
-                        .frame(height: 20)
+                        .frame(height: 16)
                 }
                 
                 Text(title)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Text(product.displayPrice)
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(ThemeColors.primaryText(colorScheme))
                 
                 Text(priceDescription)
-                    .font(.system(size: 12))
+                    .font(.system(size: 11))
                     .foregroundStyle(ThemeColors.secondaryText(colorScheme))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 20)
+            .padding(.vertical, 14)
             .background(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 10)
                     .fill(isSelected ? Color.brandPrimaryLight.opacity(0.3) : ThemeColors.cardBackground(colorScheme))
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 10)
                     .stroke(isSelected ? Color.brandPrimary : ThemeColors.border(colorScheme), lineWidth: isSelected ? 2 : 1)
             )
         }

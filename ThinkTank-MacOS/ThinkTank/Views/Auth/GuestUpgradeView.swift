@@ -33,83 +33,82 @@ struct GuestUpgradeView: View {
             VStack(spacing: 0) {
                 // Header
                 HStack {
+                    Spacer()
+                    
                     Button(action: { isPresented = false }) {
                         Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.primary)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.secondary)
                     }
                     .buttonStyle(.plain)
-                    
-                    Spacer()
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 24)
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
                 
                 ScrollView {
                     VStack(spacing: 0) {
                         // Logo and Title
-                        VStack(spacing: 16) {
+                        VStack(spacing: 8) {
                             Image(systemName: "person.badge.plus")
-                                .font(.system(size: 64))
+                                .font(.system(size: 48))
                                 .foregroundStyle(Color.brandPrimary)
                             
                             Text("Create Your Account")
-                                .font(.system(size: 32, weight: .bold))
+                                .font(.system(size: 24, weight: .bold))
                                 .foregroundStyle(.primary)
                             
                             Text("Your chat history will be preserved")
-                                .font(.system(size: 16))
+                                .font(.system(size: 14))
                                 .foregroundStyle(.secondary)
                         }
-                        .padding(.top, 40)
-                        .padding(.bottom, 40)
+                        .padding(.top, 16)
+                        .padding(.bottom, 20)
                         
                         // Upgrade Form
-                        VStack(spacing: 20) {
+                        VStack(spacing: 14) {
                             // Benefits callout
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 8) {
                                 BenefitRow(icon: "checkmark.circle.fill", text: "Keep all your conversations")
                                 BenefitRow(icon: "iphone.and.arrow.forward", text: "Access from any device")
                                 BenefitRow(icon: "infinity", text: "Unlimited messages")
                             }
-                            .padding(16)
+                            .padding(12)
                             .background(Color.brandPrimaryLight.opacity(0.3))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .padding(.bottom, 8)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     
                     // Full Name Field
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("Full Name")
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                         
                         TextField("John Doe", text: $fullName)
                             .textFieldStyle(.plain)
-                            .font(.system(size: 15))
-                            .padding(12)
+                            .font(.system(size: 14))
+                            .padding(10)
                             .background(Color(.textBackgroundColor))
-                            .clipShape(.rect(cornerRadius: 8))
+                            .clipShape(.rect(cornerRadius: 6))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                             )
                             .textContentType(.name)
                     }
                     
                     // Email Field
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("Email")
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                         
                         TextField("you@example.com", text: $email)
                             .textFieldStyle(.plain)
-                            .font(.system(size: 15))
-                            .padding(12)
+                            .font(.system(size: 14))
+                            .padding(10)
                             .background(Color(.textBackgroundColor))
-                            .clipShape(.rect(cornerRadius: 8))
+                            .clipShape(.rect(cornerRadius: 6))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                             )
                             .textContentType(.emailAddress)
@@ -117,38 +116,38 @@ struct GuestUpgradeView: View {
                     }
                     
                     // Password Field
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("Password")
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                         
                         SecureField("At least 8 characters", text: $password)
                             .textFieldStyle(.plain)
-                            .font(.system(size: 15))
-                            .padding(12)
+                            .font(.system(size: 14))
+                            .padding(10)
                             .background(Color(.textBackgroundColor))
-                            .clipShape(.rect(cornerRadius: 8))
+                            .clipShape(.rect(cornerRadius: 6))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                             )
                             .textContentType(.newPassword)
                     }
                     
                     // Confirm Password Field
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("Confirm Password")
-                            .font(.system(size: 13, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                         
                         SecureField("Re-enter password", text: $confirmPassword)
                             .textFieldStyle(.plain)
-                            .font(.system(size: 15))
-                            .padding(12)
+                            .font(.system(size: 14))
+                            .padding(10)
                             .background(Color(.textBackgroundColor))
-                            .clipShape(.rect(cornerRadius: 8))
+                            .clipShape(.rect(cornerRadius: 6))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                             )
                             .textContentType(.newPassword)
@@ -156,7 +155,7 @@ struct GuestUpgradeView: View {
                     
                     // Password Requirements
                     if !password.isEmpty {
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 2) {
                             PasswordRequirement(
                                 met: password.count >= 8,
                                 text: "At least 8 characters"
@@ -174,17 +173,17 @@ struct GuestUpgradeView: View {
                                 text: "One number"
                             )
                         }
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
                     // Password match indicator
                     if !confirmPassword.isEmpty {
-                        HStack(spacing: 6) {
+                        HStack(spacing: 4) {
                             Image(systemName: password == confirmPassword ? "checkmark.circle.fill" : "xmark.circle.fill")
                             Text(password == confirmPassword ? "Passwords match" : "Passwords don't match")
                         }
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                         .foregroundStyle(password == confirmPassword ? Color.brandPrimary : .red)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -192,7 +191,7 @@ struct GuestUpgradeView: View {
                     // Error Message
                     if let errorMessage = errorMessage {
                         Text(errorMessage)
-                            .font(.system(size: 13))
+                            .font(.system(size: 12))
                             .foregroundStyle(.red)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -207,13 +206,13 @@ struct GuestUpgradeView: View {
                                 .frame(maxWidth: .infinity)
                         } else {
                             Text("Create Account")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(.system(size: 14, weight: .semibold))
                                 .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                         }
                     }
                     .buttonStyle(.plain)
-                    .frame(height: 44)
+                    .frame(height: 40)
                     .background(
                         LinearGradient(
                             colors: [
@@ -224,15 +223,14 @@ struct GuestUpgradeView: View {
                             endPoint: .trailing
                         )
                     )
-                    .clipShape(.rect(cornerRadius: 8))
-                    .shadow(color: Color.brandPrimary.opacity(0.4), radius: 15, x: 0, y: 8)
+                    .clipShape(.rect(cornerRadius: 6))
+                    .shadow(color: Color.brandPrimary.opacity(0.3), radius: 10, x: 0, y: 4)
                     .disabled(isUpgrading || !isFormValid)
                     .opacity(isFormValid ? 1.0 : 0.5)
-                    .padding(.top, 8)
                         }
-                        .frame(maxWidth: 400)
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 40)
+                        .frame(maxWidth: 440)
+                        .padding(.horizontal, 32)
+                        .padding(.bottom, 20)
                     }
                 }
             }
@@ -287,13 +285,13 @@ private struct BenefitRow: View {
     let text: String
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.system(size: 16))
+                .font(.system(size: 13))
                 .foregroundStyle(Color.brandPrimary)
             
             Text(text)
-                .font(.system(size: 14))
+                .font(.system(size: 13))
                 .foregroundStyle(.primary)
         }
     }
