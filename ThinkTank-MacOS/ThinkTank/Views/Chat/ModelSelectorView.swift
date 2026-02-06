@@ -18,32 +18,36 @@ struct ModelSelectorView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            ForEach(Array(AIModel.modelsByProvider.keys.sorted()), id: \.self) { provider in
-                if let models = AIModel.modelsByProvider[provider] {
-                    // Provider Header
-                    Text(provider.uppercased())
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
-                        .tracking(0.5)
-                        .padding(.horizontal, 12)
-                        .padding(.top, provider == AIModel.modelsByProvider.keys.sorted().first ? 8 : 12)
-                    
-                    // Models
-                    ForEach(models) { model in
-                        ModelRowView(
-                            model: model,
-                            isSelected: model.id == selectedModelId,
-                            onSelect: {
-                                selectModel(model)
-                            }
-                        )
+        ScrollView {
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Array(AIModel.modelsByProvider.keys.sorted()), id: \.self) { provider in
+                    if let models = AIModel.modelsByProvider[provider] {
+                        // Provider Header
+                        Text(provider.uppercased())
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
+                            .tracking(0.5)
+                            .padding(.horizontal, 12)
+                            .padding(.top, provider == AIModel.modelsByProvider.keys.sorted().first ? 8 : 12)
+                        
+                        // Models
+                        ForEach(models) { model in
+                            ModelRowView(
+                                model: model,
+                                isSelected: model.id == selectedModelId,
+                                onSelect: {
+                                    selectModel(model)
+                                }
+                            )
+                        }
                     }
                 }
             }
+            .padding(.vertical, 8)
         }
-        .padding(.vertical, 8)
-        .frame(width: 240)
+        .frame(width: 280)
+        .frame(maxHeight: 480)
+        .scrollIndicators(.automatic)
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(ThemeColors.cardBackground(colorScheme))
@@ -53,6 +57,7 @@ struct ModelSelectorView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(ThemeColors.border(colorScheme), lineWidth: 1)
         )
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     
     private func selectModel(_ model: AIModel) {
@@ -83,34 +88,33 @@ struct ModelRowView: View {
     var body: some View {
         Button(action: onSelect) {
             HStack(spacing: 12) {
-                // Provider Icon
-                Circle()
-                    .fill(model.providerColor)
+                // Provider Logo
+                Image(model.providerIcon)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 24, height: 24)
-                    .overlay(
-                        Text(model.iconLetter)
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundStyle(.white)
-                    )
+                    .clipShape(.circle)
                 
                 // Model Info
                 VStack(alignment: .leading, spacing: 2) {
                     Text(model.displayName)
                         .font(.system(size: 13, weight: .medium))
-                        .foregroundStyle(ThemeColors.primaryText(colorScheme))
+                        .foregroundStyle(nameColor)
+                        .lineLimit(1)
                     
                     Text(model.description)
                         .font(.system(size: 11))
-                        .foregroundStyle(ThemeColors.tertiaryText(colorScheme))
+                        .foregroundStyle(descriptionColor)
+                        .lineLimit(1)
                 }
                 
-                Spacer()
+                Spacer(minLength: 4)
                 
                 // Checkmark for selected
                 if isSelected {
                     Image(systemName: "checkmark")
                         .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color.brandPrimary)
+                        .foregroundStyle(Color.brandPrimaryDark)
                 }
             }
             .padding(.horizontal, 12)
@@ -125,6 +129,22 @@ struct ModelRowView: View {
         .onHover { hovering in
             isHovered = hovering
         }
+    }
+    
+    // Selected row uses a light green background in both modes,
+    // so text must always be dark to ensure contrast.
+    private var nameColor: Color {
+        if isSelected {
+            return Color(hex: "1A1A1A")
+        }
+        return ThemeColors.primaryText(colorScheme)
+    }
+    
+    private var descriptionColor: Color {
+        if isSelected {
+            return Color.brandPrimaryDark
+        }
+        return ThemeColors.tertiaryText(colorScheme)
     }
     
     private var backgroundColor: Color {

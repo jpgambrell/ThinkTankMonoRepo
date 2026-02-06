@@ -29,7 +29,13 @@ struct ChatHeaderView: View {
                 }
             }) {
                 HStack(spacing: 8) {
-                    Text(selectedModelName)
+                    Image(selectedModel.providerIcon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 16, height: 16)
+                        .clipShape(.circle)
+                    
+                    Text(selectedModel.displayName)
                         .font(.system(size: 12))
                         .foregroundStyle(showModelSelector ? Color.brandPrimary : ThemeColors.secondaryText(colorScheme))
                     
@@ -56,12 +62,12 @@ struct ChatHeaderView: View {
         .background(ThemeColors.cardBackground(colorScheme))
     }
     
-    private var selectedModelName: String {
+    private var selectedModel: AIModel {
         guard let modelId = conversationStore.selectedConversation?.modelId,
               let model = AIModel.model(for: modelId) else {
-            return AIModel.defaultModel.displayName
+            return AIModel.defaultModel
         }
-        return model.displayName
+        return model
     }
 }
 

@@ -246,13 +246,30 @@ final class CognitoAuthService {
         print("✅ Account deleted successfully")
     }
     
-    /// Get the current ID token for API requests
+    /// Get the current ID token for API requests, refreshing automatically if expired
     func getIdToken() async throws -> String {
-        if let token = idToken {
-            // TODO: Check if token is expired and refresh if needed
-            return token
+        guard let token = idToken else {
+            throw AuthError.notAuthenticated
         }
-        throw AuthError.notAuthenticated
+        
+        // Check if token is expired (or will expire within 60 seconds)
+        if isTokenExpired(token, bufferSeconds: 60) {
+            print("🔄 ID token expired or expiring soon, attempting refresh...")
+            do {
+                try await refreshTokens()
+                guard let freshToken = idToken else {
+                    throw AuthError.notAuthenticated
+                }
+                return freshToken
+            } catch {
+                print("❌ Token refresh failed: \(error)")
+                // Clear auth state so user is prompted to sign in again
+                signOut()
+                throw AuthError.notAuthenticated
+            }
+        }
+        
+        return token
     }
     
     // MARK: - Guest Account Methods
@@ -382,6 +399,83 @@ final class CognitoAuthService {
         return String(password.shuffled())
     }
     
+    // MARK: - Token Refresh
+    
+    /// Check if a JWT token is expired
+    private func isTokenExpired(_ token: String, bufferSeconds: TimeInterval = 0) -> Bool {
+        let parts = token.split(separator: ".")
+        guard parts.count == 3 else { return true }
+        
+        var base64 = String(parts[1])
+        let remainder = base64.count % 4
+        if remainder > 0 {
+            base64 += String(repeating: "=", count: 4 - remainder)
+        }
+        
+        guard let data = Data(base64Encoded: base64),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let exp = json["exp"] as? TimeInterval else {
+            return true
+        }
+        
+        let expirationDate = Date(timeIntervalSince1970: exp)
+        return Date().addingTimeInterval(bufferSeconds) >= expirationDate
+    }
+    
+    /// Refresh tokens using the Cognito REFRESH_TOKEN_AUTH flow
+    private func refreshTokens() async throws {
+        guard let currentRefreshToken = refreshToken else {
+            throw AuthError.notAuthenticated
+        }
+        
+        let endpoint = "https://cognito-idp.\(AWSConfig.cognitoRegion).amazonaws.com/"
+        
+        let payload: [String: Any] = [
+            "ClientId": AWSConfig.cognitoClientId,
+            "AuthFlow": "REFRESH_TOKEN_AUTH",
+            "AuthParameters": [
+                "REFRESH_TOKEN": currentRefreshToken
+            ]
+        ]
+        
+        var request = URLRequest(url: URL(string: endpoint)!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-amz-json-1.1", forHTTPHeaderField: "Content-Type")
+        request.setValue("AWSCognitoIdentityProviderService.InitiateAuth", forHTTPHeaderField: "X-Amz-Target")
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response during token refresh")
+        }
+        
+        if httpResponse.statusCode == 200 {
+            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            guard let authResult = json?["AuthenticationResult"] as? [String: Any] else {
+                throw AuthError.signInFailed("Invalid refresh response format")
+            }
+            
+            idToken = authResult["IdToken"] as? String
+            accessToken = authResult["AccessToken"] as? String
+            // Note: REFRESH_TOKEN_AUTH does not return a new refresh token;
+            // the existing one remains valid
+            
+            // Persist the new tokens
+            storeTokens()
+            
+            // Update user info from the new token
+            try parseUserFromToken()
+            
+            print("✅ Tokens refreshed successfully")
+        } else {
+            let errorResponse = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let message = errorResponse?["message"] as? String ?? "Token refresh failed"
+            print("❌ Token refresh error: \(message)")
+            throw AuthError.signInFailed(message)
+        }
+    }
+    
     // MARK: - Private Methods
     
     /// Internal sign up without loading state management (for guest account creation)
@@ -481,13 +575,26 @@ final class CognitoAuthService {
         accessToken = UserDefaults.standard.string(forKey: "accessToken")
         refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
         
-        if idToken != nil {
-            do {
-                try parseUserFromToken()
-                isAuthenticated = true
-            } catch {
-                // Token invalid or expired, clear it
-                signOut()
+        if let token = idToken {
+            if isTokenExpired(token) {
+                // Token is expired but we might have a refresh token
+                if refreshToken != nil {
+                    print("🔄 Stored ID token is expired, will refresh on next API call")
+                    // Still mark as authenticated — getIdToken() will handle the refresh
+                    // Try to parse user info (it's just name/email, still readable from expired token)
+                    try? parseUserFromToken()
+                    isAuthenticated = true
+                } else {
+                    // No refresh token, must sign in again
+                    signOut()
+                }
+            } else {
+                do {
+                    try parseUserFromToken()
+                    isAuthenticated = true
+                } catch {
+                    signOut()
+                }
             }
         }
     }

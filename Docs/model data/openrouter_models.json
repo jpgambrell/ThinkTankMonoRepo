@@ -1,0 +1,4988 @@
+{
+  "generated": "2026-02-05",
+  "source": "https://openrouter.ai/models",
+  "total_models": 620,
+  "total_providers": 111,
+  "logo_notes": {
+    "svg_logos_available": [
+      "Anthropic",
+      "GoogleGemini",
+      "Microsoft",
+      "OpenAI",
+      "Perplexity"
+    ],
+    "png_logos_available": [
+      "Cohere",
+      "DeepSeek",
+      "Kwaipilot",
+      "Meta",
+      "Mistral",
+      "Qwen",
+      "TheDrummer"
+    ],
+    "cdn_url_pattern": "https://openrouter.ai/images/icons/{IconName}.svg",
+    "provider_page_pattern": "https://openrouter.ai/{company-slug}"
+  },
+  "models": [
+    {
+      "display_name": "Anthropic: Claude Opus 4.6",
+      "model_id": "anthropic/claude-opus-4.6",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder Next",
+      "model_id": "qwen/qwen3-coder-next",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Sourceful: Riverflow V2 Pro",
+      "model_id": "sourceful/riverflow-v2-pro",
+      "company_slug": "sourceful",
+      "company_name": "Sourceful",
+      "logo_url": "https://openrouter.ai/sourceful",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sourceful: Riverflow V2 Fast",
+      "model_id": "sourceful/riverflow-v2-fast",
+      "company_slug": "sourceful",
+      "company_name": "Sourceful",
+      "logo_url": "https://openrouter.ai/sourceful",
+      "logo_local": null
+    },
+    {
+      "display_name": "StepFun: Step 3.5 Flash (free)",
+      "model_id": "stepfun/step-3.5-flash:free",
+      "company_slug": "stepfun",
+      "company_name": "StepFun",
+      "logo_url": "https://openrouter.ai/stepfun",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Trinity Large Preview (free)",
+      "model_id": "arcee-ai/trinity-large-preview:free",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "MoonshotAI: Kimi K2.5",
+      "model_id": "moonshotai/kimi-k2.5",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Upstage: Solar Pro 3 (free)",
+      "model_id": "upstage/solar-pro-3:free",
+      "company_slug": "upstage",
+      "company_name": "Upstage",
+      "logo_url": "https://openrouter.ai/upstage",
+      "logo_local": null
+    },
+    {
+      "display_name": "MiniMax: MiniMax M2-her",
+      "model_id": "minimax/minimax-m2-her",
+      "company_slug": "minimax",
+      "company_name": "MiniMax",
+      "logo_url": "https://openrouter.ai/minimax",
+      "logo_local": null
+    },
+    {
+      "display_name": "Writer: Palmyra X5",
+      "model_id": "writer/palmyra-x5",
+      "company_slug": "writer",
+      "company_name": "Writer",
+      "logo_url": "https://openrouter.ai/writer",
+      "logo_local": null
+    },
+    {
+      "display_name": "LiquidAI: LFM2.5-1.2B-Thinking (free)",
+      "model_id": "liquid/lfm-2.5-1.2b-thinking:free",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "LiquidAI: LFM2.5-1.2B-Instruct (free)",
+      "model_id": "liquid/lfm-2.5-1.2b-instruct:free",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT Audio",
+      "model_id": "openai/gpt-audio",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT Audio Mini",
+      "model_id": "openai/gpt-audio-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Z.AI: GLM 4.7 Flash",
+      "model_id": "z-ai/glm-4.7-flash",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Black Forest Labs: FLUX.2 Klein 4B",
+      "model_id": "black-forest-labs/flux.2-klein-4b",
+      "company_slug": "black-forest-labs",
+      "company_name": "Black Forest Labs",
+      "logo_url": "https://openrouter.ai/black-forest-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5.2-Codex",
+      "model_id": "openai/gpt-5.2-codex",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "AllenAI: Molmo2 8B",
+      "model_id": "allenai/molmo-2-8b",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AllenAI: Olmo 3.1 32B Instruct",
+      "model_id": "allenai/olmo-3.1-32b-instruct",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "ByteDance Seed: Seedream 4.5",
+      "model_id": "bytedance-seed/seedream-4.5",
+      "company_slug": "bytedance-seed",
+      "company_name": "ByteDance Seed",
+      "logo_url": "https://openrouter.ai/bytedance-seed",
+      "logo_local": null
+    },
+    {
+      "display_name": "ByteDance Seed: Seed 1.6 Flash",
+      "model_id": "bytedance-seed/seed-1.6-flash",
+      "company_slug": "bytedance-seed",
+      "company_name": "ByteDance Seed",
+      "logo_url": "https://openrouter.ai/bytedance-seed",
+      "logo_local": null
+    },
+    {
+      "display_name": "ByteDance Seed: Seed 1.6",
+      "model_id": "bytedance-seed/seed-1.6",
+      "company_slug": "bytedance-seed",
+      "company_name": "ByteDance Seed",
+      "logo_url": "https://openrouter.ai/bytedance-seed",
+      "logo_local": null
+    },
+    {
+      "display_name": "MiniMax: MiniMax M2.1",
+      "model_id": "minimax/minimax-m2.1",
+      "company_slug": "minimax",
+      "company_name": "MiniMax",
+      "logo_url": "https://openrouter.ai/minimax",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.7",
+      "model_id": "z-ai/glm-4.7",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 3 Flash Preview",
+      "model_id": "google/gemini-3-flash-preview",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Mistral: Mistral Small Creative",
+      "model_id": "mistralai/mistral-small-creative",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "AllenAI: Olmo 3.1 32B Think",
+      "model_id": "allenai/olmo-3.1-32b-think",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Black Forest Labs: FLUX.2 Max",
+      "model_id": "black-forest-labs/flux.2-max",
+      "company_slug": "black-forest-labs",
+      "company_name": "Black Forest Labs",
+      "logo_url": "https://openrouter.ai/black-forest-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "Xiaomi: MiMo-V2-Flash",
+      "model_id": "xiaomi/mimo-v2-flash",
+      "company_slug": "xiaomi",
+      "company_name": "Xiaomi",
+      "logo_url": "https://openrouter.ai/xiaomi",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
+      "model_id": "nvidia/nemotron-3-nano-30b-a3b:free",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Nemotron 3 Nano 30B A3B",
+      "model_id": "nvidia/nemotron-3-nano-30b-a3b",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5.2 Chat",
+      "model_id": "openai/gpt-5.2-chat",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5.2 Pro",
+      "model_id": "openai/gpt-5.2-pro",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5.2",
+      "model_id": "openai/gpt-5.2",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Devstral 2 2512",
+      "model_id": "mistralai/devstral-2512",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Sourceful: Riverflow V2 Max Preview",
+      "model_id": "sourceful/riverflow-v2-max-preview",
+      "company_slug": "sourceful",
+      "company_name": "Sourceful",
+      "logo_url": "https://openrouter.ai/sourceful",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sourceful: Riverflow V2 Standard Preview",
+      "model_id": "sourceful/riverflow-v2-standard-preview",
+      "company_slug": "sourceful",
+      "company_name": "Sourceful",
+      "logo_url": "https://openrouter.ai/sourceful",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sourceful: Riverflow V2 Fast Preview",
+      "model_id": "sourceful/riverflow-v2-fast-preview",
+      "company_slug": "sourceful",
+      "company_name": "Sourceful",
+      "logo_url": "https://openrouter.ai/sourceful",
+      "logo_local": null
+    },
+    {
+      "display_name": "Relace: Relace Search",
+      "model_id": "relace/relace-search",
+      "company_slug": "relace",
+      "company_name": "Relace",
+      "logo_url": "https://openrouter.ai/relace",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.6V",
+      "model_id": "z-ai/glm-4.6v",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nex AGI: DeepSeek V3.1 Nex N1",
+      "model_id": "nex-agi/deepseek-v3.1-nex-n1",
+      "company_slug": "nex-agi",
+      "company_name": "Nex AGI",
+      "logo_url": "https://openrouter.ai/nex-agi",
+      "logo_local": null
+    },
+    {
+      "display_name": "EssentialAI: Rnj 1 Instruct",
+      "model_id": "essentialai/rnj-1-instruct",
+      "company_slug": "essentialai",
+      "company_name": "EssentialAI",
+      "logo_url": "https://openrouter.ai/essentialai",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5.1-Codex-Max",
+      "model_id": "openai/gpt-5.1-codex-max",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Amazon: Nova 2 Lite",
+      "model_id": "amazon/nova-2-lite-v1",
+      "company_slug": "amazon",
+      "company_name": "Amazon",
+      "logo_url": "https://openrouter.ai/amazon",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Ministral 3 14B 2512",
+      "model_id": "mistralai/ministral-14b-2512",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Ministral 3 8B 2512",
+      "model_id": "mistralai/ministral-8b-2512",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Ministral 3 3B 2512",
+      "model_id": "mistralai/ministral-3b-2512",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Mistral Large 3 2512",
+      "model_id": "mistralai/mistral-large-2512",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Arcee AI: Trinity Mini (free)",
+      "model_id": "arcee-ai/trinity-mini:free",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Trinity Mini",
+      "model_id": "arcee-ai/trinity-mini",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.2 Speciale",
+      "model_id": "deepseek/deepseek-v3.2-speciale",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.2",
+      "model_id": "deepseek/deepseek-v3.2",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Prime Intellect: INTELLECT-3",
+      "model_id": "prime-intellect/intellect-3",
+      "company_slug": "prime-intellect",
+      "company_name": "Prime Intellect",
+      "logo_url": "https://openrouter.ai/prime-intellect",
+      "logo_local": null
+    },
+    {
+      "display_name": "TNG: R1T Chimera (free)",
+      "model_id": "tngtech/tng-r1t-chimera:free",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "TNG: R1T Chimera",
+      "model_id": "tngtech/tng-r1t-chimera",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "Black Forest Labs: FLUX.2 Flex",
+      "model_id": "black-forest-labs/flux.2-flex",
+      "company_slug": "black-forest-labs",
+      "company_name": "Black Forest Labs",
+      "logo_url": "https://openrouter.ai/black-forest-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "Black Forest Labs: FLUX.2 Pro",
+      "model_id": "black-forest-labs/flux.2-pro",
+      "company_slug": "black-forest-labs",
+      "company_name": "Black Forest Labs",
+      "logo_url": "https://openrouter.ai/black-forest-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude Opus 4.5",
+      "model_id": "anthropic/claude-opus-4.5",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "AllenAI: Olmo 3 32B Think",
+      "model_id": "allenai/olmo-3-32b-think",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AllenAI: Olmo 3 7B Instruct",
+      "model_id": "allenai/olmo-3-7b-instruct",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AllenAI: Olmo 3 7B Think",
+      "model_id": "allenai/olmo-3-7b-think",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Nano Banana Pro (Gemini 3 Pro Image Preview)",
+      "model_id": "google/gemini-3-pro-image-preview",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "xAI: Grok 4.1 Fast",
+      "model_id": "x-ai/grok-4.1-fast",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 3 Pro Preview",
+      "model_id": "google/gemini-3-pro-preview",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Thenlper: GTE-Base",
+      "model_id": "thenlper/gte-base",
+      "company_slug": "thenlper",
+      "company_name": "Thenlper",
+      "logo_url": "https://openrouter.ai/thenlper",
+      "logo_local": null
+    },
+    {
+      "display_name": "Thenlper: GTE-Large",
+      "model_id": "thenlper/gte-large",
+      "company_slug": "thenlper",
+      "company_name": "Thenlper",
+      "logo_url": "https://openrouter.ai/thenlper",
+      "logo_local": null
+    },
+    {
+      "display_name": "Intfloat: E5-Large-v2",
+      "model_id": "intfloat/e5-large-v2",
+      "company_slug": "intfloat",
+      "company_name": "Intfloat",
+      "logo_url": "https://openrouter.ai/intfloat",
+      "logo_local": null
+    },
+    {
+      "display_name": "Intfloat: E5-Base-v2",
+      "model_id": "intfloat/e5-base-v2",
+      "company_slug": "intfloat",
+      "company_name": "Intfloat",
+      "logo_url": "https://openrouter.ai/intfloat",
+      "logo_local": null
+    },
+    {
+      "display_name": "Intfloat: Multilingual-E5-Large",
+      "model_id": "intfloat/multilingual-e5-large",
+      "company_slug": "intfloat",
+      "company_name": "Intfloat",
+      "logo_url": "https://openrouter.ai/intfloat",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sentence Transformers: paraphrase-MiniLM-L6-v2",
+      "model_id": "sentence-transformers/paraphrase-minilm-l6-v2",
+      "company_slug": "sentence-transformers",
+      "company_name": "Sentence Transformers",
+      "logo_url": "https://openrouter.ai/sentence-transformers",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sentence Transformers: all-MiniLM-L12-v2",
+      "model_id": "sentence-transformers/all-minilm-l12-v2",
+      "company_slug": "sentence-transformers",
+      "company_name": "Sentence Transformers",
+      "logo_url": "https://openrouter.ai/sentence-transformers",
+      "logo_local": null
+    },
+    {
+      "display_name": "BAAI: bge-base-en-v1.5",
+      "model_id": "baai/bge-base-en-v1.5",
+      "company_slug": "baai",
+      "company_name": "BAAI",
+      "logo_url": "https://openrouter.ai/baai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sentence Transformers: multi-qa-mpnet-base-dot-v1",
+      "model_id": "sentence-transformers/multi-qa-mpnet-base-dot-v1",
+      "company_slug": "sentence-transformers",
+      "company_name": "Sentence Transformers",
+      "logo_url": "https://openrouter.ai/sentence-transformers",
+      "logo_local": null
+    },
+    {
+      "display_name": "BAAI: bge-large-en-v1.5",
+      "model_id": "baai/bge-large-en-v1.5",
+      "company_slug": "baai",
+      "company_name": "BAAI",
+      "logo_url": "https://openrouter.ai/baai",
+      "logo_local": null
+    },
+    {
+      "display_name": "BAAI: bge-m3",
+      "model_id": "baai/bge-m3",
+      "company_slug": "baai",
+      "company_name": "BAAI",
+      "logo_url": "https://openrouter.ai/baai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sentence Transformers: all-mpnet-base-v2",
+      "model_id": "sentence-transformers/all-mpnet-base-v2",
+      "company_slug": "sentence-transformers",
+      "company_name": "Sentence Transformers",
+      "logo_url": "https://openrouter.ai/sentence-transformers",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sentence Transformers: all-MiniLM-L6-v2",
+      "model_id": "sentence-transformers/all-minilm-l6-v2",
+      "company_slug": "sentence-transformers",
+      "company_name": "Sentence Transformers",
+      "logo_url": "https://openrouter.ai/sentence-transformers",
+      "logo_local": null
+    },
+    {
+      "display_name": "Deep Cogito: Cogito v2.1 671B",
+      "model_id": "deepcogito/cogito-v2.1-671b",
+      "company_slug": "deepcogito",
+      "company_name": "Deep Cogito",
+      "logo_url": "https://openrouter.ai/deepcogito",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5.1",
+      "model_id": "openai/gpt-5.1",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5.1 Chat",
+      "model_id": "openai/gpt-5.1-chat",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5.1-Codex",
+      "model_id": "openai/gpt-5.1-codex",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5.1-Codex-Mini",
+      "model_id": "openai/gpt-5.1-codex-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Kwaipilot: KAT-Coder-Pro V1",
+      "model_id": "kwaipilot/kat-coder-pro",
+      "company_slug": "kwaipilot",
+      "company_name": "Kwaipilot",
+      "logo_url": "logos/Kwaipilot.png",
+      "logo_local": "logos/Kwaipilot.png"
+    },
+    {
+      "display_name": "MoonshotAI: Kimi K2 Thinking",
+      "model_id": "moonshotai/kimi-k2-thinking",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Amazon: Nova Premier 1.0",
+      "model_id": "amazon/nova-premier-v1",
+      "company_slug": "amazon",
+      "company_name": "Amazon",
+      "logo_url": "https://openrouter.ai/amazon",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Mistral Embed 2312",
+      "model_id": "mistralai/mistral-embed-2312",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Google: Gemini Embedding 001",
+      "model_id": "google/gemini-embedding-001",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "OpenAI: Text Embedding Ada 002",
+      "model_id": "openai/text-embedding-ada-002",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Codestral Embed 2505",
+      "model_id": "mistralai/codestral-embed-2505",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: Text Embedding 3 Large",
+      "model_id": "openai/text-embedding-3-large",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: Text Embedding 3 Small",
+      "model_id": "openai/text-embedding-3-small",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Perplexity: Sonar Pro Search",
+      "model_id": "perplexity/sonar-pro-search",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Mistral: Voxtral Small 24B 2507",
+      "model_id": "mistralai/voxtral-small-24b-2507",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-safeguard-20b",
+      "model_id": "openai/gpt-oss-safeguard-20b",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Embedding 8B",
+      "model_id": "qwen/qwen3-embedding-8b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "NVIDIA: Nemotron Nano 12B 2 VL (free)",
+      "model_id": "nvidia/nemotron-nano-12b-v2-vl:free",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Nemotron Nano 12B 2 VL",
+      "model_id": "nvidia/nemotron-nano-12b-v2-vl",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 Embedding 4B",
+      "model_id": "qwen/qwen3-embedding-4b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "MiniMax: MiniMax M2",
+      "model_id": "minimax/minimax-m2",
+      "company_slug": "minimax",
+      "company_name": "MiniMax",
+      "logo_url": "https://openrouter.ai/minimax",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 32B Instruct",
+      "model_id": "qwen/qwen3-vl-32b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "LiquidAI: LFM2-8B-A1B",
+      "model_id": "liquid/lfm2-8b-a1b",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "LiquidAI: LFM2-2.6B",
+      "model_id": "liquid/lfm-2.2-6b",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "IBM: Granite 4.0 Micro",
+      "model_id": "ibm-granite/granite-4.0-h-micro",
+      "company_slug": "ibm-granite",
+      "company_name": "IBM",
+      "logo_url": "https://openrouter.ai/ibm-granite",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Image Mini",
+      "model_id": "openai/gpt-5-image-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude Haiku 4.5",
+      "model_id": "anthropic/claude-haiku-4.5",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 8B Thinking",
+      "model_id": "qwen/qwen3-vl-8b-thinking",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 8B Instruct",
+      "model_id": "qwen/qwen3-vl-8b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Image",
+      "model_id": "openai/gpt-5-image",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o3 Deep Research",
+      "model_id": "openai/o3-deep-research",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o4 Mini Deep Research",
+      "model_id": "openai/o4-mini-deep-research",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "NVIDIA: Llama 3.3 Nemotron Super 49B V1.5",
+      "model_id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Baidu: ERNIE 4.5 21B A3B Thinking",
+      "model_id": "baidu/ernie-4.5-21b-a3b-thinking",
+      "company_slug": "baidu",
+      "company_name": "Baidu",
+      "logo_url": "https://openrouter.ai/baidu",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash Image (Nano Banana)",
+      "model_id": "google/gemini-2.5-flash-image",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 30B A3B Thinking",
+      "model_id": "qwen/qwen3-vl-30b-a3b-thinking",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 30B A3B Instruct",
+      "model_id": "qwen/qwen3-vl-30b-a3b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Pro",
+      "model_id": "openai/gpt-5-pro",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Z.AI: GLM 4.6",
+      "model_id": "z-ai/glm-4.6",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.6 (exacto)",
+      "model_id": "z-ai/glm-4.6:exacto",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude Sonnet 4.5",
+      "model_id": "anthropic/claude-sonnet-4.5",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.2 Exp",
+      "model_id": "deepseek/deepseek-v3.2-exp",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "TheDrummer: Cydonia 24B V4.1",
+      "model_id": "thedrummer/cydonia-24b-v4.1",
+      "company_slug": "thedrummer",
+      "company_name": "TheDrummer",
+      "logo_url": "logos/TheDrummer.png",
+      "logo_local": "logos/TheDrummer.png"
+    },
+    {
+      "display_name": "Relace: Relace Apply 3",
+      "model_id": "relace/relace-apply-3",
+      "company_slug": "relace",
+      "company_name": "Relace",
+      "logo_url": "https://openrouter.ai/relace",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash Preview 09-2025",
+      "model_id": "google/gemini-2.5-flash-preview-09-2025",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash Lite Preview 09-2025",
+      "model_id": "google/gemini-2.5-flash-lite-preview-09-2025",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 235B A22B Thinking",
+      "model_id": "qwen/qwen3-vl-235b-a22b-thinking",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 VL 235B A22B Instruct",
+      "model_id": "qwen/qwen3-vl-235b-a22b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Max",
+      "model_id": "qwen/qwen3-max",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder Plus",
+      "model_id": "qwen/qwen3-coder-plus",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Codex",
+      "model_id": "openai/gpt-5-codex",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.1 Terminus (exacto)",
+      "model_id": "deepseek/deepseek-v3.1-terminus:exacto",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.1 Terminus",
+      "model_id": "deepseek/deepseek-v3.1-terminus",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "xAI: Grok 4 Fast",
+      "model_id": "x-ai/grok-4-fast",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Tongyi DeepResearch 30B A3B",
+      "model_id": "alibaba/tongyi-deepresearch-30b-a3b",
+      "company_slug": "alibaba",
+      "company_name": "alibaba",
+      "logo_url": "https://openrouter.ai/alibaba",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder Flash",
+      "model_id": "qwen/qwen3-coder-flash",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenGVLab: InternVL3 78B",
+      "model_id": "opengvlab/internvl3-78b",
+      "company_slug": "opengvlab",
+      "company_name": "OpenGVLab",
+      "logo_url": "https://openrouter.ai/opengvlab",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 Next 80B A3B Thinking",
+      "model_id": "qwen/qwen3-next-80b-a3b-thinking",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
+      "model_id": "qwen/qwen3-next-80b-a3b-instruct:free",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Next 80B A3B Instruct",
+      "model_id": "qwen/qwen3-next-80b-a3b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Meituan: LongCat Flash Chat",
+      "model_id": "meituan/longcat-flash-chat",
+      "company_slug": "meituan",
+      "company_name": "Meituan",
+      "logo_url": "https://openrouter.ai/meituan",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen Plus 0728",
+      "model_id": "qwen/qwen-plus-2025-07-28",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen Plus 0728 (thinking)",
+      "model_id": "qwen/qwen-plus-2025-07-28:thinking",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "NVIDIA: Nemotron Nano 9B V2 (free)",
+      "model_id": "nvidia/nemotron-nano-9b-v2:free",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Nemotron Nano 9B V2",
+      "model_id": "nvidia/nemotron-nano-9b-v2",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "MoonshotAI: Kimi K2 0905",
+      "model_id": "moonshotai/kimi-k2-0905",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "MoonshotAI: Kimi K2 0905 (exacto)",
+      "model_id": "moonshotai/kimi-k2-0905:exacto",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "StepFun: Step3",
+      "model_id": "stepfun-ai/step3",
+      "company_slug": "stepfun-ai",
+      "company_name": "StepFun",
+      "logo_url": "https://openrouter.ai/stepfun-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 30B A3B Thinking 2507",
+      "model_id": "qwen/qwen3-30b-a3b-thinking-2507",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "xAI: Grok Code Fast 1",
+      "model_id": "x-ai/grok-code-fast-1",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 4 70B",
+      "model_id": "nousresearch/hermes-4-70b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 4 405B",
+      "model_id": "nousresearch/hermes-4-405b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.1",
+      "model_id": "deepseek/deepseek-chat-v3.1",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o Audio",
+      "model_id": "openai/gpt-4o-audio-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Mistral Medium 3.1",
+      "model_id": "mistralai/mistral-medium-3.1",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Baidu: ERNIE 4.5 21B A3B",
+      "model_id": "baidu/ernie-4.5-21b-a3b",
+      "company_slug": "baidu",
+      "company_name": "Baidu",
+      "logo_url": "https://openrouter.ai/baidu",
+      "logo_local": null
+    },
+    {
+      "display_name": "Baidu: ERNIE 4.5 VL 28B A3B",
+      "model_id": "baidu/ernie-4.5-vl-28b-a3b",
+      "company_slug": "baidu",
+      "company_name": "Baidu",
+      "logo_url": "https://openrouter.ai/baidu",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.5V",
+      "model_id": "z-ai/glm-4.5v",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba Mini 1.7",
+      "model_id": "ai21/jamba-mini-1.7",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba Large 1.7",
+      "model_id": "ai21/jamba-large-1.7",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Chat",
+      "model_id": "openai/gpt-5-chat",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5",
+      "model_id": "openai/gpt-5",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Mini",
+      "model_id": "openai/gpt-5-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-5 Nano",
+      "model_id": "openai/gpt-5-nano",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-120b (free)",
+      "model_id": "openai/gpt-oss-120b:free",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-120b",
+      "model_id": "openai/gpt-oss-120b",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-120b (exacto)",
+      "model_id": "openai/gpt-oss-120b:exacto",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-20b (free)",
+      "model_id": "openai/gpt-oss-20b:free",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: gpt-oss-20b",
+      "model_id": "openai/gpt-oss-20b",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude Opus 4.1",
+      "model_id": "anthropic/claude-opus-4.1",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Mistral: Codestral 2508",
+      "model_id": "mistralai/codestral-2508",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder 30B A3B Instruct",
+      "model_id": "qwen/qwen3-coder-30b-a3b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 30B A3B Instruct 2507",
+      "model_id": "qwen/qwen3-30b-a3b-instruct-2507",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Z.AI: GLM 4.5",
+      "model_id": "z-ai/glm-4.5",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.5 Air (free)",
+      "model_id": "z-ai/glm-4.5-air:free",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Z.AI: GLM 4.5 Air",
+      "model_id": "z-ai/glm-4.5-air",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 235B A22B Thinking 2507",
+      "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Z.AI: GLM 4 32B ",
+      "model_id": "z-ai/glm-4-32b",
+      "company_slug": "z-ai",
+      "company_name": "Z.AI",
+      "logo_url": "https://openrouter.ai/z-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder 480B A35B (free)",
+      "model_id": "qwen/qwen3-coder:free",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder 480B A35B",
+      "model_id": "qwen/qwen3-coder",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 Coder 480B A35B (exacto)",
+      "model_id": "qwen/qwen3-coder:exacto",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "ByteDance: UI-TARS 7B ",
+      "model_id": "bytedance/ui-tars-1.5-7b",
+      "company_slug": "bytedance",
+      "company_name": "ByteDance",
+      "logo_url": "https://openrouter.ai/bytedance",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash Lite",
+      "model_id": "google/gemini-2.5-flash-lite",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 235B A22B Instruct 2507",
+      "model_id": "qwen/qwen3-235b-a22b-2507",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Switchpoint Router",
+      "model_id": "switchpoint/router",
+      "company_slug": "switchpoint",
+      "company_name": "switchpoint",
+      "logo_url": "https://openrouter.ai/switchpoint",
+      "logo_local": null
+    },
+    {
+      "display_name": "MoonshotAI: Kimi K2 0711",
+      "model_id": "moonshotai/kimi-k2",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Devstral Medium",
+      "model_id": "mistralai/devstral-medium",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Devstral Small 1.1",
+      "model_id": "mistralai/devstral-small",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Venice: Uncensored (free)",
+      "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+      "company_slug": "venice",
+      "company_name": "venice",
+      "logo_url": "https://openrouter.ai/venice",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 4",
+      "model_id": "x-ai/grok-4",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemma 3n 2B (free)",
+      "model_id": "google/gemma-3n-e2b-it:free",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Tencent: Hunyuan A13B Instruct",
+      "model_id": "tencent/hunyuan-a13b-instruct",
+      "company_slug": "tencent",
+      "company_name": "Tencent",
+      "logo_url": "https://openrouter.ai/tencent",
+      "logo_local": null
+    },
+    {
+      "display_name": "TNG: DeepSeek R1T2 Chimera (free)",
+      "model_id": "tngtech/deepseek-r1t2-chimera:free",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "TNG: DeepSeek R1T2 Chimera",
+      "model_id": "tngtech/deepseek-r1t2-chimera",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "Morph: Morph V3 Large",
+      "model_id": "morph/morph-v3-large",
+      "company_slug": "morph",
+      "company_name": "Morph",
+      "logo_url": "https://openrouter.ai/morph",
+      "logo_local": null
+    },
+    {
+      "display_name": "Morph: Morph V3 Fast",
+      "model_id": "morph/morph-v3-fast",
+      "company_slug": "morph",
+      "company_name": "Morph",
+      "logo_url": "https://openrouter.ai/morph",
+      "logo_local": null
+    },
+    {
+      "display_name": "Baidu: ERNIE 4.5 VL 424B A47B ",
+      "model_id": "baidu/ernie-4.5-vl-424b-a47b",
+      "company_slug": "baidu",
+      "company_name": "Baidu",
+      "logo_url": "https://openrouter.ai/baidu",
+      "logo_local": null
+    },
+    {
+      "display_name": "Baidu: ERNIE 4.5 300B A47B ",
+      "model_id": "baidu/ernie-4.5-300b-a47b",
+      "company_slug": "baidu",
+      "company_name": "Baidu",
+      "logo_url": "https://openrouter.ai/baidu",
+      "logo_local": null
+    },
+    {
+      "display_name": "Inception: Mercury",
+      "model_id": "inception/mercury",
+      "company_slug": "inception",
+      "company_name": "Inception",
+      "logo_url": "https://openrouter.ai/inception",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Mistral Small 3.2 24B",
+      "model_id": "mistralai/mistral-small-3.2-24b-instruct",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "MiniMax: MiniMax M1",
+      "model_id": "minimax/minimax-m1",
+      "company_slug": "minimax",
+      "company_name": "MiniMax",
+      "logo_url": "https://openrouter.ai/minimax",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash",
+      "model_id": "google/gemini-2.5-flash",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Pro",
+      "model_id": "google/gemini-2.5-pro",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "MoonshotAI: Kimi Dev 72B",
+      "model_id": "moonshotai/kimi-dev-72b",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: o3 Pro",
+      "model_id": "openai/o3-pro",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "xAI: Grok 3 Mini",
+      "model_id": "x-ai/grok-3-mini",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 3",
+      "model_id": "x-ai/grok-3",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Pro Preview 06-05",
+      "model_id": "google/gemini-2.5-pro-preview",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "DeepSeek: R1 0528 (free)",
+      "model_id": "deepseek/deepseek-r1-0528:free",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: R1 0528",
+      "model_id": "deepseek/deepseek-r1-0528",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Anthropic: Claude Opus 4",
+      "model_id": "anthropic/claude-opus-4",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude Sonnet 4",
+      "model_id": "anthropic/claude-sonnet-4",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3n 4B (free)",
+      "model_id": "google/gemma-3n-e4b-it:free",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3n 4B",
+      "model_id": "google/gemma-3n-e4b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Nous: DeepHermes 3 Mistral 24B Preview",
+      "model_id": "nousresearch/deephermes-3-mistral-24b-preview",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Mistral Medium 3",
+      "model_id": "mistralai/mistral-medium-3",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Pro Preview 05-06",
+      "model_id": "google/gemini-2.5-pro-preview-05-06",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Arcee AI: Spotlight",
+      "model_id": "arcee-ai/spotlight",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Maestro Reasoning",
+      "model_id": "arcee-ai/maestro-reasoning",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Virtuoso Large",
+      "model_id": "arcee-ai/virtuoso-large",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Coder Large",
+      "model_id": "arcee-ai/coder-large",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Inception: Mercury Coder",
+      "model_id": "inception/mercury-coder",
+      "company_slug": "inception",
+      "company_name": "Inception",
+      "logo_url": "https://openrouter.ai/inception",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 4B (free)",
+      "model_id": "qwen/qwen3-4b:free",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Meta: Llama Guard 4 12B",
+      "model_id": "meta-llama/llama-guard-4-12b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 30B A3B",
+      "model_id": "qwen/qwen3-30b-a3b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 8B",
+      "model_id": "qwen/qwen3-8b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 14B",
+      "model_id": "qwen/qwen3-14b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 32B",
+      "model_id": "qwen/qwen3-32b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 235B A22B",
+      "model_id": "qwen/qwen3-235b-a22b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "TNG: DeepSeek R1T Chimera (free)",
+      "model_id": "tngtech/deepseek-r1t-chimera:free",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "TNG: DeepSeek R1T Chimera",
+      "model_id": "tngtech/deepseek-r1t-chimera",
+      "company_slug": "tngtech",
+      "company_name": "TNG",
+      "logo_url": "https://openrouter.ai/tngtech",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: o4 Mini High",
+      "model_id": "openai/o4-mini-high",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o3",
+      "model_id": "openai/o3",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o4 Mini",
+      "model_id": "openai/o4-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 Coder 7B Instruct",
+      "model_id": "qwen/qwen2.5-coder-7b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-4.1",
+      "model_id": "openai/gpt-4.1",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4.1 Mini",
+      "model_id": "openai/gpt-4.1-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4.1 Nano",
+      "model_id": "openai/gpt-4.1-nano",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "EleutherAI: Llemma 7b",
+      "model_id": "eleutherai/llemma_7b",
+      "company_slug": "eleutherai",
+      "company_name": "EleutherAI",
+      "logo_url": "https://openrouter.ai/eleutherai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AlfredPros: CodeLLaMa 7B Instruct Solidity",
+      "model_id": "alfredpros/codellama-7b-instruct-solidity",
+      "company_slug": "alfredpros",
+      "company_name": "AlfredPros",
+      "logo_url": "https://openrouter.ai/alfredpros",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 3 Mini Beta",
+      "model_id": "x-ai/grok-3-mini-beta",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 3 Beta",
+      "model_id": "x-ai/grok-3-beta",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Llama 3.1 Nemotron Ultra 253B v1",
+      "model_id": "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Meta: Llama 4 Maverick",
+      "model_id": "meta-llama/llama-4-maverick",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 4 Scout",
+      "model_id": "meta-llama/llama-4-scout",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 VL 32B Instruct",
+      "model_id": "qwen/qwen2.5-vl-32b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3 0324",
+      "model_id": "deepseek/deepseek-chat-v3-0324",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "OpenAI: o1-pro",
+      "model_id": "openai/o1-pro",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Mistral Small 3.1 24B (free)",
+      "model_id": "mistralai/mistral-small-3.1-24b-instruct:free",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Mistral Small 3.1 24B",
+      "model_id": "mistralai/mistral-small-3.1-24b-instruct",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "AllenAI: Olmo 2 32B Instruct",
+      "model_id": "allenai/olmo-2-0325-32b-instruct",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemma 3 4B (free)",
+      "model_id": "google/gemma-3-4b-it:free",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3 4B",
+      "model_id": "google/gemma-3-4b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3 12B (free)",
+      "model_id": "google/gemma-3-12b-it:free",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3 12B",
+      "model_id": "google/gemma-3-12b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Cohere: Command A",
+      "model_id": "cohere/command-a",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o-mini Search Preview",
+      "model_id": "openai/gpt-4o-mini-search-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o Search Preview",
+      "model_id": "openai/gpt-4o-search-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3 27B (free)",
+      "model_id": "google/gemma-3-27b-it:free",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 3 27B",
+      "model_id": "google/gemma-3-27b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "TheDrummer: Skyfall 36B V2",
+      "model_id": "thedrummer/skyfall-36b-v2",
+      "company_slug": "thedrummer",
+      "company_name": "TheDrummer",
+      "logo_url": "logos/TheDrummer.png",
+      "logo_local": "logos/TheDrummer.png"
+    },
+    {
+      "display_name": "Perplexity: Sonar Reasoning Pro",
+      "model_id": "perplexity/sonar-reasoning-pro",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Perplexity: Sonar Pro",
+      "model_id": "perplexity/sonar-pro",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Perplexity: Sonar Deep Research",
+      "model_id": "perplexity/sonar-deep-research",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Qwen: QwQ 32B",
+      "model_id": "qwen/qwq-32b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Google: Gemini 2.0 Flash Lite",
+      "model_id": "google/gemini-2.0-flash-lite-001",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude 3.7 Sonnet (thinking)",
+      "model_id": "anthropic/claude-3.7-sonnet:thinking",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude 3.7 Sonnet",
+      "model_id": "anthropic/claude-3.7-sonnet",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Mistral: Saba",
+      "model_id": "mistralai/mistral-saba",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Llama Guard 3 8B",
+      "model_id": "meta-llama/llama-guard-3-8b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "OpenAI: o3 Mini High",
+      "model_id": "openai/o3-mini-high",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Google: Gemini 2.0 Flash",
+      "model_id": "google/gemini-2.0-flash-001",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen VL Plus",
+      "model_id": "qwen/qwen-vl-plus",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "AionLabs: Aion-1.0",
+      "model_id": "aion-labs/aion-1.0",
+      "company_slug": "aion-labs",
+      "company_name": "AionLabs",
+      "logo_url": "https://openrouter.ai/aion-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "AionLabs: Aion-1.0-Mini",
+      "model_id": "aion-labs/aion-1.0-mini",
+      "company_slug": "aion-labs",
+      "company_name": "AionLabs",
+      "logo_url": "https://openrouter.ai/aion-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "AionLabs: Aion-RP 1.0 (8B)",
+      "model_id": "aion-labs/aion-rp-llama-3.1-8b",
+      "company_slug": "aion-labs",
+      "company_name": "AionLabs",
+      "logo_url": "https://openrouter.ai/aion-labs",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen VL Max",
+      "model_id": "qwen/qwen-vl-max",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen-Turbo",
+      "model_id": "qwen/qwen-turbo",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 VL 72B Instruct",
+      "model_id": "qwen/qwen2.5-vl-72b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen-Plus",
+      "model_id": "qwen/qwen-plus",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen-Max ",
+      "model_id": "qwen/qwen-max",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenAI: o3 Mini",
+      "model_id": "openai/o3-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Mistral Small 3",
+      "model_id": "mistralai/mistral-small-24b-instruct-2501",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Qwen 32B",
+      "model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Perplexity: Sonar",
+      "model_id": "perplexity/sonar",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Llama 70B",
+      "model_id": "deepseek/deepseek-r1-distill-llama-70b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: R1",
+      "model_id": "deepseek/deepseek-r1",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "MiniMax: MiniMax-01",
+      "model_id": "minimax/minimax-01",
+      "company_slug": "minimax",
+      "company_name": "MiniMax",
+      "logo_url": "https://openrouter.ai/minimax",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: Phi 4",
+      "model_id": "microsoft/phi-4",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Sao10K: Llama 3.1 70B Hanami x1",
+      "model_id": "sao10k/l3.1-70b-hanami-x1",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3",
+      "model_id": "deepseek/deepseek-chat",
+      "company_slug": "deepseek-ai",
+      "company_name": "deepseek-ai",
+      "logo_url": "https://openrouter.ai/deepseek-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sao10K: Llama 3.3 Euryale 70B",
+      "model_id": "sao10k/l3.3-euryale-70b",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: o1",
+      "model_id": "openai/o1",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Cohere: Command R7B (12-2024)",
+      "model_id": "cohere/command-r7b-12-2024",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.3 70B Instruct (free)",
+      "model_id": "meta-llama/llama-3.3-70b-instruct:free",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.3 70B Instruct",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Amazon: Nova Lite 1.0",
+      "model_id": "amazon/nova-lite-v1",
+      "company_slug": "amazon",
+      "company_name": "Amazon",
+      "logo_url": "https://openrouter.ai/amazon",
+      "logo_local": null
+    },
+    {
+      "display_name": "Amazon: Nova Micro 1.0",
+      "model_id": "amazon/nova-micro-v1",
+      "company_slug": "amazon",
+      "company_name": "Amazon",
+      "logo_url": "https://openrouter.ai/amazon",
+      "logo_local": null
+    },
+    {
+      "display_name": "Amazon: Nova Pro 1.0",
+      "model_id": "amazon/nova-pro-v1",
+      "company_slug": "amazon",
+      "company_name": "Amazon",
+      "logo_url": "https://openrouter.ai/amazon",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4o (2024-11-20)",
+      "model_id": "openai/gpt-4o-2024-11-20",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral Large 2411",
+      "model_id": "mistralai/mistral-large-2411",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral Large 2407",
+      "model_id": "mistralai/mistral-large-2407",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Pixtral Large 2411",
+      "model_id": "mistralai/pixtral-large-2411",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Qwen2.5 Coder 32B Instruct",
+      "model_id": "qwen/qwen-2.5-coder-32b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "SorcererLM 8x22B",
+      "model_id": "raifle/sorcererlm-8x22b",
+      "company_slug": "raifle",
+      "company_name": "raifle",
+      "logo_url": "https://openrouter.ai/raifle",
+      "logo_local": null
+    },
+    {
+      "display_name": "TheDrummer: UnslopNemo 12B",
+      "model_id": "thedrummer/unslopnemo-12b",
+      "company_slug": "thedrummer",
+      "company_name": "TheDrummer",
+      "logo_url": "logos/TheDrummer.png",
+      "logo_local": "logos/TheDrummer.png"
+    },
+    {
+      "display_name": "Anthropic: Claude 3.5 Haiku",
+      "model_id": "anthropic/claude-3.5-haiku",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Magnum v4 72B",
+      "model_id": "anthracite-org/magnum-v4-72b",
+      "company_slug": "anthracite-org",
+      "company_name": "anthracite-org",
+      "logo_url": "https://openrouter.ai/anthracite-org",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude 3.5 Sonnet",
+      "model_id": "anthropic/claude-3.5-sonnet",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Mistral: Ministral 8B",
+      "model_id": "mistralai/ministral-8b",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Ministral 3B",
+      "model_id": "mistralai/ministral-3b",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 7B Instruct",
+      "model_id": "qwen/qwen-2.5-7b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "NVIDIA: Llama 3.1 Nemotron 70B Instruct",
+      "model_id": "nvidia/llama-3.1-nemotron-70b-instruct",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Inflection: Inflection 3 Pi",
+      "model_id": "inflection/inflection-3-pi",
+      "company_slug": "inflection",
+      "company_name": "Inflection",
+      "logo_url": "https://openrouter.ai/inflection",
+      "logo_local": null
+    },
+    {
+      "display_name": "Inflection: Inflection 3 Productivity",
+      "model_id": "inflection/inflection-3-productivity",
+      "company_slug": "inflection",
+      "company_name": "Inflection",
+      "logo_url": "https://openrouter.ai/inflection",
+      "logo_local": null
+    },
+    {
+      "display_name": "TheDrummer: Rocinante 12B",
+      "model_id": "thedrummer/rocinante-12b",
+      "company_slug": "thedrummer",
+      "company_name": "TheDrummer",
+      "logo_url": "logos/TheDrummer.png",
+      "logo_local": "logos/TheDrummer.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.2 3B Instruct (free)",
+      "model_id": "meta-llama/llama-3.2-3b-instruct:free",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.2 3B Instruct",
+      "model_id": "meta-llama/llama-3.2-3b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.2 1B Instruct",
+      "model_id": "meta-llama/llama-3.2-1b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.2 11B Vision Instruct",
+      "model_id": "meta-llama/llama-3.2-11b-vision-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Qwen2.5 72B Instruct",
+      "model_id": "qwen/qwen-2.5-72b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "NeverSleep: Lumimaid v0.2 8B",
+      "model_id": "neversleep/llama-3.1-lumimaid-8b",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Pixtral 12B",
+      "model_id": "mistralai/pixtral-12b",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Cohere: Command R (08-2024)",
+      "model_id": "cohere/command-r-08-2024",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Cohere: Command R+ (08-2024)",
+      "model_id": "cohere/command-r-plus-08-2024",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Sao10K: Llama 3.1 Euryale 70B v2.2",
+      "model_id": "sao10k/l3.1-euryale-70b",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen2.5-VL 7B Instruct",
+      "model_id": "qwen/qwen-2.5-vl-7b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Nous: Hermes 3 70B Instruct",
+      "model_id": "nousresearch/hermes-3-llama-3.1-70b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 3 405B Instruct (free)",
+      "model_id": "nousresearch/hermes-3-llama-3.1-405b:free",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 3 405B Instruct",
+      "model_id": "nousresearch/hermes-3-llama-3.1-405b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: ChatGPT-4o",
+      "model_id": "openai/chatgpt-4o-latest",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Sao10K: Llama 3 8B Lunaris",
+      "model_id": "sao10k/l3-lunaris-8b",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4o (2024-08-06)",
+      "model_id": "openai/gpt-4o-2024-08-06",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Meta: Llama 3.1 405B (base)",
+      "model_id": "meta-llama/llama-3.1-405b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.1 8B Instruct",
+      "model_id": "meta-llama/llama-3.1-8b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.1 405B Instruct",
+      "model_id": "meta-llama/llama-3.1-405b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3.1 70B Instruct",
+      "model_id": "meta-llama/llama-3.1-70b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Mistral: Mistral Nemo",
+      "model_id": "mistralai/mistral-nemo",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o-mini (2024-07-18)",
+      "model_id": "openai/gpt-4o-mini-2024-07-18",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o-mini",
+      "model_id": "openai/gpt-4o-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Google: Gemma 2 27B",
+      "model_id": "google/gemma-2-27b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: Gemma 2 9B",
+      "model_id": "google/gemma-2-9b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Sao10k: Llama 3 Euryale 70B v2.1",
+      "model_id": "sao10k/l3-euryale-70b",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+      "model_id": "nousresearch/hermes-2-pro-llama-3-8b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Mistral 7B Instruct",
+      "model_id": "mistralai/mistral-7b-instruct",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Mistral 7B Instruct v0.3",
+      "model_id": "mistralai/mistral-7b-instruct-v0.3",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Meta: LlamaGuard 2 8B",
+      "model_id": "meta-llama/llama-guard-2-8b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o (2024-05-13)",
+      "model_id": "openai/gpt-4o-2024-05-13",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o",
+      "model_id": "openai/gpt-4o",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4o (extended)",
+      "model_id": "openai/gpt-4o:extended",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Meta: Llama 3 70B Instruct",
+      "model_id": "meta-llama/llama-3-70b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3 8B Instruct",
+      "model_id": "meta-llama/llama-3-8b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Mistral: Mixtral 8x22B Instruct",
+      "model_id": "mistralai/mixtral-8x22b-instruct",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "WizardLM-2 8x22B",
+      "model_id": "microsoft/wizardlm-2-8x22b",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4 Turbo",
+      "model_id": "openai/gpt-4-turbo",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude 3 Haiku",
+      "model_id": "anthropic/claude-3-haiku",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Mistral Large",
+      "model_id": "mistralai/mistral-large",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo (older v0613)",
+      "model_id": "openai/gpt-3.5-turbo-0613",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4 Turbo Preview",
+      "model_id": "openai/gpt-4-turbo-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral Tiny",
+      "model_id": "mistralai/mistral-tiny",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Mistral 7B Instruct v0.2",
+      "model_id": "mistralai/mistral-7b-instruct-v0.2",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Mixtral 8x7B Instruct",
+      "model_id": "mistralai/mixtral-8x7b-instruct",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Noromaid 20B",
+      "model_id": "neversleep/noromaid-20b",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "Goliath 120B",
+      "model_id": "alpindale/goliath-120b",
+      "company_slug": "alpindale",
+      "company_name": "alpindale",
+      "logo_url": "https://openrouter.ai/alpindale",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4 Turbo (older v1106)",
+      "model_id": "openai/gpt-4-1106-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo Instruct",
+      "model_id": "openai/gpt-3.5-turbo-instruct",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mistral: Mistral 7B Instruct v0.1",
+      "model_id": "mistralai/mistral-7b-instruct-v0.1",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo 16k",
+      "model_id": "openai/gpt-3.5-turbo-16k",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Mancer: Weaver (alpha)",
+      "model_id": "mancer/weaver",
+      "company_slug": "mancer",
+      "company_name": "Mancer",
+      "logo_url": "https://openrouter.ai/mancer",
+      "logo_local": null
+    },
+    {
+      "display_name": "ReMM SLERP 13B",
+      "model_id": "undi95/remm-slerp-l2-13b",
+      "company_slug": "undi95",
+      "company_name": "undi95",
+      "logo_url": "https://openrouter.ai/undi95",
+      "logo_local": null
+    },
+    {
+      "display_name": "MythoMax 13B",
+      "model_id": "gryphe/mythomax-l2-13b",
+      "company_slug": "gryphe",
+      "company_name": "gryphe",
+      "logo_url": "https://openrouter.ai/gryphe",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4 (older v0314)",
+      "model_id": "openai/gpt-4-0314",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4",
+      "model_id": "openai/gpt-4",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo",
+      "model_id": "openai/gpt-3.5-turbo",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Free Models Router",
+      "model_id": "openrouter/free",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Body Builder (beta)",
+      "model_id": "openrouter/bodybuilder",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Bert-Nebulon Alpha",
+      "model_id": "openrouter/bert-nebulon-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sherlock Dash Alpha",
+      "model_id": "openrouter/sherlock-dash-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sherlock Think Alpha",
+      "model_id": "openrouter/sherlock-think-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Polaris Alpha",
+      "model_id": "openrouter/polaris-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen3 Embedding 0.6B",
+      "model_id": "qwen/qwen3-embedding-0.6b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Andromeda Alpha",
+      "model_id": "openrouter/andromeda-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Deep Cogito: Cogito V2 Preview Llama 405B",
+      "model_id": "deepcogito/cogito-v2-preview-llama-405b",
+      "company_slug": "deepcogito",
+      "company_name": "Deep Cogito",
+      "logo_url": "https://openrouter.ai/deepcogito",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: AFM 4.5B",
+      "model_id": "arcee-ai/afm-4.5b",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sonoma Dusk Alpha",
+      "model_id": "openrouter/sonoma-dusk-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sonoma Sky Alpha",
+      "model_id": "openrouter/sonoma-sky-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "ByteDance: Seed OSS 36B Instruct",
+      "model_id": "bytedance/seed-oss-36b-instruct",
+      "company_slug": "bytedance",
+      "company_name": "ByteDance",
+      "logo_url": "https://openrouter.ai/bytedance",
+      "logo_local": null
+    },
+    {
+      "display_name": "Deep Cogito: Cogito V2 Preview Llama 70B",
+      "model_id": "deepcogito/cogito-v2-preview-llama-70b",
+      "company_slug": "deepcogito",
+      "company_name": "Deep Cogito",
+      "logo_url": "https://openrouter.ai/deepcogito",
+      "logo_local": null
+    },
+    {
+      "display_name": "Cogito V2 Preview Llama 109B",
+      "model_id": "deepcogito/cogito-v2-preview-llama-109b-moe",
+      "company_slug": "deepcogito",
+      "company_name": "Deep Cogito",
+      "logo_url": "https://openrouter.ai/deepcogito",
+      "logo_local": null
+    },
+    {
+      "display_name": "Deep Cogito: Cogito V2 Preview Deepseek 671B",
+      "model_id": "deepcogito/cogito-v2-preview-deepseek-671b",
+      "company_slug": "deepcogito",
+      "company_name": "Deep Cogito",
+      "logo_url": "https://openrouter.ai/deepcogito",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Flash Image Preview (Nano Banana)",
+      "model_id": "google/gemini-2.5-flash-image-preview",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3.1 Base",
+      "model_id": "deepseek/deepseek-v3.1-base",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Horizon Beta",
+      "model_id": "openrouter/horizon-beta",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Horizon Alpha",
+      "model_id": "openrouter/horizon-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "THUDM: GLM 4.1V 9B Thinking",
+      "model_id": "thudm/glm-4.1v-9b-thinking",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "Cypher Alpha",
+      "model_id": "openrouter/cypher-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Morph: Fast Apply",
+      "model_id": "morph/morph-v2",
+      "company_slug": "morph",
+      "company_name": "Morph",
+      "logo_url": "https://openrouter.ai/morph",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Magistral Small 2506",
+      "model_id": "mistralai/magistral-small-2506",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral: Magistral Medium 2506",
+      "model_id": "mistralai/magistral-medium-2506",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "SentientAGI: Dobby Mini Plus Llama 3.1 8B",
+      "model_id": "sentientagi/dobby-mini-unhinged-plus-llama-3.1-8b",
+      "company_slug": "sentientagi",
+      "company_name": "SentientAGI",
+      "logo_url": "https://openrouter.ai/sentientagi",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Qwen 7B",
+      "model_id": "deepseek/deepseek-r1-distill-qwen-7b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek R1 0528 Qwen3 8B",
+      "model_id": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Google: Gemma 1 2B",
+      "model_id": "google/gemma-2b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Sarvam AI: Sarvam-M",
+      "model_id": "sarvamai/sarvam-m",
+      "company_slug": "sarvamai",
+      "company_name": "Sarvam AI",
+      "logo_url": "https://openrouter.ai/sarvamai",
+      "logo_local": null
+    },
+    {
+      "display_name": "TheDrummer: Valkyrie 49B V1",
+      "model_id": "thedrummer/valkyrie-49b-v1",
+      "company_slug": "thedrummer",
+      "company_name": "TheDrummer",
+      "logo_url": "logos/TheDrummer.png",
+      "logo_local": "logos/TheDrummer.png"
+    },
+    {
+      "display_name": "Mistral: Devstral Small 2505",
+      "model_id": "mistralai/devstral-small-2505",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "OpenAI: Codex Mini",
+      "model_id": "openai/codex-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Meta: Llama 3.3 8B Instruct",
+      "model_id": "meta-llama/llama-3.3-8b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Arcee AI: Caller Large",
+      "model_id": "arcee-ai/caller-large",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Virtuoso Medium V2",
+      "model_id": "arcee-ai/virtuoso-medium-v2",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Arcee AI: Arcee Blitz",
+      "model_id": "arcee-ai/arcee-blitz",
+      "company_slug": "arcee-ai",
+      "company_name": "Arcee AI",
+      "logo_url": "https://openrouter.ai/arcee-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: Phi 4 Reasoning Plus",
+      "model_id": "microsoft/phi-4-reasoning-plus",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Microsoft: Phi 4 Reasoning",
+      "model_id": "microsoft/phi-4-reasoning",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Qwen: Qwen3 0.6B",
+      "model_id": "qwen/qwen3-0.6b-04-28",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen: Qwen3 1.7B",
+      "model_id": "qwen/qwen3-1.7b",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenGVLab: InternVL3 14B",
+      "model_id": "opengvlab/internvl3-14b",
+      "company_slug": "opengvlab",
+      "company_name": "OpenGVLab",
+      "logo_url": "https://openrouter.ai/opengvlab",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenGVLab: InternVL3 2B",
+      "model_id": "opengvlab/internvl3-2b",
+      "company_slug": "opengvlab",
+      "company_name": "OpenGVLab",
+      "logo_url": "https://openrouter.ai/opengvlab",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek Prover V2",
+      "model_id": "deepseek/deepseek-prover-v2",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "THUDM: GLM Z1 Rumination 32B ",
+      "model_id": "thudm/glm-z1-rumination-32b",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "THUDM: GLM Z1 9B",
+      "model_id": "thudm/glm-z1-9b",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "THUDM: GLM 4 9B",
+      "model_id": "thudm/glm-4-9b",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: MAI DS R1",
+      "model_id": "microsoft/mai-ds-r1",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "THUDM: GLM Z1 32B",
+      "model_id": "thudm/glm-z1-32b",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "THUDM: GLM 4 32B",
+      "model_id": "thudm/glm-4-32b",
+      "company_slug": "thudm",
+      "company_name": "THUDM",
+      "logo_url": "https://openrouter.ai/thudm",
+      "logo_local": null
+    },
+    {
+      "display_name": "ArliAI: QwQ 32B RpR v1",
+      "model_id": "arliai/qwq-32b-arliai-rpr-v1",
+      "company_slug": "arliai",
+      "company_name": "ArliAI",
+      "logo_url": "https://openrouter.ai/arliai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Agentica: Deepcoder 14B Preview",
+      "model_id": "agentica-org/deepcoder-14b-preview",
+      "company_slug": "agentica-org",
+      "company_name": "Agentica",
+      "logo_url": "https://openrouter.ai/agentica-org",
+      "logo_local": null
+    },
+    {
+      "display_name": "MoonshotAI: Kimi VL A3B Thinking",
+      "model_id": "moonshotai/kimi-vl-a3b-thinking",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Optimus Alpha",
+      "model_id": "openrouter/optimus-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Llama 3.1 Nemotron Nano 8B v1",
+      "model_id": "nvidia/llama-3.1-nemotron-nano-8b-v1",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Llama 3.3 Nemotron Super 49B v1",
+      "model_id": "nvidia/llama-3.3-nemotron-super-49b-v1",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Swallow: Llama 3.1 Swallow 8B Instruct V0.3",
+      "model_id": "tokyotech-llm/llama-3.1-swallow-8b-instruct-v0.3",
+      "company_slug": "tokyotech-llm",
+      "company_name": "Swallow",
+      "logo_url": "https://openrouter.ai/tokyotech-llm",
+      "logo_local": null
+    },
+    {
+      "display_name": "Quasar Alpha",
+      "model_id": "openrouter/quasar-alpha",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenHands LM 32B V0.1",
+      "model_id": "all-hands/openhands-lm-32b-v0.1",
+      "company_slug": "all-hands",
+      "company_name": "all-hands",
+      "logo_url": "https://openrouter.ai/all-hands",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek V3 Base",
+      "model_id": "deepseek/deepseek-v3-base",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Typhoon2 8B Instruct",
+      "model_id": "scb10x/llama3.1-typhoon2-8b-instruct",
+      "company_slug": "scb10x",
+      "company_name": "scb10x",
+      "logo_url": "https://openrouter.ai/scb10x",
+      "logo_local": null
+    },
+    {
+      "display_name": "Typhoon2 70B Instruct",
+      "model_id": "scb10x/llama3.1-typhoon2-70b-instruct",
+      "company_slug": "scb10x",
+      "company_name": "scb10x",
+      "logo_url": "https://openrouter.ai/scb10x",
+      "logo_local": null
+    },
+    {
+      "display_name": "Bytedance: UI-TARS 72B ",
+      "model_id": "bytedance-research/ui-tars-72b",
+      "company_slug": "bytedance-research",
+      "company_name": "Bytedance",
+      "logo_url": "https://openrouter.ai/bytedance-research",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 VL 3B Instruct",
+      "model_id": "qwen/qwen2.5-vl-3b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Google: Gemini 2.5 Pro Experimental",
+      "model_id": "google/gemini-2.5-pro-exp-03-25",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qrwkv 72B",
+      "model_id": "featherless/qwerky-72b",
+      "company_slug": "featherless",
+      "company_name": "featherless",
+      "logo_url": "https://openrouter.ai/featherless",
+      "logo_local": null
+    },
+    {
+      "display_name": "OlympicCoder 32B",
+      "model_id": "open-r1/olympiccoder-32b",
+      "company_slug": "open-r1",
+      "company_name": "open-r1",
+      "logo_url": "https://openrouter.ai/open-r1",
+      "logo_local": null
+    },
+    {
+      "display_name": "SteelSkull: L3.3 Electra R1 70B",
+      "model_id": "steelskull/l3.3-electra-r1-70b",
+      "company_slug": "steelskull",
+      "company_name": "SteelSkull",
+      "logo_url": "https://openrouter.ai/steelskull",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemma 3 1B",
+      "model_id": "google/gemma-3-1b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "AI21: Jamba 1.6 Large",
+      "model_id": "ai21/jamba-1.6-large",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba Mini 1.6",
+      "model_id": "ai21/jamba-1.6-mini",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "Reka: Flash 3",
+      "model_id": "rekaai/reka-flash-3",
+      "company_slug": "rekaai",
+      "company_name": "Reka",
+      "logo_url": "https://openrouter.ai/rekaai",
+      "logo_local": null
+    },
+    {
+      "display_name": "LatitudeGames: Wayfarer Large 70B Llama 3.3",
+      "model_id": "latitudegames/wayfarer-large-70b-llama-3.3",
+      "company_slug": "latitudegames",
+      "company_name": "LatitudeGames",
+      "logo_url": "https://openrouter.ai/latitudegames",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: Phi 4 Multimodal Instruct",
+      "model_id": "microsoft/phi-4-multimodal-instruct",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "DeepSeek: DeepSeek R1 Zero",
+      "model_id": "deepseek/deepseek-r1-zero",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Qwen: Qwen2.5 32B Instruct",
+      "model_id": "qwen/qwen2.5-32b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "MoonshotAI: Moonlight 16B A3B Instruct",
+      "model_id": "moonshotai/moonlight-16b-a3b-instruct",
+      "company_slug": "moonshotai",
+      "company_name": "MoonshotAI",
+      "logo_url": "https://openrouter.ai/moonshotai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: DeepHermes 3 Llama 3 8B Preview",
+      "model_id": "nousresearch/deephermes-3-llama-3-8b-preview",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4.5 (Preview)",
+      "model_id": "openai/gpt-4.5-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Perplexity: R1 1776",
+      "model_id": "perplexity/r1-1776",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Dolphin3.0 R1 Mistral 24B",
+      "model_id": "cognitivecomputations/dolphin3.0-r1-mistral-24b",
+      "company_slug": "cognitivecomputations",
+      "company_name": "Venice",
+      "logo_url": "https://openrouter.ai/cognitivecomputations",
+      "logo_local": null
+    },
+    {
+      "display_name": "Dolphin3.0 Mistral 24B",
+      "model_id": "cognitivecomputations/dolphin3.0-mistral-24b",
+      "company_slug": "cognitivecomputations",
+      "company_name": "Venice",
+      "logo_url": "https://openrouter.ai/cognitivecomputations",
+      "logo_local": null
+    },
+    {
+      "display_name": "Llama 3.1 Tulu 3 405B",
+      "model_id": "allenai/llama-3.1-tulu-3-405b",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Llama 8B",
+      "model_id": "deepseek/deepseek-r1-distill-llama-8b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Qwen 1.5B",
+      "model_id": "deepseek/deepseek-r1-distill-qwen-1.5b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "DeepSeek: R1 Distill Qwen 14B",
+      "model_id": "deepseek/deepseek-r1-distill-qwen-14b",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Perplexity: Sonar Reasoning",
+      "model_id": "perplexity/sonar-reasoning",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Liquid: LFM 7B",
+      "model_id": "liquid/lfm-7b",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "Liquid: LFM 3B",
+      "model_id": "liquid/lfm-3b",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Codestral 2501",
+      "model_id": "mistralai/codestral-2501",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Inflatebot: Mag Mell R1 12B",
+      "model_id": "inflatebot/mn-mag-mell-r1",
+      "company_slug": "inflatebot",
+      "company_name": "Inflatebot",
+      "logo_url": "https://openrouter.ai/inflatebot",
+      "logo_local": null
+    },
+    {
+      "display_name": "EVA Llama 3.33 70B",
+      "model_id": "eva-unit-01/eva-llama-3.33-70b",
+      "company_slug": "eva-unit-01",
+      "company_name": "eva-unit-01",
+      "logo_url": "https://openrouter.ai/eva-unit-01",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 2 Vision 1212",
+      "model_id": "x-ai/grok-2-vision-1212",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 2 1212",
+      "model_id": "x-ai/grok-2-1212",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 2.0 Flash Experimental",
+      "model_id": "google/gemini-2.0-flash-exp",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Qwen: QwQ 32B Preview",
+      "model_id": "qwen/qwq-32b-preview",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Google: Gemini Experimental 1121",
+      "model_id": "google/gemini-exp-1121",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "EVA Qwen2.5 72B",
+      "model_id": "eva-unit-01/eva-qwen-2.5-72b",
+      "company_slug": "eva-unit-01",
+      "company_name": "eva-unit-01",
+      "logo_url": "https://openrouter.ai/eva-unit-01",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok Vision Beta",
+      "model_id": "x-ai/grok-vision-beta",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini Experimental 1114",
+      "model_id": "google/gemini-exp-1114",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Infermatic: Mistral Nemo Inferor 12B",
+      "model_id": "infermatic/mn-inferor-12b",
+      "company_slug": "infermatic",
+      "company_name": "Infermatic",
+      "logo_url": "https://openrouter.ai/infermatic",
+      "logo_local": null
+    },
+    {
+      "display_name": "EVA Qwen2.5 32B",
+      "model_id": "eva-unit-01/eva-qwen-2.5-32b",
+      "company_slug": "eva-unit-01",
+      "company_name": "eva-unit-01",
+      "logo_url": "https://openrouter.ai/eva-unit-01",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude 3.5 Haiku (2024-10-22)",
+      "model_id": "anthropic/claude-3.5-haiku-20241022",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "NeverSleep: Lumimaid v0.2 70B",
+      "model_id": "neversleep/llama-3.1-lumimaid-70b",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok Beta",
+      "model_id": "x-ai/grok-beta",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 2",
+      "model_id": "x-ai/grok-2",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "xAI: Grok 2 mini",
+      "model_id": "x-ai/grok-2-mini",
+      "company_slug": "x-ai",
+      "company_name": "xAI",
+      "logo_url": "https://openrouter.ai/x-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 1.5 Flash 8B",
+      "model_id": "google/gemini-flash-1.5-8b",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Liquid: LFM 40B MoE",
+      "model_id": "liquid/lfm-40b",
+      "company_slug": "liquid",
+      "company_name": "LiquidAI",
+      "logo_url": "https://openrouter.ai/liquid",
+      "logo_local": null
+    },
+    {
+      "display_name": "EVA Qwen2.5 14B",
+      "model_id": "eva-unit-01/eva-qwen-2.5-14b",
+      "company_slug": "eva-unit-01",
+      "company_name": "eva-unit-01",
+      "logo_url": "https://openrouter.ai/eva-unit-01",
+      "logo_local": null
+    },
+    {
+      "display_name": "Magnum v2 72B",
+      "model_id": "anthracite-org/magnum-v2-72b",
+      "company_slug": "anthracite-org",
+      "company_name": "anthracite-org",
+      "logo_url": "https://openrouter.ai/anthracite-org",
+      "logo_local": null
+    },
+    {
+      "display_name": "Meta: Llama 3.2 90B Vision Instruct",
+      "model_id": "meta-llama/llama-3.2-90b-vision-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "OpenAI: o1-mini (2024-09-12)",
+      "model_id": "openai/o1-mini-2024-09-12",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o1-mini",
+      "model_id": "openai/o1-mini",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o1-preview (2024-09-12)",
+      "model_id": "openai/o1-preview-2024-09-12",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: o1-preview",
+      "model_id": "openai/o1-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Reflection 70B",
+      "model_id": "mattshumer/reflection-70b",
+      "company_slug": "mattshumer",
+      "company_name": "mattshumer",
+      "logo_url": "https://openrouter.ai/mattshumer",
+      "logo_local": null
+    },
+    {
+      "display_name": "Google: Gemini 1.5 Flash Experimental",
+      "model_id": "google/gemini-flash-1.5-exp",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Lynn: Llama 3 Soliloquy 7B v3 32K",
+      "model_id": "lynn/soliloquy-v3",
+      "company_slug": "lynn",
+      "company_name": "Lynn",
+      "logo_url": "https://openrouter.ai/lynn",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba 1.5 Mini",
+      "model_id": "ai21/jamba-1-5-mini",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "Yi 1.5 34B Chat",
+      "model_id": "01-ai/yi-1.5-34b-chat",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba 1.5 Large",
+      "model_id": "ai21/jamba-1-5-large",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: Phi-3.5 Mini 128K Instruct",
+      "model_id": "microsoft/phi-3.5-mini-128k-instruct",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Aetherwiing: Starcannon 12B",
+      "model_id": "aetherwiing/mn-starcannon-12b",
+      "company_slug": "aetherwiing",
+      "company_name": "Aetherwiing",
+      "logo_url": "https://openrouter.ai/aetherwiing",
+      "logo_local": null
+    },
+    {
+      "display_name": "01.AI: Yi Vision",
+      "model_id": "01-ai/yi-vision",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "01.AI: Yi Large FC",
+      "model_id": "01-ai/yi-large-fc",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "01.AI: Yi Large Turbo",
+      "model_id": "01-ai/yi-large-turbo",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral Nemo 12B Celeste",
+      "model_id": "nothingiisreal/mn-celeste-12b",
+      "company_slug": "nothingiisreal",
+      "company_name": "nothingiisreal",
+      "logo_url": "https://openrouter.ai/nothingiisreal",
+      "logo_local": null
+    },
+    {
+      "display_name": "Perplexity: Llama 3.1 Sonar 70B Online",
+      "model_id": "perplexity/llama-3.1-sonar-large-128k-online",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Perplexity: Llama 3.1 Sonar 8B Online",
+      "model_id": "perplexity/llama-3.1-sonar-small-128k-online",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Google: Gemini 1.5 Pro Experimental",
+      "model_id": "google/gemini-pro-1.5-exp",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Dolphin Llama 3 70B \ud83d\udc2c",
+      "model_id": "cognitivecomputations/dolphin-llama-3-70b",
+      "company_slug": "cognitivecomputations",
+      "company_name": "Venice",
+      "logo_url": "https://openrouter.ai/cognitivecomputations",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Codestral Mamba",
+      "model_id": "mistralai/codestral-mamba",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Qwen 2 7B Instruct",
+      "model_id": "qwen/qwen-2-7b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Magnum 72B",
+      "model_id": "alpindale/magnum-72b",
+      "company_slug": "alpindale",
+      "company_name": "alpindale",
+      "logo_url": "https://openrouter.ai/alpindale",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 2 Theta 8B",
+      "model_id": "nousresearch/hermes-2-theta-llama-3-8b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Sao10K: Llama 3 Stheno 8B v3.3 32K",
+      "model_id": "sao10k/l3-stheno-8b",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "AI21: Jamba Instruct",
+      "model_id": "ai21/jamba-instruct",
+      "company_slug": "ai21",
+      "company_name": "AI21",
+      "logo_url": "https://openrouter.ai/ai21",
+      "logo_local": null
+    },
+    {
+      "display_name": "01.AI: Yi Large",
+      "model_id": "01-ai/yi-large",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "NVIDIA: Nemotron-4 340B Instruct",
+      "model_id": "nvidia/nemotron-4-340b-instruct",
+      "company_slug": "nvidia",
+      "company_name": "NVIDIA",
+      "logo_url": "https://openrouter.ai/nvidia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude 3.5 Sonnet (2024-06-20)",
+      "model_id": "anthropic/claude-3.5-sonnet-20240620",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Microsoft: Phi-3 Medium 4K Instruct",
+      "model_id": "microsoft/phi-3-medium-4k-instruct",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "StarCoder2 15B Instruct",
+      "model_id": "bigcode/starcoder2-15b-instruct",
+      "company_slug": "bigcode",
+      "company_name": "bigcode",
+      "logo_url": "https://openrouter.ai/bigcode",
+      "logo_local": null
+    },
+    {
+      "display_name": "Dolphin 2.9.2 Mixtral 8x22B \ud83d\udc2c",
+      "model_id": "cognitivecomputations/dolphin-mixtral-8x22b",
+      "company_slug": "cognitivecomputations",
+      "company_name": "Venice",
+      "logo_url": "https://openrouter.ai/cognitivecomputations",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen 2 72B Instruct",
+      "model_id": "qwen/qwen-2-72b-instruct",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "OpenChat 3.6 8B",
+      "model_id": "openchat/openchat-8b",
+      "company_slug": "openchat",
+      "company_name": "openchat",
+      "logo_url": "https://openrouter.ai/openchat",
+      "logo_local": null
+    },
+    {
+      "display_name": "Microsoft: Phi-3 Mini 128K Instruct",
+      "model_id": "microsoft/phi-3-mini-128k-instruct",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Microsoft: Phi-3 Medium 128K Instruct",
+      "model_id": "microsoft/phi-3-medium-128k-instruct",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "NeverSleep: Llama 3 Lumimaid 70B",
+      "model_id": "neversleep/llama-3-lumimaid-70b",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "Perplexity: Llama3 Sonar 70B",
+      "model_id": "perplexity/llama-3-sonar-large-32k-chat",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Perplexity: Llama3 Sonar 8B Online",
+      "model_id": "perplexity/llama-3-sonar-small-32k-online",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Perplexity: Llama3 Sonar 8B",
+      "model_id": "perplexity/llama-3-sonar-small-32k-chat",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "DeepSeek V2.5",
+      "model_id": "deepseek/deepseek-chat-v2.5",
+      "company_slug": "deepseek",
+      "company_name": "DeepSeek",
+      "logo_url": "logos/DeepSeek.png",
+      "logo_local": "logos/DeepSeek.png"
+    },
+    {
+      "display_name": "Perplexity: Llama3 Sonar 70B Online",
+      "model_id": "perplexity/llama-3-sonar-large-32k-online",
+      "company_slug": "perplexity",
+      "company_name": "Perplexity",
+      "logo_url": "https://openrouter.ai/images/icons/Perplexity.svg",
+      "logo_local": "logos/Perplexity.svg"
+    },
+    {
+      "display_name": "Google: Gemini 1.5 Flash ",
+      "model_id": "google/gemini-flash-1.5",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Meta: Llama 3 70B (Base)",
+      "model_id": "meta-llama/llama-3-70b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 3 8B (Base)",
+      "model_id": "meta-llama/llama-3-8b",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "LLaVA v1.6 34B",
+      "model_id": "liuhaotian/llava-yi-34b",
+      "company_slug": "liuhaotian",
+      "company_name": "liuhaotian",
+      "logo_url": "https://openrouter.ai/liuhaotian",
+      "logo_local": null
+    },
+    {
+      "display_name": "OLMo 7B Instruct",
+      "model_id": "allenai/olmo-7b-instruct",
+      "company_slug": "allenai",
+      "company_name": "AllenAI",
+      "logo_url": "https://openrouter.ai/allenai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Qwen 1.5 4B Chat",
+      "model_id": "qwen/qwen-4b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen 1.5 7B Chat",
+      "model_id": "qwen/qwen-7b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen 1.5 14B Chat",
+      "model_id": "qwen/qwen-14b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen 1.5 32B Chat",
+      "model_id": "qwen/qwen-32b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen 1.5 72B Chat",
+      "model_id": "qwen/qwen-72b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "Qwen 1.5 110B Chat",
+      "model_id": "qwen/qwen-110b-chat",
+      "company_slug": "qwen",
+      "company_name": "Qwen",
+      "logo_url": "logos/Qwen.png",
+      "logo_local": "logos/Qwen.png"
+    },
+    {
+      "display_name": "NeverSleep: Llama 3 Lumimaid 8B",
+      "model_id": "neversleep/llama-3-lumimaid-8b",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "Snowflake: Arctic Instruct",
+      "model_id": "snowflake/snowflake-arctic-instruct",
+      "company_slug": "snowflake",
+      "company_name": "Snowflake",
+      "logo_url": "https://openrouter.ai/snowflake",
+      "logo_local": null
+    },
+    {
+      "display_name": "Fireworks: FireLLaVA 13B",
+      "model_id": "fireworks/firellava-13b",
+      "company_slug": "fireworks",
+      "company_name": "Fireworks",
+      "logo_url": "https://openrouter.ai/fireworks",
+      "logo_local": null
+    },
+    {
+      "display_name": "Lynn: Llama 3 Soliloquy 8B v2",
+      "model_id": "lynn/soliloquy-l3",
+      "company_slug": "lynn",
+      "company_name": "Lynn",
+      "logo_url": "https://openrouter.ai/lynn",
+      "logo_local": null
+    },
+    {
+      "display_name": "Fimbulvetr 11B v2",
+      "model_id": "sao10k/fimbulvetr-11b-v2",
+      "company_slug": "sao10k",
+      "company_name": "Sao10K",
+      "logo_url": "https://openrouter.ai/sao10k",
+      "logo_local": null
+    },
+    {
+      "display_name": "WizardLM-2 7B",
+      "model_id": "microsoft/wizardlm-2-7b",
+      "company_slug": "microsoft",
+      "company_name": "Microsoft",
+      "logo_url": "https://openrouter.ai/images/icons/Microsoft.svg",
+      "logo_local": "logos/Microsoft.svg"
+    },
+    {
+      "display_name": "Zephyr 141B-A35B",
+      "model_id": "huggingfaceh4/zephyr-orpo-141b-a35b",
+      "company_slug": "huggingfaceh4",
+      "company_name": "Hugging Face",
+      "logo_url": "https://openrouter.ai/huggingfaceh4",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral: Mixtral 8x22B (base)",
+      "model_id": "mistralai/mixtral-8x22b",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Google: Gemini 1.5 Pro",
+      "model_id": "google/gemini-pro-1.5",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Cohere: Command R+",
+      "model_id": "cohere/command-r-plus",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Cohere: Command R+ (04-2024)",
+      "model_id": "cohere/command-r-plus-04-2024",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Databricks: DBRX 132B Instruct",
+      "model_id": "databricks/dbrx-instruct",
+      "company_slug": "databricks",
+      "company_name": "Databricks",
+      "logo_url": "https://openrouter.ai/databricks",
+      "logo_local": null
+    },
+    {
+      "display_name": "Midnight Rose 70B",
+      "model_id": "sophosympatheia/midnight-rose-70b",
+      "company_slug": "sophosympatheia",
+      "company_name": "sophosympatheia",
+      "logo_url": "https://openrouter.ai/sophosympatheia",
+      "logo_local": null
+    },
+    {
+      "display_name": "Cohere: Command R",
+      "model_id": "cohere/command-r",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Cohere: Command",
+      "model_id": "cohere/command",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Anthropic: Claude 3 Sonnet",
+      "model_id": "anthropic/claude-3-sonnet",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude 3 Opus",
+      "model_id": "anthropic/claude-3-opus",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Cohere: Command R (03-2024)",
+      "model_id": "cohere/command-r-03-2024",
+      "company_slug": "cohere",
+      "company_name": "Cohere",
+      "logo_url": "logos/Cohere.png",
+      "logo_local": "logos/Cohere.png"
+    },
+    {
+      "display_name": "Google: Gemma 7B",
+      "model_id": "google/gemma-7b-it",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Nous: Hermes 2 Mistral 7B DPO",
+      "model_id": "nousresearch/nous-hermes-2-mistral-7b-dpo",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Meta: CodeLlama 70B Instruct",
+      "model_id": "meta-llama/codellama-70b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "RWKV v5: Eagle 7B",
+      "model_id": "recursal/eagle-7b",
+      "company_slug": "recursal",
+      "company_name": "RWKV v5",
+      "logo_url": "https://openrouter.ai/recursal",
+      "logo_local": null
+    },
+    {
+      "display_name": "Yi 34B 200K",
+      "model_id": "01-ai/yi-34b-200k",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 2 Mixtral 8x7B SFT",
+      "model_id": "nousresearch/nous-hermes-2-mixtral-8x7b-sft",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 2 Mixtral 8x7B DPO",
+      "model_id": "nousresearch/nous-hermes-2-mixtral-8x7b-dpo",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral Small",
+      "model_id": "mistralai/mistral-small",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Mistral Medium",
+      "model_id": "mistralai/mistral-medium",
+      "company_slug": "mistralai",
+      "company_name": "Mistral",
+      "logo_url": "logos/Mistral.png",
+      "logo_local": "logos/Mistral.png"
+    },
+    {
+      "display_name": "Bagel 34B v0.2",
+      "model_id": "jondurbin/bagel-34b",
+      "company_slug": "jondurbin",
+      "company_name": "jondurbin",
+      "logo_url": "https://openrouter.ai/jondurbin",
+      "logo_local": null
+    },
+    {
+      "display_name": "Noromaid Mixtral 8x7B Instruct",
+      "model_id": "neversleep/noromaid-mixtral-8x7b-instruct",
+      "company_slug": "neversleep",
+      "company_name": "NeverSleep",
+      "logo_url": "https://openrouter.ai/neversleep",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 2 Yi 34B",
+      "model_id": "nousresearch/nous-hermes-yi-34b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Dolphin 2.6 Mixtral 8x7B \ud83d\udc2c",
+      "model_id": "cognitivecomputations/dolphin-mixtral-8x7b",
+      "company_slug": "cognitivecomputations",
+      "company_name": "Venice",
+      "logo_url": "https://openrouter.ai/cognitivecomputations",
+      "logo_local": null
+    },
+    {
+      "display_name": "RWKV v5 3B AI Town",
+      "model_id": "recursal/rwkv-5-3b-ai-town",
+      "company_slug": "recursal",
+      "company_name": "RWKV v5",
+      "logo_url": "https://openrouter.ai/recursal",
+      "logo_local": null
+    },
+    {
+      "display_name": "RWKV v5 World 3B",
+      "model_id": "rwkv/rwkv-5-world-3b",
+      "company_slug": "rwkv",
+      "company_name": "rwkv",
+      "logo_url": "https://openrouter.ai/rwkv",
+      "logo_local": null
+    },
+    {
+      "display_name": "StripedHyena Hessian 7B (base)",
+      "model_id": "togethercomputer/stripedhyena-hessian-7b",
+      "company_slug": "togethercomputer",
+      "company_name": "togethercomputer",
+      "logo_url": "https://openrouter.ai/togethercomputer",
+      "logo_local": null
+    },
+    {
+      "display_name": "StripedHyena Nous 7B",
+      "model_id": "togethercomputer/stripedhyena-nous-7b",
+      "company_slug": "togethercomputer",
+      "company_name": "togethercomputer",
+      "logo_url": "https://openrouter.ai/togethercomputer",
+      "logo_local": null
+    },
+    {
+      "display_name": "Psyfighter v2 13B",
+      "model_id": "koboldai/psyfighter-13b-2",
+      "company_slug": "koboldai",
+      "company_name": "koboldai",
+      "logo_url": "https://openrouter.ai/koboldai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 2 Vision 7B (alpha)",
+      "model_id": "nousresearch/nous-hermes-2-vision-7b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "MythoMist 7B",
+      "model_id": "gryphe/mythomist-7b",
+      "company_slug": "gryphe",
+      "company_name": "gryphe",
+      "logo_url": "https://openrouter.ai/gryphe",
+      "logo_local": null
+    },
+    {
+      "display_name": "Yi 6B (base)",
+      "model_id": "01-ai/yi-6b",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Yi 34B Chat",
+      "model_id": "01-ai/yi-34b-chat",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Yi 34B (base)",
+      "model_id": "01-ai/yi-34b",
+      "company_slug": "01-ai",
+      "company_name": "01.AI",
+      "logo_url": "https://openrouter.ai/01-ai",
+      "logo_local": null
+    },
+    {
+      "display_name": "Cinematika 7B (alpha)",
+      "model_id": "openrouter/cinematika-7b",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Capybara 7B",
+      "model_id": "nousresearch/nous-capybara-7b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Psyfighter 13B",
+      "model_id": "jebcarter/psyfighter-13b",
+      "company_slug": "jebcarter",
+      "company_name": "jebcarter",
+      "logo_url": "https://openrouter.ai/jebcarter",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenChat 3.5 7B",
+      "model_id": "openchat/openchat-7b",
+      "company_slug": "openchat",
+      "company_name": "openchat",
+      "logo_url": "https://openrouter.ai/openchat",
+      "logo_local": null
+    },
+    {
+      "display_name": "Neural Chat 7B v3.1",
+      "model_id": "intel/neural-chat-7b",
+      "company_slug": "intel",
+      "company_name": "intel",
+      "logo_url": "https://openrouter.ai/intel",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude Instant v1.1",
+      "model_id": "anthropic/claude-instant-1.1",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude v2",
+      "model_id": "anthropic/claude-2",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude v2.1",
+      "model_id": "anthropic/claude-2.1",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "OpenHermes 2.5 Mistral 7B",
+      "model_id": "teknium/openhermes-2.5-mistral-7b",
+      "company_slug": "teknium",
+      "company_name": "teknium",
+      "logo_url": "https://openrouter.ai/teknium",
+      "logo_local": null
+    },
+    {
+      "display_name": "LLaVA 13B",
+      "model_id": "liuhaotian/llava-13b",
+      "company_slug": "liuhaotian",
+      "company_name": "liuhaotian",
+      "logo_url": "https://openrouter.ai/liuhaotian",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Capybara 34B",
+      "model_id": "nousresearch/nous-capybara-34b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4 Vision",
+      "model_id": "openai/gpt-4-vision-preview",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "lzlv 70B",
+      "model_id": "lizpreciatior/lzlv-70b-fp16-hf",
+      "company_slug": "lizpreciatior",
+      "company_name": "lizpreciatior",
+      "logo_url": "https://openrouter.ai/lizpreciatior",
+      "logo_local": null
+    },
+    {
+      "display_name": "Toppy M 7B",
+      "model_id": "undi95/toppy-m-7b",
+      "company_slug": "undi95",
+      "company_name": "undi95",
+      "logo_url": "https://openrouter.ai/undi95",
+      "logo_local": null
+    },
+    {
+      "display_name": "Auto Router",
+      "model_id": "openrouter/auto",
+      "company_slug": "openrouter",
+      "company_name": "openrouter",
+      "logo_url": "https://openrouter.ai/openrouter",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo 16k (older v1106)",
+      "model_id": "openai/gpt-3.5-turbo-1106",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Google: PaLM 2 Code Chat 32k",
+      "model_id": "google/palm-2-codechat-bison-32k",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: PaLM 2 Chat 32k",
+      "model_id": "google/palm-2-chat-bison-32k",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "OpenHermes 2 Mistral 7B",
+      "model_id": "teknium/openhermes-2-mistral-7b",
+      "company_slug": "teknium",
+      "company_name": "teknium",
+      "logo_url": "https://openrouter.ai/teknium",
+      "logo_local": null
+    },
+    {
+      "display_name": "Mistral OpenOrca 7B",
+      "model_id": "open-orca/mistral-7b-openorca",
+      "company_slug": "open-orca",
+      "company_name": "open-orca",
+      "logo_url": "https://openrouter.ai/open-orca",
+      "logo_local": null
+    },
+    {
+      "display_name": "Airoboros 70B",
+      "model_id": "jondurbin/airoboros-l2-70b",
+      "company_slug": "jondurbin",
+      "company_name": "jondurbin",
+      "logo_url": "https://openrouter.ai/jondurbin",
+      "logo_local": null
+    },
+    {
+      "display_name": "Nous: Hermes 70B",
+      "model_id": "nousresearch/nous-hermes-llama2-70b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Xwin 70B",
+      "model_id": "xwin-lm/xwin-lm-70b",
+      "company_slug": "xwin-lm",
+      "company_name": "xwin-lm",
+      "logo_url": "https://openrouter.ai/xwin-lm",
+      "logo_local": null
+    },
+    {
+      "display_name": "Synthia 70B",
+      "model_id": "migtissera/synthia-70b",
+      "company_slug": "migtissera",
+      "company_name": "migtissera",
+      "logo_url": "https://openrouter.ai/migtissera",
+      "logo_local": null
+    },
+    {
+      "display_name": "Pygmalion: Mythalion 13B",
+      "model_id": "pygmalionai/mythalion-13b",
+      "company_slug": "pygmalionai",
+      "company_name": "Pygmalion",
+      "logo_url": "https://openrouter.ai/pygmalionai",
+      "logo_local": null
+    },
+    {
+      "display_name": "OpenAI: GPT-4 32k (older v0314)",
+      "model_id": "openai/gpt-4-32k-0314",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-4 32k",
+      "model_id": "openai/gpt-4-32k",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "Nous: Hermes 13B",
+      "model_id": "nousresearch/nous-hermes-llama2-13b",
+      "company_slug": "nousresearch",
+      "company_name": "Nous",
+      "logo_url": "https://openrouter.ai/nousresearch",
+      "logo_local": null
+    },
+    {
+      "display_name": "Phind: CodeLlama 34B v2",
+      "model_id": "phind/phind-codellama-34b",
+      "company_slug": "phind",
+      "company_name": "Phind",
+      "logo_url": "https://openrouter.ai/phind",
+      "logo_local": null
+    },
+    {
+      "display_name": "Meta: CodeLlama 34B Instruct",
+      "model_id": "meta-llama/codellama-34b-instruct",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Hugging Face: Zephyr 7B",
+      "model_id": "huggingfaceh4/zephyr-7b-beta",
+      "company_slug": "huggingfaceh4",
+      "company_name": "Hugging Face",
+      "logo_url": "https://openrouter.ai/huggingfaceh4",
+      "logo_local": null
+    },
+    {
+      "display_name": "Anthropic: Claude Instant v1.0",
+      "model_id": "anthropic/claude-instant-1.0",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude v1.2",
+      "model_id": "anthropic/claude-1.2",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude v1",
+      "model_id": "anthropic/claude-1",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude Instant v1",
+      "model_id": "anthropic/claude-instant-1",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Anthropic: Claude v2.0",
+      "model_id": "anthropic/claude-2.0",
+      "company_slug": "anthropic",
+      "company_name": "Anthropic",
+      "logo_url": "https://openrouter.ai/images/icons/Anthropic.svg",
+      "logo_local": "logos/Anthropic.svg"
+    },
+    {
+      "display_name": "Google: PaLM 2 Code Chat",
+      "model_id": "google/palm-2-codechat-bison",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Google: PaLM 2 Chat",
+      "model_id": "google/palm-2-chat-bison",
+      "company_slug": "google",
+      "company_name": "Google",
+      "logo_url": "https://openrouter.ai/images/icons/GoogleGemini.svg",
+      "logo_local": "logos/GoogleGemini.svg"
+    },
+    {
+      "display_name": "Meta: Llama 2 70B Chat",
+      "model_id": "meta-llama/llama-2-70b-chat",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "Meta: Llama 2 13B Chat",
+      "model_id": "meta-llama/llama-2-13b-chat",
+      "company_slug": "meta-llama",
+      "company_name": "Meta",
+      "logo_url": "logos/Meta.png",
+      "logo_local": "logos/Meta.png"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo 16k",
+      "model_id": "openai/gpt-3.5-turbo-0125",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    },
+    {
+      "display_name": "OpenAI: GPT-3.5 Turbo (older v0301)",
+      "model_id": "openai/gpt-3.5-turbo-0301",
+      "company_slug": "openai",
+      "company_name": "OpenAI",
+      "logo_url": "https://openrouter.ai/images/icons/OpenAI.svg",
+      "logo_local": "logos/OpenAI.svg"
+    }
+  ]
+}
